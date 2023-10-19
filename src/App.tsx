@@ -7,7 +7,7 @@ import { ProfilePage } from "./layaut/main/profilePage/ProfilePage";
 import styled from "styled-components";
 import { Theme } from "./styles/Theme";
 import { BrowserRouter, Route, Router } from "react-router-dom";
-import { Profile } from "./layaut/main/profilePage/profile/Profile";
+import { ProfileInfo } from "./layaut/main/profilePage/profileInfo/ProfileInfo";
 import { Dialogs } from "./layaut/main/dialogs/Dialogs";
 import { News } from "./layaut/main/news/News";
 
@@ -18,9 +18,9 @@ function App() {
         <Header />
         <Aside />
         <Main>
-            <Route path={"/profile"} render={()=><ProfilePage/>}/>
-            <Route path={"/messages"} render={()=><Dialogs/>}/>
-            <Route path={"/news"} render={()=><News/>}/>
+          <Route path={"/profile"} render={() => <ProfilePage />} />
+          <Route path={"/dialogs"} render={() => <Dialogs />} />
+          <Route path={"/news"} render={() => <News />} />
         </Main>
       </StyledApp>
     </BrowserRouter>
@@ -28,8 +28,8 @@ function App() {
 }
 
 const Main = styled.main`
-    background-color: ${Theme.colors.primary};
-    grid-area: m;
-`
+  background-color: ${Theme.colors.primary};
+  grid-area: m;
+`;
 
 export default App;

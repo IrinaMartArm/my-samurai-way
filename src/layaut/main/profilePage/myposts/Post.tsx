@@ -22,7 +22,8 @@ export const Post: React.FC<PostPropsType> = (props) => {
 
 const NewPost = styled.div`
     padding: 20px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 8fr 1fr 1fr;
     gap: 30px;
     img {
         width: 50px;

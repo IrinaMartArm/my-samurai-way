@@ -2,7 +2,7 @@ import React from "react";
 import i from "../../../../assets/images/Снимок-9-24-23-в-20.23.webp"
 import styled from "styled-components";
 
-export const Profile: React.FC = () => {
+export const ProfileInfo: React.FC = () => {
     return (
             <MyProfile>
                 <img src={i} alt="photo" />
