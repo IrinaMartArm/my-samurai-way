@@ -5,7 +5,7 @@ import { type } from "os";
 
 type PostPropsType = {
     mess: string
-    liks?: number
+    likes?: number
 }
 
 export const Post: React.FC<PostPropsType> = (props) => {
@@ -14,7 +14,7 @@ export const Post: React.FC<PostPropsType> = (props) => {
                 <img src={i} alt="photo" />
                 <div>{props.mess}</div>
                 <span>like</span>
-                <span>{props.liks}</span>
+                <span>{props.likes}</span>
             </NewPost>
     );
 }

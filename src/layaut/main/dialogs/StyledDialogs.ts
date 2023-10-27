@@ -5,7 +5,7 @@ const Dialogs = styled.div`
     grid-template-columns: 2fr 10fr;
     padding: 30px;
 `
-const DialogItems = styled.div`
+const DialogPersons = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -14,16 +14,16 @@ const DialogItems = styled.div`
         font-size: 20px;
     }
 `
-const DialogItem = styled.a`
+const DialogPerson = styled.a`
     
 `
 const DialogList = styled.div`
-    
+    padding: 2px;
 `
 
 export const S = {
     Dialogs,
-    DialogItems,
+    DialogPersons,
     DialogList,
-    DialogItem
+    DialogPerson
 }

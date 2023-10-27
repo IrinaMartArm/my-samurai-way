@@ -1,17 +1,27 @@
 import React from "react";
 import { ProfileInfo } from "./profileInfo/ProfileInfo";
 import { MyPosts } from "./myposts/MyPosts";
-import a from "../../../assets/images/aleksandr-eremin-QfHmrIUN9G0-unsplash.jpg";
+import a from "../../../assets/images/IMG_3719 1 2.png";
+// import a from "../../../assets/images/aleksandr-eremin-QfHmrIUN9G0-unsplash.jpg";
 import styled from "styled-components";
+import { PostsType } from "../../../App";
 
-export const ProfilePage: React.FC = () => {
+type PropsType = {
+  posts: PostsType
+}
+  
+
+
+export const ProfilePage: React.FC<PropsType> = (props: PropsType) => {
+  const {posts} = props
+
   return (
     <div>
       <Box>
         <img src={a} alt="" />
       </Box>
       <ProfileInfo />
-      <MyPosts />
+      <MyPosts posts={posts}/>
     </div>
   );
 };

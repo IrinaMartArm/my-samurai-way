@@ -1,18 +1,22 @@
 import { S } from "./StyledDialogs";
-import { DialogItem } from "./DialogItem";
+import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
+import { v1 } from "uuid";
+import { ContactType } from "../../../App";
 
-export const Dialogs = () => {
+type PropsType = {
+    contacts: ContactType[]
+}
+
+export const Dialogs = (props:  PropsType) => {
+
     return (  
         <S.Dialogs>
-            <S.DialogItems>
-                <DialogItem id="1" name="Ira"/>
-                <DialogItem id="2" name="Suren"/>
-                <DialogItem id="3" name="Arina"/>
-            </S.DialogItems>
+            <S.DialogPersons>
+                {props.contacts.map(el =>  <DialogPerson key={el.id} id={el.id} name={el.name}/>)}
+            </S.DialogPersons>
             <S.DialogList>
-                <Messages text='hi'/>
-                <Messages text='hello'/>
+                {props.contacts.map(el =>  el.messages.map(m => <Messages key={el.id} id={el.id} text={m.text}/>))}
             </S.DialogList>
         </S.Dialogs>
     );

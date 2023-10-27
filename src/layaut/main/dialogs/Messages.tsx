@@ -1,13 +1,14 @@
 import { S } from "./StyledDialogs"
 
 type PropsType = {
+    id: string
     text: string
 }
 
 export const Messages = (props:  PropsType) => {
-    const {text} = props
+    const {id, text} = props
 
     return (
-        <S.DialogItems>{text}</S.DialogItems>
+        <S.DialogList id={id}>{text}</S.DialogList>
     )
 }

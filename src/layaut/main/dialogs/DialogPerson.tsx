@@ -6,12 +6,12 @@ type PropsType = {
     name: string
 }
 
-export const DialogItem = (props: PropsType) => {
+export const DialogPerson = (props: PropsType) => {
 
     const {id, name} = props
     const path = "/dialogs/" + id
 
     return (
-        <S.DialogItem><NavLink to={path}>{name}</NavLink></S.DialogItem>
+        <S.DialogPerson><NavLink to={path}>{name}</NavLink></S.DialogPerson>
     )
 }

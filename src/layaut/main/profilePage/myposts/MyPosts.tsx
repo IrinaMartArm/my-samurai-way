@@ -4,8 +4,16 @@ import styled from "styled-components";
 import { Theme } from "../../../../styles/Theme";
 import React from "react";
 import { Post } from "./Post";
+import { v1 } from "uuid";
+import { type } from "os";
+import { PostsType } from "../../../../App";
 
-export const MyPosts: React.FC = () => {
+export type PropsType = {
+    posts: PostsType
+}
+
+export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
+
     return (  
         <>
             <Box>
@@ -13,9 +21,7 @@ export const MyPosts: React.FC = () => {
                     <Field as={"textarea"} />
                     <Button>Add Post</Button> 
             </Box> 
-            <Post mess="hi" liks={27}/> 
-            <Post mess="hello" liks={58}/> 
-            <Post mess="yoyo"/> 
+            {props.posts.map(p => <Post key={p.id} mess={p.post} likes={p.likes}/> )}
         </>
     );
 }

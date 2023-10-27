@@ -6,4 +6,7 @@ export const StyledAside = styled.aside`
     grid-area: a;
     font-size: 24px;
     padding: 20px;
+    & a:active {
+        color: ${Theme.colors.primary}
+    }
 `
