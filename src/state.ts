@@ -17,9 +17,9 @@ type PostType = {
     post: string
     likes: number
 }
-type PostsType = PostType[]
+export type PostsType = PostType[]
 
-type StateType = {
+export type StateType = {
     contacts: ContactsType
     posts: PostsType
 }

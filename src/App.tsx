@@ -9,12 +9,14 @@ import { Theme } from "./styles/Theme";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Dialogs } from "./layaut/main/dialogs/Dialogs";
 import { News } from "./layaut/main/news/News";
-import {state} from "./state";
+import {state, StateType} from "./state";
+
+type PropsType = {
+    state: StateType
+}
 
 
-
-
-function App() {
+function App(props: PropsType) {
 
     return (
         <BrowserRouter>

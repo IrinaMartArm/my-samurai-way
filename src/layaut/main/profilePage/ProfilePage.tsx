@@ -2,9 +2,9 @@ import React from "react";
 import { ProfileInfo } from "./profileInfo/ProfileInfo";
 import { MyPosts } from "./myposts/MyPosts";
 import a from "../../../assets/images/IMG_3719 1 2.png";
-// import a from "../../../assets/images/aleksandr-eremin-QfHmrIUN9G0-unsplash.jpg";
 import styled from "styled-components";
-import { PostsType } from "../../../App";
+import {PostsType} from "../../../state";
+
 
 type PropsType = {
   posts: PostsType

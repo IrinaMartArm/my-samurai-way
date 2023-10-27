@@ -1,8 +1,8 @@
 import { S } from "./StyledDialogs";
 import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
-import { v1 } from "uuid";
-import { ContactType } from "../../../App";
+import {ContactType} from "../../../state";
+
 
 type PropsType = {
     contacts: ContactType[]

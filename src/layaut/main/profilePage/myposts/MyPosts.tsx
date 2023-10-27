@@ -4,9 +4,8 @@ import styled from "styled-components";
 import { Theme } from "../../../../styles/Theme";
 import React from "react";
 import { Post } from "./Post";
-import { v1 } from "uuid";
-import { type } from "os";
-import { PostsType } from "../../../../App";
+import {PostsType} from "../../../../state";
+
 
 export type PropsType = {
     posts: PostsType
