@@ -1,5 +1,4 @@
 import { v1 } from "uuid";
-import {rerender} from "./Render";
 
 type MessagesType = {
     id: string
@@ -57,6 +56,8 @@ export const state: StateType = {
     ]
 }
 
+// window.state = state
+
 export const addPost =  (post: string) => {
 
     let newPost = {
@@ -65,7 +66,14 @@ export const addPost =  (post: string) => {
         likes: 0
     }
     state.posts.unshift(newPost)
-    rerender(state)
     // setPosts([newPost, ...posts])
     // setPost('')
+}
+
+let rerender = () => {
+    console.log('')
+}
+
+export const subscribe = (observer: () => void) => {
+    rerender = observer
 }
