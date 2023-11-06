@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Theme} from "../../../styles/Theme";
 
 const Dialogs = styled.div`
     display: grid;
@@ -9,16 +10,18 @@ const DialogPersons = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    font-size: 16px;
-    &:checked {
-        font-size: 20px;
-    }
+    font-size: 16px;   
 `
 const DialogPerson = styled.a`
-    
+  &:active {
+    font-size: 20px;
+    color: ${Theme.colors.accent};
+  }
 `
 const DialogList = styled.div`
     padding: 2px;
+    display: flex;
+    justify-content: space-between;
 `
 
 export const S = {

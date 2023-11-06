@@ -1,4 +1,5 @@
 import { v1 } from "uuid";
+import {rerender} from "./Render";
 
 type MessagesType = {
     id: string
@@ -54,4 +55,17 @@ export const state: StateType = {
         {id: v1(), post: 'hello', likes: 28},
         {id: v1(), post: 'yoyo', likes: 28},
     ]
+}
+
+export const addPost =  (post: string) => {
+
+    let newPost = {
+        id: v1(),
+        post: post,
+        likes: 0
+    }
+    state.posts.unshift(newPost)
+    rerender(state)
+    // setPosts([newPost, ...posts])
+    // setPost('')
 }

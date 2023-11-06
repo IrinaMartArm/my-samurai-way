@@ -5,30 +5,24 @@ import a from "../../../assets/images/IMG_3719 1 2.png";
 import styled from "styled-components";
 import {PostsType} from "../../../state";
 
-
 type PropsType = {
-  posts: PostsType
+    posts: PostsType
+    addPost: (post: string) => void
 }
-  
-
-
 export const ProfilePage: React.FC<PropsType> = (props: PropsType) => {
-  const {posts} = props
+  const {posts , addPost} = props
 
   return (
     <div>
-      <Box>
-        <img src={a} alt="" />
-      </Box>
       <ProfileInfo />
-      <MyPosts posts={posts}/>
+      <MyPosts posts={posts} addPost={addPost}/>
     </div>
   );
 };
 
-const Box = styled.div`
-  img {
-    width: 100%;
-    height: 150px;
-  }
-`;
+// const Box = styled.div`
+//   img {
+//     width: 100%;
+//     height: 150px;
+//   }
+// `;

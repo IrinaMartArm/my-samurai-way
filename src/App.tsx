@@ -10,9 +10,11 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { Dialogs } from "./layaut/main/dialogs/Dialogs";
 import { News } from "./layaut/main/news/News";
 import {state, StateType} from "./state";
+import a from "./assets/images/IMG_3719 1 2.png";
 
 type PropsType = {
     state: StateType
+    addPost: (post: string) => void
 }
 
 
@@ -24,9 +26,12 @@ function App(props: PropsType) {
             <Header />
             <Aside />
             <Main>
+                <Box>
+                    <img src={a} alt="" />
+                </Box>
             <Route
                 path={"/profile"}
-                render={() => <ProfilePage posts={state.posts} />}
+                render={() => <ProfilePage posts={state.posts} addPost={props.addPost}/>}
             />
             {/* <Route path={"/dialogs"} component={ <Dialogs contacts={contacts}/>} /> */}
             <Route
@@ -43,6 +48,12 @@ function App(props: PropsType) {
 const Main = styled.main`
     background-color: ${Theme.colors.primary};
     grid-area: m;
+`;
+const Box = styled.div`
+  img {
+    width: 100%;
+    height: 150px;
+  }
 `;
 
 export default App;
