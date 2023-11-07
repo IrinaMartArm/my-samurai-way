@@ -7,15 +7,17 @@ import {PostsType} from "../../../state";
 
 type PropsType = {
     posts: PostsType
-    addPost: (post: string) => void
+    // addPost: (post: string) => void
+    addPost: () => void
+    updateNewPostText: (post: string) => void
 }
 export const ProfilePage: React.FC<PropsType> = (props: PropsType) => {
-  const {posts , addPost} = props
+  const {posts , addPost, updateNewPostText} = props
 
   return (
     <div>
       <ProfileInfo />
-      <MyPosts posts={posts} addPost={addPost}/>
+      <MyPosts posts={posts} addPost={addPost} updateNewPostText={updateNewPostText}/>
     </div>
   );
 };

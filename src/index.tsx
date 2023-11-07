@@ -3,18 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { GlobalStyle } from './styles/GlobalStyles';
-import {addPost, state, StateType, subscribe} from "./state";
+import {store} from './state'
 
 
-export const rerender = (state: StateType) => {
+export const rerender = (store) => {
     ReactDOM.render(
         <>
             <GlobalStyle/>
-            <App  state={state} addPost={addPost}/>
+            <App  store={store} />
         </>,
         document.getElementById('root')
     );
 }
-rerender(state)
+rerender(store)
 
-// subscribe(rerender)
+store.subscribe(rerender)

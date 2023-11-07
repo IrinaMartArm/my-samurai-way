@@ -9,16 +9,17 @@ import { Theme } from "./styles/Theme";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Dialogs } from "./layaut/main/dialogs/Dialogs";
 import { News } from "./layaut/main/news/News";
-import {state, StateType} from "./state";
+import {StoreType} from "./state";
 import a from "./assets/images/IMG_3719 1 2.png";
 
 type PropsType = {
-    state: StateType
-    addPost: (post: string) => void
+    store: StoreType
 }
 
 
-function App(props: PropsType) {
+const App: React.FC<PropsType> = (props: PropsType) => {
+
+    const state = props.store.getState()
 
     return (
         <BrowserRouter>
@@ -31,7 +32,7 @@ function App(props: PropsType) {
                 </Box>
             <Route
                 path={"/profile"}
-                render={() => <ProfilePage posts={state.posts} addPost={props.addPost}/>}
+                render={() => <ProfilePage posts={state.posts} addPost={props.store.addPost.bind(props.store)} updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}
             />
             {/* <Route path={"/dialogs"} component={ <Dialogs contacts={contacts}/>} /> */}
             <Route

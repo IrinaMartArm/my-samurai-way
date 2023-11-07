@@ -15,17 +15,10 @@ export const TextAria: React.FC<Props> = (props: Props) =>{
         props.onChange(e.currentTarget.value)
     }
 
-    const onKeyDownHandler = (e: any)=>{
-        if (e.key === 'Enter'){
-            props.onChange(e.currentTarget.value)
-        }
-    }
-
     return (
             <FieldArea onChange={onChangeHandler}
-                   onKeyDown={onKeyDownHandler}
-                   value={props.value}/>
-        );
+                       value={props.value}/>
+            );
 };
 
 const FieldArea = styled.textarea`

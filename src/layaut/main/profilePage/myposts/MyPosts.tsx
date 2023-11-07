@@ -11,13 +11,15 @@ import {TextAria} from "../../../../components/TextAria";
 
 export type PropsType = {
     posts: PostsType
-    addPost: (post: string) => void
+    // addPost: (post: string) => void
+    addPost: () => void
+    updateNewPostText: (post: string) => void
 }
 
 export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
 
-    const [post, setPost] = useState('')
-    const [posts, setPosts] = useState(props.posts)
+    // const [post, setPost] = useState('')
+    // const [posts, setPosts] = useState(props.posts)
     // const addPost =  () => {
     //
     //     let newPost = {
@@ -28,10 +30,16 @@ export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
     //     setPosts([newPost, ...posts])
     //     setPost('')
     // }
+    let postElements = props.posts.map(p => <Post key={p.id} mess={p.post} likes={p.likes}/> )
 
+    let newPostEl = React.createRef()
     const addPost = () => {
-        props.addPost(post)
-        setPost('')
+        props.addPost()
+    }
+
+    const onPostChange = () => {
+        let text = newPostEl.current.value
+        props.updateNewPostText(text)
     }
 
 
@@ -39,10 +47,10 @@ export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
         <>
             <Box>
                     <h2>My posts</h2> 
-                    <TextAria  value={post} onChange={setPost} />
+                    <TextAria  value={props.newPostText} onChange={onPostChange} ref={newPostEl}/>
                     <Button onClick={addPost} name={'Add Post'}/>
-            </Box> 
-            {posts.map(p => <Post key={p.id} mess={p.post} likes={p.likes}/> )}
+            </Box>
+            {postElements}
         </>
     );
 }
