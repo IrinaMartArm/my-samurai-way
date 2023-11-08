@@ -1,9 +1,9 @@
 
 
 import styled from "styled-components";
-import React, { useState} from "react";
+import React from "react";
 import { Post } from "./Post";
-import {PostsType} from "../../../../state";
+import {ActionType, addPostAC, PostsType} from "../../../../state";
 import {Button} from "../../../../components/Button";
 import {TextAria} from "../../../../components/TextAria";
 
@@ -12,8 +12,10 @@ import {TextAria} from "../../../../components/TextAria";
 export type PropsType = {
     posts: PostsType
     // addPost: (post: string) => void
-    addPost: () => void
+    addPost: (post: string) => void
+    newPostText: string
     updateNewPostText: (post: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
@@ -32,22 +34,17 @@ export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
     // }
     let postElements = props.posts.map(p => <Post key={p.id} mess={p.post} likes={p.likes}/> )
 
-    let newPostEl = React.createRef()
     const addPost = () => {
-        props.addPost()
+        props.dispatch(addPostAC(props.newPostText))
     }
 
-    const onPostChange = () => {
-        let text = newPostEl.current.value
-        props.updateNewPostText(text)
-    }
 
 
     return (  
         <>
             <Box>
                     <h2>My posts</h2> 
-                    <TextAria  value={props.newPostText} onChange={onPostChange} ref={newPostEl}/>
+                    <TextAria  value={props.newPostText} onChange={props.updateNewPostText}/>
                     <Button onClick={addPost} name={'Add Post'}/>
             </Box>
             {postElements}

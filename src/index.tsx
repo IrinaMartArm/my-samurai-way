@@ -6,7 +6,7 @@ import { GlobalStyle } from './styles/GlobalStyles';
 import {store} from './state'
 
 
-export const rerender = (store) => {
+export const rerender = () => {
     ReactDOM.render(
         <>
             <GlobalStyle/>
@@ -15,6 +15,6 @@ export const rerender = (store) => {
         document.getElementById('root')
     );
 }
-rerender(store)
+rerender()
 
 store.subscribe(rerender)

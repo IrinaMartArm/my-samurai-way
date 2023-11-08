@@ -32,12 +32,23 @@ export type StoreType = {
     updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
-    dispatch: (action: AddPostActionType) => void
+    dispatch: (action: ActionType) => void
 }
 
-type AddPostActionType = {
-    type: 'ADDPOST'
-    post: string
+export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof changePostAC>
+
+
+export const addPostAC = (post: string) => {
+    return {
+        type: 'ADD-POST',
+        post: post
+    } as const
+}
+export const changePostAC = (post: string) => {
+    return {
+        type: 'CHANGE-TEXT',
+        post: post
+    } as const
 }
 
 
@@ -79,20 +90,21 @@ export const store: StoreType = {
     _rerender() {
         console.log('')
     },
-    addPost() {
+    addPost(postMess: string) {
 
         let newPost: PostType = {
             id: v1(),
-            post: this._state.newPostText,
+            // post: this._state.newPostText,
+            post: postMess,
             likes: 0
         }
         this._state.posts.unshift(newPost)
         this._state.newPostText = ''
-        this._rerender(this._state)
+        this._rerender()
     },
     updateNewPostText(newText) {
         this._state.newPostText = newText
-        this._rerender(this._state)
+        this._rerender()
     },
     subscribe(observer) {
         this._rerender = observer
@@ -101,7 +113,7 @@ export const store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if(action.type === 'ADDPOST') {
+        if(action.type === 'ADD-POST') {
             let newPost: PostType = {
                 id: v1(),
                 post: action.post,
@@ -109,9 +121,12 @@ export const store: StoreType = {
             }
             this._state.posts.unshift(newPost)
             this._rerender()
+        } else if(action.type === 'CHANGE-TEXT') {
+            this._state.newPostText = action.post
+            this._rerender()
         }
     }
 }
 
 
-// window.store = store
+// window.st

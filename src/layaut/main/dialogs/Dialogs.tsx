@@ -12,7 +12,7 @@ type PropsType = {
 
 export const Dialogs = (props:  PropsType) => {
 
-    const [post, setPost] = useState('')
+    // const [post, setPost] = useState('')
 
     const myMessages = props.contacts.map(el =>  el.messages.map(m => <Messages key={el.id} id={el.id} text={m.text}/>))
     const friendsMessages = props.contacts.map(el =>  el.messages.map(m => <Messages key={el.id} id={el.id} text={m.text}/>))
@@ -32,7 +32,7 @@ export const Dialogs = (props:  PropsType) => {
                     </div>
                 </S.DialogList>
             </S.Dialogs>
-            <TextAria value={post} onChange={setPost}/>
+            {/*<TextAria value={post} onChange={setPost} ref={''}/>*/}
         </>
     );
 }
