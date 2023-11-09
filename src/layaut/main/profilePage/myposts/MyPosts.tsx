@@ -20,25 +20,11 @@ export type PropsType = {
 
 export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
 
-    // const [post, setPost] = useState('')
-    // const [posts, setPosts] = useState(props.posts)
-    // const addPost =  () => {
-    //
-    //     let newPost = {
-    //         id: v1(),
-    //         post: post,
-    //         likes: 0
-    //     }
-    //     setPosts([newPost, ...posts])
-    //     setPost('')
-    // }
     let postElements = props.posts.map(p => <Post key={p.id} mess={p.post} likes={p.likes}/> )
 
     const addPost = () => {
         props.dispatch(addPostAC(props.newPostText))
     }
-
-
 
     return (  
         <>

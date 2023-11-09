@@ -40,7 +40,6 @@ const App: React.FC<PropsType> = (props: PropsType) => {
                                  dispatch={props.store.dispatch.bind(store)}
                     />}
             />
-            {/* <Route path={"/dialogs"} component={ <Dialogs contacts={contacts}/>} /> */}
             <Route
                 path={"/dialogs"}
                 render={() => <Dialogs contacts={state.contacts} />}
