@@ -1,21 +1,33 @@
 import { S } from "./StyledDialogs";
 import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
-import {ContactType} from "../../../state";
+import {ActionType, addPostAC, changePostAC, ContactType} from "../../../state";
 import {TextAria} from "../../../components/TextAria";
-import {useState} from "react";
+import {Button} from "../../../components/Button";
+import React from "react";
+
 
 
 type PropsType = {
     contacts: ContactType[]
+    newPostText: string
+    dispatch: (action: ActionType) => void
 }
 
 export const Dialogs = (props:  PropsType) => {
 
-    // const [post, setPost] = useState('')
-
     const myMessages = props.contacts.map(el =>  el.messages.map(m => <Messages key={el.id} id={el.id} text={m.text}/>))
     const friendsMessages = props.contacts.map(el =>  el.messages.map(m => <Messages key={el.id} id={el.id} text={m.text}/>))
+
+
+    const addPost = () => {
+        props.dispatch(addPostAC(props.newPostText))
+    }
+
+    const onChangeHandler = (post: string) => {
+        props.dispatch(changePostAC(post))
+    }
+
 
     return (
         <>
@@ -32,7 +44,8 @@ export const Dialogs = (props:  PropsType) => {
                     </div>
                 </S.DialogList>
             </S.Dialogs>
-            {/*<TextAria value={post} onChange={setPost} ref={''}/>*/}
+            <TextAria value={props.newPostText} onChange={onChangeHandler}/>
+            <Button onClick={addPost} name={'Add Post'}/>
         </>
     );
 }

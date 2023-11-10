@@ -23,19 +23,23 @@ export type StateType = {
     contacts: ContactsType
     posts: PostsType
     newPostText: string
+    newMessageText: string
 }
 
 export type StoreType = {
     _state: StateType
     _rerender: () => void
-    addPost: (post: string) => void
-    updateNewPostText: (newText: string) => void
+    // addPost: (post: string) => void
+    // updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
     dispatch: (action: ActionType) => void
 }
 
-export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof changePostAC>
+export type ActionType = ReturnType<typeof addPostAC>
+                        | ReturnType<typeof changePostAC>
+                        | ReturnType<typeof changeMessageAC>
+                        | ReturnType<typeof addMessageAC>
 
 
 export const addPostAC = (post: string) => {
@@ -44,10 +48,21 @@ export const addPostAC = (post: string) => {
         post: post
     } as const
 }
+export const addMessageAC = () => {
+    return {
+        type: 'ADD-MESSAGE',
+    } as const
+}
 export const changePostAC = (post: string) => {
     return {
         type: 'CHANGE-TEXT',
         post: post
+    } as const
+}
+export const changeMessageAC = (message: string) => {
+    return {
+        type: 'CHANGE-MESSAGE-TEXT',
+        message: message
     } as const
 }
 
@@ -87,27 +102,28 @@ export const store: StoreType = {
             {id: v1(), post: 'hello', likes: 28},
             {id: v1(), post: 'yo', likes: 28},
         ],
-        newPostText: ''
+        newPostText: '',
+        newMessageText: ''
     },
     _rerender() {
         console.log('')
     },
-    addPost(postMess: string) {
-
-        let newPost: PostType = {
-            id: v1(),
-            // post: this._state.newPostText,
-            post: postMess,
-            likes: 0
-        }
-        this._state.posts.unshift(newPost)
-        this._state.newPostText = ''
-        this._rerender()
-    },
-    updateNewPostText(newText) {
-        this._state.newPostText = newText
-        this._rerender()
-    },
+    // addPost(postMess: string) {
+    //
+    //     let newPost: PostType = {
+    //         id: v1(),
+    //         // post: this._state.newPostText,
+    //         post: postMess,
+    //         likes: 0
+    //     }
+    //     this._state.posts.unshift(newPost)
+    //     this._state.newPostText = ''
+    //     this._rerender()
+    // },
+    // updateNewPostText(newText) {
+    //     this._state.newPostText = newText
+    //     this._rerender()
+    // },
     subscribe(observer) {
         this._rerender = observer
     },
@@ -126,6 +142,18 @@ export const store: StoreType = {
             this._rerender()
         } else if(action.type === 'CHANGE-TEXT') {
             this._state.newPostText = action.post
+            this._rerender()
+        } else if(action.type === 'CHANGE-MESSAGE-TEXT') {
+            this._state.newMessageText = action.message
+            this._rerender()
+        } else if(action.type === 'ADD-MESSAGE') {
+            let newMessage: MessagesType = {
+                id: v1(),
+
+
+            }
+            this._state.posts.unshift(newMessage)
+            this._state.newPostText = ''
             this._rerender()
         }
     }

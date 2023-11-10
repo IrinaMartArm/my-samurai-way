@@ -41,7 +41,10 @@ const App: React.FC<PropsType> = (props: PropsType) => {
             />
             <Route
                 path={"/dialogs"}
-                render={() => <Dialogs contacts={state.contacts} />}
+                render={() => <Dialogs contacts={state.contacts}
+                                       newPostText={state.newPostText}
+                                       dispatch={props.store.dispatch.bind(store)}
+                />}
             />
             <Route path={"/news"} render={() => <News />} />
             </Main>

@@ -3,10 +3,12 @@ import * as React from 'react';
 import styled from "styled-components";
 import {Theme} from "../styles/Theme";
 import {ChangeEvent} from "react";
+// import {ActionType} from "../state";
 
 type Props = {
     value: string
     onChange: (value: string) => void
+    // onChange: (action: ActionType) => void
 };
 
 export const TextAria: React.FC<Props> = (props: Props) =>{

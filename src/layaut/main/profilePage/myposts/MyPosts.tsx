@@ -1,9 +1,7 @@
-
-
 import styled from "styled-components";
 import React from "react";
 import { Post } from "./Post";
-import {ActionType, addPostAC, PostsType} from "../../../../state";
+import {ActionType, addPostAC, changePostAC, PostsType} from "../../../../state";
 import {Button} from "../../../../components/Button";
 import {TextAria} from "../../../../components/TextAria";
 
@@ -25,14 +23,19 @@ export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
         props.dispatch(addPostAC(props.newPostText))
     }
 
-    return (  
+    const onChangeHandler = (post: string) => {
+        props.dispatch(changePostAC(post))
+    }
+
+    return (
         <>
             <Box>
                     <h2>My posts</h2> 
-                    <TextAria  value={props.newPostText} onChange={props.}/>
+                    <TextAria  value={props.newPostText} onChange={onChangeHandler}/>
                     <Button onClick={addPost} name={'Add Post'}/>
             </Box>
             {postElements}
+
         </>
     );
 }
