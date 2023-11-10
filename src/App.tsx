@@ -34,8 +34,7 @@ const App: React.FC<PropsType> = (props: PropsType) => {
                 path={"/profile"}
                 render={() =>
                     <ProfilePage posts={state.posts}
-                                 addPost={props.store.addPost.bind(props.store)}
-                                 updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                                 // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                                  newPostText={state.newPostText}
                                  dispatch={props.store.dispatch.bind(store)}
                     />}

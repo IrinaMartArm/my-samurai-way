@@ -12,9 +12,8 @@ import {TextAria} from "../../../../components/TextAria";
 export type PropsType = {
     posts: PostsType
     // addPost: (post: string) => void
-    addPost: (post: string) => void
     newPostText: string
-    updateNewPostText: (post: string) => void
+    // updateNewPostText: (post: string) => void
     dispatch: (action: ActionType) => void
 }
 
@@ -30,7 +29,7 @@ export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
         <>
             <Box>
                     <h2>My posts</h2> 
-                    <TextAria  value={props.newPostText} onChange={props.updateNewPostText}/>
+                    <TextAria  value={props.newPostText} onChange={props.}/>
                     <Button onClick={addPost} name={'Add Post'}/>
             </Box>
             {postElements}

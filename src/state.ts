@@ -54,6 +54,8 @@ export const changePostAC = (post: string) => {
 
 
 
+
+
 export const store: StoreType = {
     _state: {
         contacts: [
@@ -120,6 +122,7 @@ export const store: StoreType = {
                 likes: 0
             }
             this._state.posts.unshift(newPost)
+            this._state.newPostText = ''
             this._rerender()
         } else if(action.type === 'CHANGE-TEXT') {
             this._state.newPostText = action.post
@@ -127,7 +130,6 @@ export const store: StoreType = {
         }
     }
 }
-
 
 // @ts-ignore
 window.store = store
