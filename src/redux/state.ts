@@ -10,13 +10,13 @@ export type ContactType = {
     // messages: MessagesType[]
 }
 export type ContactsType = ContactType[]
-type PostType = {
+export type PostType = {
     id: string
     post: string
     likes: number
 }
 export type PostsType = PostType[]
-export type ProfilePage = {
+export type ProfilePageType = {
     posts: PostsType
     newPostText: string
 }
@@ -26,7 +26,7 @@ export type DialogsPageType = {
     messages: MessagesType[]
 }
 export type StateType = {
-    profilePage: ProfilePage
+    profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
 export type StoreType = {

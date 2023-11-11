@@ -3,7 +3,7 @@ import { ProfileInfo } from "./profileInfo/ProfileInfo";
 import { MyPosts } from "./myposts/MyPosts";
 import a from "../../../assets/images/IMG_3719 1 2.png";
 import styled from "styled-components";
-import {ActionType, PostsType} from "../../../state";
+import {ActionType, PostsType} from "../../../redux/state";
 
 
 type PropsType = {

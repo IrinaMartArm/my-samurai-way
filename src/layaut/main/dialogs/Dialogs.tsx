@@ -1,7 +1,7 @@
 import { S } from "./StyledDialogs";
 import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
-import {ActionType, addMessageAC, addPostAC, changeMessageAC, ContactType, MessagesType} from "../../../state";
+import {ActionType, addMessageAC, addPostAC, changeMessageAC, ContactType, MessagesType} from "../../../redux/state";
 import {TextAria} from "../../../components/TextAria";
 import {Button} from "../../../components/Button";
 import React from "react";

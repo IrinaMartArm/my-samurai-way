@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import { Post } from "./Post";
-import {ActionType, addPostAC, changePostAC, PostsType} from "../../../../state";
+import {ActionType, addPostAC, changePostAC, PostsType} from "../../../../redux/state";
 import {Button} from "../../../../components/Button";
 import {TextAria} from "../../../../components/TextAria";
 

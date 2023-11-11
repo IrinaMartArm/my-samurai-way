@@ -9,7 +9,7 @@ import { Theme } from "./styles/Theme";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Dialogs } from "./layaut/main/dialogs/Dialogs";
 import { News } from "./layaut/main/news/News";
-import {store, StoreType} from "./state";
+import {store, StoreType} from "./redux/state";
 import a from "./assets/images/IMG_3719 1 2.png";
 
 type PropsType = {
