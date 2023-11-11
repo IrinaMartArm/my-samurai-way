@@ -33,16 +33,17 @@ const App: React.FC<PropsType> = (props: PropsType) => {
             <Route
                 path={"/profile"}
                 render={() =>
-                    <ProfilePage posts={state.posts}
+                    <ProfilePage posts={state.profilePage.posts}
                                  // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                                 newPostText={state.newPostText}
+                                 newPostText={state.profilePage.newPostText}
                                  dispatch={props.store.dispatch.bind(store)}
                     />}
             />
             <Route
                 path={"/dialogs"}
-                render={() => <Dialogs contacts={state.contacts}
-                                       newPostText={state.newPostText}
+                render={() => <Dialogs contacts={state.dialogsPage.contacts}
+                                       messages={state.dialogsPage.messages}
+                                       newMessageText={state.dialogsPage.newMessageText}
                                        dispatch={props.store.dispatch.bind(store)}
                 />}
             />

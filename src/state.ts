@@ -1,31 +1,34 @@
 import { v1 } from "uuid";
 
-type MessagesType = {
+export type MessagesType = {
     id: string
     text: string
 }
-  
 export type ContactType = {
     id: string
     name: string
-    messages: MessagesType[]
+    // messages: MessagesType[]
 }
 export type ContactsType = ContactType[]
-  
 type PostType = {
     id: string
     post: string
     likes: number
 }
 export type PostsType = PostType[]
-
-export type StateType = {
-    contacts: ContactsType
+export type ProfilePage = {
     posts: PostsType
     newPostText: string
-    newMessageText: string
 }
-
+export type DialogsPageType = {
+    contacts: ContactsType
+    newMessageText: string
+    messages: MessagesType[]
+}
+export type StateType = {
+    profilePage: ProfilePage
+    dialogsPage: DialogsPageType
+}
 export type StoreType = {
     _state: StateType
     _rerender: () => void
@@ -35,7 +38,6 @@ export type StoreType = {
     getState: () => StateType
     dispatch: (action: ActionType) => void
 }
-
 export type ActionType = ReturnType<typeof addPostAC>
                         | ReturnType<typeof changePostAC>
                         | ReturnType<typeof changeMessageAC>
@@ -73,37 +75,28 @@ export const changeMessageAC = (message: string) => {
 
 export const store: StoreType = {
     _state: {
-        contacts: [
-            {id: v1(),
-                name: 'Ira',
-                messages: [
-                    {id: v1(), text: 'hi'},
-                    {id: v1(), text: 'hi'},
-                    {id: v1(), text: 'hi'},
-                ]},
-            {id: v1(),
-                name: 'Suren',
-                messages: [
-                    {id: v1(), text: 'hello'}
-                ]},
-            {id: v1(),
-                name: 'Arina',
-                messages: [
-                    {id: v1(), text: 'how are you'}
-                ]},
-            {id: v1(),
-                name: 'Liana',
-                messages: [
-                    {id: v1(), text: 'ok'}
-                ]},
-        ],
-        posts: [
-            {id: v1(), post: 'hi', likes: 28},
-            {id: v1(), post: 'hello', likes: 28},
-            {id: v1(), post: 'yo', likes: 28},
-        ],
-        newPostText: '',
-        newMessageText: ''
+        profilePage: {
+            posts: [
+                {id: v1(), post: 'hi', likes: 28},
+                {id: v1(), post: 'hello', likes: 28},
+                {id: v1(), post: 'yo', likes: 28},
+            ],
+            newPostText: '',
+        },
+        dialogsPage: {
+            contacts: [
+                {id: v1(), name: 'Ira'},
+                {id: v1(), name: 'Suren'},
+                {id: v1(), name: 'Arina'},
+                {id: v1(), name: 'Liana'},
+            ],
+            messages: [
+                {id: v1(), text: 'hi'},
+                {id: v1(), text: 'how are you?'},
+                {id: v1(), text: 'ok!'},
+            ],
+            newMessageText: ''
+        },
     },
     _rerender() {
         console.log('')
@@ -137,23 +130,22 @@ export const store: StoreType = {
                 post: action.post,
                 likes: 0
             }
-            this._state.posts.unshift(newPost)
-            this._state.newPostText = ''
+            this._state.profilePage.posts.unshift(newPost)
+            this._state.profilePage.newPostText = ''
             this._rerender()
         } else if(action.type === 'CHANGE-TEXT') {
-            this._state.newPostText = action.post
+            this._state.profilePage.newPostText = action.post
             this._rerender()
         } else if(action.type === 'CHANGE-MESSAGE-TEXT') {
-            this._state.newMessageText = action.message
+            this._state.dialogsPage.newMessageText = action.message
             this._rerender()
         } else if(action.type === 'ADD-MESSAGE') {
             let newMessage: MessagesType = {
                 id: v1(),
-
-
+                text: this._state.dialogsPage.newMessageText
             }
-            this._state.posts.unshift(newMessage)
-            this._state.newPostText = ''
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
             this._rerender()
         }
     }

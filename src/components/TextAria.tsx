@@ -27,6 +27,7 @@ const FieldArea = styled.textarea`
     width: 500px;
     height: 50px;
     padding: 3px;
+    letter-spacing: 0.2px;
     color: ${Theme.colors.white};
     border: 1px solid ${Theme.colors.border};
     background-color: ${Theme.colors.primary};
