@@ -1,4 +1,6 @@
 import { v1 } from "uuid";
+import {ProfileReducer} from "./ProfileReducer";
+import {DialogsReducer} from "./DialogsReducer";
 
 export type MessagesType = {
     id: string
@@ -124,30 +126,11 @@ export const store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if(action.type === 'ADD-POST') {
-            let newPost: PostType = {
-                id: v1(),
-                post: action.post,
-                likes: 0
-            }
-            this._state.profilePage.posts.unshift(newPost)
-            this._state.profilePage.newPostText = ''
-            this._rerender()
-        } else if(action.type === 'CHANGE-TEXT') {
-            this._state.profilePage.newPostText = action.post
-            this._rerender()
-        } else if(action.type === 'CHANGE-MESSAGE-TEXT') {
-            this._state.dialogsPage.newMessageText = action.message
-            this._rerender()
-        } else if(action.type === 'ADD-MESSAGE') {
-            let newMessage: MessagesType = {
-                id: v1(),
-                text: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._rerender()
-        }
+        this._state.profilePage =
+        ProfileReducer(this._state.profilePage, action)
+        this._state.dialogsPage =
+        DialogsReducer(this._state.dialogsPage, action)
+        this._rerender()
     }
 }
 

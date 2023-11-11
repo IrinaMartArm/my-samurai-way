@@ -25,9 +25,10 @@ export const TextAria: React.FC<Props> = (props: Props) =>{
 
 const FieldArea = styled.textarea`
     width: 500px;
-    height: 50px;
+    height: 70px;
     padding: 3px;
     letter-spacing: 0.2px;
+    resize: none;
     color: ${Theme.colors.white};
     border: 1px solid ${Theme.colors.border};
     background-color: ${Theme.colors.primary};
