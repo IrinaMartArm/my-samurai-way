@@ -3,18 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { GlobalStyle } from './styles/GlobalStyles';
-import {store} from './redux/state'
+import {RootStateType, store} from './redux/Store'
 
 
-export const rerender = () => {
+
+export const rerender = (state: RootStateType) => {
     ReactDOM.render(
         <>
             <GlobalStyle/>
-            <App  store={store} />
+            <App  state={state}/>
         </>,
         document.getElementById('root')
     );
 }
-rerender()
+rerender(store.getState())
 
-store.subscribe(rerender)
+store.subscribe(() => {
+    rerender(store.getState())
+})

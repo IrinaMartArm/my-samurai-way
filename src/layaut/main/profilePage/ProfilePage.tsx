@@ -4,13 +4,12 @@ import { MyPosts } from "./myposts/MyPosts";
 import a from "../../../assets/images/IMG_3719 1 2.png";
 import styled from "styled-components";
 import {ActionType, PostsType} from "../../../redux/state";
+import {MyPostsContainer} from "./myposts/MyPostsContainer";
 
 
 type PropsType = {
     posts: PostsType
-    // addPost: (post: string) => void
     newPostText: string
-    // updateNewPostText: (post: string) => void
     dispatch: (action: ActionType) => void
 }
 export const ProfilePage: React.FC<PropsType> = (props: PropsType) => {
@@ -19,11 +18,9 @@ export const ProfilePage: React.FC<PropsType> = (props: PropsType) => {
   return (
     <div>
       <ProfileInfo />
-      <MyPosts posts={posts}
+      <MyPostsContainer posts={posts}
                dispatch={dispatch}
                newPostText={newPostText}
-               // addPost={addPost}
-               // updateNewPostText={updateNewPostText}
       />
     </div>
   );

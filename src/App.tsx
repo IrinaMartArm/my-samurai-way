@@ -9,17 +9,17 @@ import { Theme } from "./styles/Theme";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Dialogs } from "./layaut/main/dialogs/Dialogs";
 import { News } from "./layaut/main/news/News";
-import {store, StoreType} from "./redux/state";
 import a from "./assets/images/IMG_3719 1 2.png";
+import {RootStateType, store, StoreAppType} from "./redux/Store";
 
 type PropsType = {
-    store: StoreType
+    state: RootStateType
 }
 
 
 const App: React.FC<PropsType> = (props: PropsType) => {
 
-    const state = props.store.getState()
+    const {state}= props
 
     return (
         <BrowserRouter>
@@ -33,18 +33,18 @@ const App: React.FC<PropsType> = (props: PropsType) => {
             <Route
                 path={"/profile"}
                 render={() =>
-                    <ProfilePage posts={state.profilePage.posts}
+                    <ProfilePage posts={state.profileReducer.posts}
                                  // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                                 newPostText={state.profilePage.newPostText}
-                                 dispatch={props.store.dispatch.bind(store)}
+                                 newPostText={state.profileReducer.newPostText}
+                                 dispatch={store.dispatch.bind(store)}
                     />}
             />
             <Route
                 path={"/dialogs"}
-                render={() => <Dialogs contacts={state.dialogsPage.contacts}
-                                       messages={state.dialogsPage.messages}
-                                       newMessageText={state.dialogsPage.newMessageText}
-                                       dispatch={props.store.dispatch.bind(store)}
+                render={() => <Dialogs contacts={state.dialogsReducer.contacts}
+                                       messages={state.dialogsReducer.messages}
+                                       newMessageText={state.dialogsReducer.newMessageText}
+                                       dispatch={store.dispatch.bind(store)}
                 />}
             />
             <Route path={"/news"} render={() => <News />} />

@@ -34,8 +34,6 @@ export type StateType = {
 export type StoreType = {
     _state: StateType
     _rerender: () => void
-    // addPost: (post: string) => void
-    // updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
     dispatch: (action: ActionType) => void
@@ -71,11 +69,7 @@ export const changeMessageAC = (message: string) => {
 }
 
 
-
-
-
-
-export const store: StoreType = {
+export const _store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -135,4 +129,4 @@ export const store: StoreType = {
 }
 
 // @ts-ignore
-window.store = store
+window.store = _store
