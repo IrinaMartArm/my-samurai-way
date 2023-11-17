@@ -1,23 +1,21 @@
-import styled from "styled-components";
+
 import React from "react";
-import { Post } from "./Post";
-import {ActionType, addPostAC, changePostAC, PostsType} from "../../../../redux/state";
-import {Button} from "../../../../components/Button";
-import {TextAria} from "../../../../components/TextAria";
+import {ActionType, addPostAC, changePostAC} from "../../../../redux/state";
 import {MyPosts} from "./MyPosts";
+import {StoreAppType} from "../../../../redux/Store";
 
 
 
 export type PropsType = {
-    posts: PostsType
-    newPostText: string
+    store: StoreAppType
     dispatch: (action: ActionType) => void
 }
 
 export const MyPostsContainer: React.FC<PropsType> = (props: PropsType) => {
 
+    const state = props.store.getState()
     const addPost = () => {
-        props.dispatch(addPostAC(props.newPostText))
+        props.dispatch(addPostAC(state.profileReducer.newPostText))
     }
 
     const updatePostText = (post: string) => {
@@ -25,12 +23,6 @@ export const MyPostsContainer: React.FC<PropsType> = (props: PropsType) => {
     }
 
     return (
-        <MyPosts posts={props.posts} addPost={addPost} newPostText={props.newPostText} updatePostText={updatePostText}/>
+        <MyPosts posts={state.profileReducer.posts} addPost={addPost} newPostText={state.profileReducer.newPostText} updatePostText={updatePostText}/>
     );
 }
-//
-// const Box = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     padding: 20px;
-// `;

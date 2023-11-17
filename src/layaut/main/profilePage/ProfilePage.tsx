@@ -1,26 +1,22 @@
 import React from "react";
 import { ProfileInfo } from "./profileInfo/ProfileInfo";
-import { MyPosts } from "./myposts/MyPosts";
-import a from "../../../assets/images/IMG_3719 1 2.png";
-import styled from "styled-components";
-import {ActionType, PostsType} from "../../../redux/state";
+import {ActionType} from "../../../redux/state";
 import {MyPostsContainer} from "./myposts/MyPostsContainer";
+import {StoreAppType} from "../../../redux/Store";
 
 
 type PropsType = {
-    posts: PostsType
-    newPostText: string
+    store: StoreAppType
     dispatch: (action: ActionType) => void
 }
 export const ProfilePage: React.FC<PropsType> = (props: PropsType) => {
-  const {posts , newPostText, dispatch} = props
+  const {store, dispatch} = props
 
   return (
     <div>
       <ProfileInfo />
-      <MyPostsContainer posts={posts}
-               dispatch={dispatch}
-               newPostText={newPostText}
+      <MyPostsContainer store={store}
+                        dispatch={dispatch}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import { S } from "./StyledDialogs";
 import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
-import {ActionType, addMessageAC, addPostAC, changeMessageAC, ContactType, MessagesType} from "../../../redux/state";
+import {ContactType, MessagesType} from "../../../redux/state";
 import {TextAria} from "../../../components/TextAria";
 import {Button} from "../../../components/Button";
 import React from "react";
@@ -11,21 +11,25 @@ type PropsType = {
     contacts: ContactType[]
     messages: MessagesType[]
     newMessageText: string
-    dispatch: (action: ActionType) => void
+    addMessage: () => void
+    changeMessageText: (message: string) => void
 }
 
 export const Dialogs = (props:  PropsType) => {
 
-    const myMessages = props.messages.map(m => <Messages key={m.id} id={m.id} text={m.text}/>)
-    const friendsMessages = props.messages.map(m => <Messages key={m.id} id={m.id} text={m.text}/>)
+    const {messages, newMessageText, changeMessageText, contacts, addMessage} = props
+
+    const myMessages = messages.map(m => <Messages key={m.id} id={m.id} text={m.text}/>)
+
+    const friendsMessages = messages.map(m => <Messages key={m.id} id={m.id} text={m.text}/>)
 
 
-    const addPost = () => {
-        props.dispatch(addMessageAC())
+    const onAddMessage = () => {
+        addMessage()
     }
 
     const onChangeHandler = (message: string) => {
-        props.dispatch(changeMessageAC(message))
+        changeMessageText(message)
     }
 
 
@@ -33,7 +37,7 @@ export const Dialogs = (props:  PropsType) => {
         <>
             <S.Dialogs>
                 <S.DialogPersons>
-                    {props.contacts.map(el =>  <DialogPerson key={el.id} id={el.id} name={el.name}/>)}
+                    {contacts.map(el =>  <DialogPerson key={el.id} id={el.id} name={el.name}/>)}
                 </S.DialogPersons>
                 <S.DialogList>
                     <div>
@@ -45,8 +49,8 @@ export const Dialogs = (props:  PropsType) => {
                 </S.DialogList>
             </S.Dialogs>
             <S.TextAreaBox>
-                <TextAria value={props.newMessageText} onChange={onChangeHandler}/>
-                <Button onClick={addPost} name={'Add Post'}/>
+                <TextAria value={newMessageText} onChange={onChangeHandler}/>
+                <Button onClick={onAddMessage} name={'Add Post'}/>
             </S.TextAreaBox>
         </>
     );

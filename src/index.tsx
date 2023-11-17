@@ -11,7 +11,7 @@ export const rerender = (state: RootStateType) => {
     ReactDOM.render(
         <>
             <GlobalStyle/>
-            <App  state={state}/>
+            <App store={store}/>
         </>,
         document.getElementById('root')
     );

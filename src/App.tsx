@@ -7,19 +7,19 @@ import { ProfilePage } from "./layaut/main/profilePage/ProfilePage";
 import styled from "styled-components";
 import { Theme } from "./styles/Theme";
 import { BrowserRouter, Route } from "react-router-dom";
-import { Dialogs } from "./layaut/main/dialogs/Dialogs";
 import { News } from "./layaut/main/news/News";
 import a from "./assets/images/IMG_3719 1 2.png";
-import {RootStateType, store, StoreAppType} from "./redux/Store";
+import { StoreAppType} from "./redux/Store";
+import {DialogsContainer} from "./layaut/main/dialogs/DialogsContainer";
 
 type PropsType = {
-    state: RootStateType
+    store: StoreAppType
 }
 
 
 const App: React.FC<PropsType> = (props: PropsType) => {
 
-    const {state}= props
+    const {store}= props
 
     return (
         <BrowserRouter>
@@ -33,18 +33,13 @@ const App: React.FC<PropsType> = (props: PropsType) => {
             <Route
                 path={"/profile"}
                 render={() =>
-                    <ProfilePage posts={state.profileReducer.posts}
-                                 // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                                 newPostText={state.profileReducer.newPostText}
+                    <ProfilePage  store={store}
                                  dispatch={store.dispatch.bind(store)}
                     />}
             />
             <Route
                 path={"/dialogs"}
-                render={() => <Dialogs contacts={state.dialogsReducer.contacts}
-                                       messages={state.dialogsReducer.messages}
-                                       newMessageText={state.dialogsReducer.newMessageText}
-                                       dispatch={store.dispatch.bind(store)}
+                render={() => <DialogsContainer store={store}
                 />}
             />
             <Route path={"/news"} render={() => <News />} />
