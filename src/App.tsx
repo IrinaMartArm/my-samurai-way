@@ -6,23 +6,21 @@ import { StyledApp } from "./styles/StyledApp";
 import { ProfilePage } from "./layaut/main/profilePage/ProfilePage";
 import styled from "styled-components";
 import { Theme } from "./styles/Theme";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { News } from "./layaut/main/news/News";
 import a from "./assets/images/IMG_3719 1 2.png";
-import { StoreAppType} from "./redux/Store";
 import {DialogsContainer} from "./layaut/main/dialogs/DialogsContainer";
 
-type PropsType = {
-    store: StoreAppType
-}
+// type PropsType = {
+//     store: StoreAppType
+// }
 
 
-const App: React.FC<PropsType> = (props: PropsType) => {
+const App: React.FC = () => {
 
-    const {store}= props
 
     return (
-        <BrowserRouter>
+        // <BrowserRouter>
         <StyledApp>
             <Header />
             <Aside />
@@ -32,20 +30,16 @@ const App: React.FC<PropsType> = (props: PropsType) => {
                 </Box>
             <Route
                 path={"/profile"}
-                render={() =>
-                    <ProfilePage  store={store}
-                                 dispatch={store.dispatch.bind(store)}
-                    />}
+                render={() => <ProfilePage/>}
             />
             <Route
                 path={"/dialogs"}
-                render={() => <DialogsContainer store={store}
-                />}
+                render={() => <DialogsContainer/>}
             />
             <Route path={"/news"} render={() => <News />} />
             </Main>
         </StyledApp>
-        </BrowserRouter>
+        // </BrowserRouter>
     );
 }
 

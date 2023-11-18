@@ -14,7 +14,7 @@ test('should add Post', () => {
         newPostText: '',
     }
 
-    const endState = ProfileReducer(startState, addPostAC(startState.newPostText))
+    const endState = ProfileReducer(startState, addPostAC())
 
     expect(endState.posts.length).toBe(4)
     expect(endState.posts[0].post).toBe(endState.newPostText)

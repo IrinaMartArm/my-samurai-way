@@ -16,15 +16,13 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Ac
         case 'ADD-POST':
             let newPost: PostType = {
             id: v1(),
-            post: action.post,
+            post: state.newPostText,
             likes: 0
             }
-            state.posts.unshift(newPost)
             state.newPostText = ''
-            return state
+            return  {...state, posts: [newPost, ...state.posts]}
         case 'CHANGE-TEXT':
-            state.newPostText = action.post
-            return state
+            return {...state, newPostText: action.post}
         default:
             return state
     }

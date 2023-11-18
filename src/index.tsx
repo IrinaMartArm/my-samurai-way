@@ -3,21 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { GlobalStyle } from './styles/GlobalStyles';
-import {RootStateType, store} from './redux/Store'
+import {store} from './redux/Store'
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
 
 
 
-export const rerender = (state: RootStateType) => {
+export const rerender = () => {
     ReactDOM.render(
         <>
-            <GlobalStyle/>
-            <App store={store}/>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <GlobalStyle/>
+                    <App/>
+                </Provider>
+            </BrowserRouter>
         </>,
         document.getElementById('root')
     );
 }
-rerender(store.getState())
+rerender()
 
-store.subscribe(() => {
-    rerender(store.getState())
-})
+// store.subscribe(() => {
+//     rerender(store.getState())
+// })

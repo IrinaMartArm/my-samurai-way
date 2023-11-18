@@ -5,19 +5,17 @@ import {MyPostsContainer} from "./myposts/MyPostsContainer";
 import {StoreAppType} from "../../../redux/Store";
 
 
-type PropsType = {
-    store: StoreAppType
-    dispatch: (action: ActionType) => void
-}
-export const ProfilePage: React.FC<PropsType> = (props: PropsType) => {
-  const {store, dispatch} = props
+// type PropsType = {
+//     store: StoreAppType
+//     dispatch: (action: ActionType) => void
+// }
+export const ProfilePage: React.FC = () => {
+  // const {store, dispatch} = props
 
   return (
     <div>
       <ProfileInfo />
-      <MyPostsContainer store={store}
-                        dispatch={dispatch}
-      />
+      <MyPostsContainer/>
     </div>
   );
 };

@@ -1,43 +1,59 @@
-import { S } from "./StyledDialogs";
-import { DialogPerson } from "./DialogPerson";
-import { Messages } from "./Messages";
-import {ActionType, addMessageAC, addPostAC, changeMessageAC, ContactType, MessagesType} from "../../../redux/state";
-import {TextAria} from "../../../components/TextAria";
-import {Button} from "../../../components/Button";
-import React from "react";
-import {StoreAppType} from "../../../redux/Store";
+
+import {ActionType, addMessageAC, changeMessageAC} from "../../../redux/state";
+import {RootStateType} from "../../../redux/Store";
+import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
 
 
-type PropsType = {
-    store: StoreAppType
+let mapStateToProps = (state: RootStateType) => {
+    return {
+        messages: state.dialogsReducer.messages,
+        newMessageText: state.dialogsReducer.newMessageText,
+            contacts: state.dialogsReducer.contacts
+    }
+}
+let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+    return {
+        addMessage: () => {dispatch(addMessageAC())},
+        changeMessageText: (message: string) => {dispatch(changeMessageAC(message))}
+    }
 }
 
-export const DialogsContainer = (props:  PropsType) => {
-
-    const state = props.store.getState()
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 
-    const addMessage = () => {
-        props.store.dispatch(addMessageAC())
-    }
-
-    const changeMessageText = (message: string) => {
-        props.store.dispatch(changeMessageAC(message))
-    }
 
 
-    return (
-        <Dialogs addMessage={addMessage}
-                 changeMessageText={changeMessageText}
-                 newMessageText={state.dialogsReducer.newMessageText}
-                 contacts={state.dialogsReducer.contacts}
-                 messages={state.dialogsReducer.messages}
-        />
-    );
-}
 
-// contacts: ContactType[]
-// messages: MessagesType[]
-// addMessage: () => void
-//     changeMessageText:
+
+
+
+
+
+// type PropsType = {
+//     store: StoreAppType
+// }
+
+// export const DialogsContainer = () => {
+//
+//     const state = store.getState()
+//
+//
+//     const addMessage = () => {
+//         props.store.dispatch(addMessageAC())
+//     }
+//
+//     const changeMessageText = (message: string) => {
+//         props.store.dispatch(changeMessageAC(message))
+//     }
+//
+//
+//     return (
+//         <Dialogs addMessage={addMessage}
+//                  changeMessageText={changeMessageText}
+//                  newMessageText={state.dialogsReducer.newMessageText}
+//                  contacts={state.dialogsReducer.contacts}
+//                  messages={state.dialogsReducer.messages}
+//         />
+//     );
+// }

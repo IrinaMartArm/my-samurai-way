@@ -44,10 +44,9 @@ export type ActionType = ReturnType<typeof addPostAC>
                         | ReturnType<typeof addMessageAC>
 
 
-export const addPostAC = (post: string) => {
+export const addPostAC = () => {
     return {
         type: 'ADD-POST',
-        post: post
     } as const
 }
 export const addMessageAC = () => {
