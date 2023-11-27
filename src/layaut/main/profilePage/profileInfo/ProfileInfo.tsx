@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const ProfileInfo: React.FC = () => {
     return (
             <MyProfile>
-                <img src={i} alt="photo" />
+                <img src={i} alt="MyPhoto"/>
                 <div></div>
             </MyProfile>        
     );

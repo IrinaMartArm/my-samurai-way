@@ -1,0 +1,34 @@
+.avatar {
+    width: 60px;
+    height: 60px;
+    /*border-radius: 50%;*/
+}
+.box {
+    width: 100%;
+    height: 100%;
+    margin: 30px;
+}
+.box_item {
+    display: flex;
+    margin: 30px;
+    width: 600px;
+    height: 80px;
+    gap: 30px;
+}
+.item_follow {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70px;
+    align-items: center;
+}
+.item_info {
+    display: flex;
+}
+.item_name  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 10px;
+    width: 150px;
+}

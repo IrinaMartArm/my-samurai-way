@@ -10,17 +10,13 @@ import { Route } from "react-router-dom";
 import { News } from "./layaut/main/news/News";
 import a from "./assets/images/IMG_3719 1 2.png";
 import {DialogsContainer} from "./layaut/main/dialogs/DialogsContainer";
-
-// type PropsType = {
-//     store: StoreAppType
-// }
+import {UsersContainer} from "./layaut/main/users/UsersContainer";
 
 
 const App: React.FC = () => {
 
 
     return (
-        // <BrowserRouter>
         <StyledApp>
             <Header />
             <Aside />
@@ -28,18 +24,18 @@ const App: React.FC = () => {
                 <Box>
                     <img src={a} alt="" />
                 </Box>
-            <Route
-                path={"/profile"}
-                render={() => <ProfilePage/>}
-            />
-            <Route
-                path={"/dialogs"}
-                render={() => <DialogsContainer/>}
-            />
-            <Route path={"/news"} render={() => <News />} />
+                <Route
+                    path={"/profile"}
+                    render={() => <ProfilePage/>}
+                />
+                <Route
+                    path={"/dialogs"}
+                    render={() => <DialogsContainer/>}
+                />
+                <Route path={"/users"} render={() => <UsersContainer/>} />
+                <Route path={"/news"} render={() => <News />} />
             </Main>
         </StyledApp>
-        // </BrowserRouter>
     );
 }
 
