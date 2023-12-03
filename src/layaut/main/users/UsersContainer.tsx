@@ -6,7 +6,7 @@ import {ActionsType, followAC, setUsersAC, unfollowAC, UserType} from "../../../
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        users: state.usersReducer.users
+        users: state.usersReducer.items
     }
 }
 
