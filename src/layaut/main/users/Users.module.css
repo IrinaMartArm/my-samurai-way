@@ -34,14 +34,18 @@
 }
 .selected {
     font-weight: bold;
+    font-size: 20px;
+    color: #A0B05D;
 }
 .pages {
+    display: flex;
+    gap: 4px;
     color: white;
     height: 20px;
-    border: 1px solid darkgrey;
 }
 .page {
     font-size: 20px;
     color: aliceblue;
     font-weight: normal;
+    z-index: 99;
 }

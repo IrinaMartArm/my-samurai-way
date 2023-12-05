@@ -25,7 +25,7 @@ export type ActionsType = ReturnType<typeof followAC>
 
 const initialState: UsersType = {
     items: [],
-    pageSize: 3,
+    pageSize: 10,
     totalCount: 0,
     currentPage: 1
 }

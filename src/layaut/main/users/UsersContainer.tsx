@@ -17,16 +17,22 @@ import axios from "axios";
 export class UsersClass extends React.Component<MapStateToProps & MapDispatchToProps> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then((res)=> {this.props.setUsers(res.data.items)})
+            .then((res)=> {
+                this.props.setUsers(res.data.items)
+                this.props.setTotalCount(res.data.totalCount)
+            })
     }
     onClickHandler = (p: number)=> {
         this.props.setCurrentPage(p)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
             .then((res) =>
-                {this.props.setUsers(res.data.items)
-                    this.props.setTotalCount(res.data.totalCount)}
+                {
+                    this.props.setUsers(res.data.items)
+                    this.props.setTotalCount(res.data.totalCount)
+                }
             )
     }
+
     render () {
         return (
             <Users users={this.props.users}
@@ -42,7 +48,6 @@ export class UsersClass extends React.Component<MapStateToProps & MapDispatchToP
 }
 type MapStateToProps = {
     users: UserType[]
-
     totalCount: number
     pageSize: number
     currentPage: number
@@ -56,6 +61,7 @@ type MapDispatchToProps = {
     setTotalCount: (c: number) => void
 }
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
+
     return {
         users: state.usersReducer.items,
         pageSize: state.usersReducer.pageSize,

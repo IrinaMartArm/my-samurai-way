@@ -18,19 +18,24 @@ type UserPropsType = {
 export function Users(props: UserPropsType) {
     const {users, follow, unfollow, totalCount, pageSize, currentPage, onClickHandler} = props
 
+    console.log(totalCount, "USERS COMPONET")
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
     for(let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+    // console.log(pages, 'pages')
+    console.log(pagesCount, 'pagesCount')
+    // console.log(totalCount, 'totalCount')
+    // console.log(pageSize, 'pageSize')
 
     return (
         <div className={styles.box}>
             <div className={styles.pages}>
-                {pages.map(p => {return <span key={p}
+                {pages.map(p => <div key={p}
                                               className={currentPage === p ? styles.selected : styles.page}
                                               onClick={()=>{onClickHandler(p)}}
-                >{p}</span>})}
+                >{p}</div>)}
             </div>
             {users.map(u =>
                 <div key={u.id} className={styles.box_item}>
