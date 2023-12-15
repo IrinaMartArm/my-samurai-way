@@ -12,7 +12,6 @@ class HeaderContainerClass extends React.Component<PropsType>{
         instance.get<ResponseType>('auth/me')
             .then((res) => {
                 if(res.data.resultCode === 0) {
-                    console.log(res.data.data)
                     this.props.setAuthUserData(res.data.data)
                 }
             })

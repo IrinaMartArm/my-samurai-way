@@ -8,7 +8,6 @@ const initState = {
 }
 
 export const AuthReducer = (state: InitStateType = initState, action: ActionType): InitStateType => {
-    console.log('AuthReducer')
     switch (action.type) {
         case 'SET_USER-DATA':
             return {...state, ...action.data, isAuth: true}
@@ -18,7 +17,6 @@ export const AuthReducer = (state: InitStateType = initState, action: ActionType
 }
 
 export const setAuthUserData = (data: AuthDataType) => {
-    console.log(data)
     return {type: 'SET_USER-DATA', data} as const
 }
 

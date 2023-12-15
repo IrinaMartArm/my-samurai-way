@@ -4,6 +4,8 @@ import {Button} from "../../../components/Button";
 import styles from "./Users.module.css"
 import userPhoto from './../../../assets/images/585e4beacb11b227491c3399.png'
 import {NavLink} from "react-router-dom";
+import { Api } from '../../../api/Api';
+
 
 
 type UserPropsType = {
@@ -39,8 +41,23 @@ export function Users(props: UserPropsType) {
                             <NavLink to={'./profile/' + u.id}>
                                  <img src={u.photos.small != null ? u.photos.small : userPhoto} alt={u.name} className={styles.avatar}/>
                             </NavLink>
-                            {u.followed ? <Button name={'follow'} onClick={()=>unfollow(u.id)} key={u.id}></Button> :
-                                <Button name={'unfollow'} onClick={()=>follow(u.id)} key={u.id}></Button>}
+                            {u.followed ?
+                                <Button name={'follow'} onClick={()=> {
+                                    Api.unfollow(u.id)
+                                        .then((res) => {
+                                            if(res.data.resultCode === 0){
+                                                unfollow(u.id)
+                                            }
+                                        })
+                                }} key={u.id}></Button> :
+                                <Button name={'unfollow'} onClick={()=> {
+                                    Api.follow(u.id)
+                                        .then((res) => {
+                                            if(res.data.resultCode === 0){
+                                                follow(u.id)
+                                            }
+                                        })
+                                }} key={u.id}></Button>}
 
                         </span>
                     <div className={styles.item_info}>
