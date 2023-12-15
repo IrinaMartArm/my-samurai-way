@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import {ProfileReducer} from "./ProfileReducer";
+import {addPost, changePost, ProfilePageType, ProfileReducer} from "./ProfileReducer";
 import {DialogsReducer} from "./DialogsReducer";
 
 export type MessagesType = {
@@ -18,10 +18,7 @@ export type PostType = {
     likes: number
 }
 export type PostsType = PostType[]
-export type ProfilePageType = {
-    posts: PostsType
-    newPostText: string
-}
+
 export type DialogsPageType = {
     contacts: ContactsType
     newMessageText: string
@@ -38,28 +35,19 @@ export type StoreType = {
     getState: () => StateType
     dispatch: (action: ActionType) => void
 }
-export type ActionType = ReturnType<typeof addPostAC>
-                        | ReturnType<typeof changePostAC>
+export type ActionType = ReturnType<typeof addPost>
+                        | ReturnType<typeof changePost>
                         | ReturnType<typeof changeMessageAC>
                         | ReturnType<typeof addMessageAC>
 
 
-export const addPostAC = () => {
-    return {
-        type: 'ADD-POST',
-    } as const
-}
+
 export const addMessageAC = () => {
     return {
         type: 'ADD-MESSAGE',
     } as const
 }
-export const changePostAC = (post: string) => {
-    return {
-        type: 'CHANGE-TEXT',
-        post: post
-    } as const
-}
+
 export const changeMessageAC = (message: string) => {
     return {
         type: 'CHANGE-MESSAGE-TEXT',
@@ -77,6 +65,26 @@ export const _store: StoreType = {
                 {id: v1(), post: 'yo', likes: 28},
             ],
             newPostText: '',
+            profile: {
+                userId: 'string',
+                lookingForAJob: true,
+                lookingForAJobDescription: 'string',
+                fullName: 'string',
+                contacts: {
+                    github: 'string',
+                    vk: 'string',
+                    facebook: 'string',
+                    instagram: 'string',
+                    twitter: 'string',
+                    website: 'string',
+                    youtube: 'string',
+                    mainLink: 'string',
+                },
+                photos: {
+                    small: 'string',
+                    large: 'string'
+                }
+            }
         },
         dialogsPage: {
             contacts: [
@@ -96,22 +104,7 @@ export const _store: StoreType = {
     _rerender() {
         console.log('')
     },
-    // addPost(postMess: string) {
-    //
-    //     let newPost: PostType = {
-    //         id: v1(),
-    //         // post: this._state.newPostText,
-    //         post: postMess,
-    //         likes: 0
-    //     }
-    //     this._state.posts.unshift(newPost)
-    //     this._state.newPostText = ''
-    //     this._rerender()
-    // },
-    // updateNewPostText(newText) {
-    //     this._state.newPostText = newText
-    //     this._rerender()
-    // },
+
     subscribe(observer) {
         this._rerender = observer
     },
@@ -119,8 +112,8 @@ export const _store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        this._state.profilePage =
-        ProfileReducer(this._state.profilePage, action)
+        // this._state.profilePage =
+        // ProfileReducer(this._state.profilePage, action)
         this._state.dialogsPage =
         DialogsReducer(this._state.dialogsPage, action)
         this._rerender()

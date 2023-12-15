@@ -11,12 +11,12 @@ export type PropsType = {
     posts: PostsType
     addPost: () => void
     newPostText: string
-    updatePostText: (post: string) => void
+    changePost: (post: string) => void
 }
 
 export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
 
-    const {posts, addPost, updatePostText, newPostText} = props
+    const {posts, addPost, changePost, newPostText} = props
 
     let postElements = posts.map(p => <Post key={p.id} mess={p.post} likes={p.likes}/> )
 
@@ -25,7 +25,7 @@ export const MyPosts: React.FC<PropsType> = (props: PropsType) => {
     }
 
     const onChangeHandler = (post: string) => {
-        updatePostText(post)
+        changePost(post)
     }
 
     return (

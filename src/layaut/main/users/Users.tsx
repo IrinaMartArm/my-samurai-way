@@ -3,6 +3,7 @@ import {UserType} from "../../../redux/UsersReducer";
 import {Button} from "../../../components/Button";
 import styles from "./Users.module.css"
 import userPhoto from './../../../assets/images/585e4beacb11b227491c3399.png'
+import {NavLink} from "react-router-dom";
 
 
 type UserPropsType = {
@@ -18,16 +19,11 @@ type UserPropsType = {
 export function Users(props: UserPropsType) {
     const {users, follow, unfollow, totalCount, pageSize, currentPage, onClickHandler} = props
 
-    console.log(totalCount, "USERS COMPONET")
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
     for(let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    // console.log(pages, 'pages')
-    console.log(pagesCount, 'pagesCount')
-    // console.log(totalCount, 'totalCount')
-    // console.log(pageSize, 'pageSize')
 
     return (
         <div className={styles.box}>
@@ -40,7 +36,9 @@ export function Users(props: UserPropsType) {
             {users.map(u =>
                 <div key={u.id} className={styles.box_item}>
                         <span className={styles.item_follow}>
-                            <img src={u.photos.small != null ? u.photos.small : userPhoto} alt={''} className={styles.avatar}/>
+                            <NavLink to={'./profile/' + u.id}>
+                                 <img src={u.photos.small != null ? u.photos.small : userPhoto} alt={u.name} className={styles.avatar}/>
+                            </NavLink>
                             {u.followed ? <Button name={'follow'} onClick={()=>unfollow(u.id)} key={u.id}></Button> :
                                 <Button name={'unfollow'} onClick={()=>follow(u.id)} key={u.id}></Button>}
 

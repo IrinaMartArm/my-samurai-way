@@ -1,32 +1,32 @@
 import {Users} from "./Users";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/Store";
-import {
-    ActionsType,
-    followAC,
-    setCurrentPageAC,
-    setTotalCountAC,
-    setUsersAC,
-    unfollowAC,
-    UserType
-} from "../../../redux/UsersReducer";
+import {follow, setCurrentPage, setLoading, setTotalCount, setUsers, unfollow, UserType
+        } from "../../../redux/UsersReducer";
 import React from "react";
 import axios from "axios";
+import {Preloader} from "../../../components/Preloader";
 
-
-export class UsersClass extends React.Component<MapStateToProps & MapDispatchToProps> {
+export const instance = axios.create({
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/'
+})
+export class UsersClassContainer extends React.Component<MapStateToProps & MapDispatchToProps> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        this.props.setLoading(true)
+        instance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then((res)=> {
+                this.props.setLoading(false)
                 this.props.setUsers(res.data.items)
                 this.props.setTotalCount(res.data.totalCount)
             })
     }
     onClickHandler = (p: number)=> {
+        this.props.setLoading(true)
         this.props.setCurrentPage(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+        instance.get(`users?page=${p}&count=${this.props.pageSize}`)
             .then((res) =>
                 {
+                    this.props.setLoading(false)
                     this.props.setUsers(res.data.items)
                     this.props.setTotalCount(res.data.totalCount)
                 }
@@ -35,14 +35,18 @@ export class UsersClass extends React.Component<MapStateToProps & MapDispatchToP
 
     render () {
         return (
-            <Users users={this.props.users}
-                   currentPage={this.props.currentPage}
-                   pageSize={this.props.pageSize}
-                   totalCount={this.props.totalCount}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-                   onClickHandler={this.onClickHandler}
-            />
+            <>
+                {this.props.isLoading ? <Preloader/> :
+                    <Users users={this.props.users}
+                           currentPage={this.props.currentPage}
+                           pageSize={this.props.pageSize}
+                           totalCount={this.props.totalCount}
+                           follow={this.props.follow}
+                           unfollow={this.props.unfollow}
+                           onClickHandler={this.onClickHandler}
+                    />}
+
+            </>
         );
     }
 }
@@ -51,6 +55,7 @@ type MapStateToProps = {
     totalCount: number
     pageSize: number
     currentPage: number
+    isLoading: boolean
 }
 type MapDispatchToProps = {
 
@@ -59,6 +64,7 @@ type MapDispatchToProps = {
     setUsers: (users: UserType[]) =>void
     setCurrentPage: (page: number) => void
     setTotalCount: (c: number) => void
+    setLoading: (status: boolean) => void
 }
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
 
@@ -66,19 +72,19 @@ let mapStateToProps = (state: RootStateType): MapStateToProps => {
         users: state.usersReducer.items,
         pageSize: state.usersReducer.pageSize,
         totalCount: state.usersReducer.totalCount,
-        currentPage: state.usersReducer.currentPage
+        currentPage: state.usersReducer.currentPage,
+        isLoading: state.usersReducer.isLoading
     }
 }
 
-let mapDispatchToProps = (dispatch: (action: ActionsType) => void):MapDispatchToProps => {
-    return {
-        follow: (userId: string) => {dispatch(followAC(userId))},
-        unfollow: (userId: string) => {dispatch(unfollowAC(userId))},
-        setUsers: (users: UserType[]) => {dispatch(setUsersAC(users))},
-        setCurrentPage: (page: number) => {dispatch(setCurrentPageAC(page))},
-        setTotalCount: (c: number) => {dispatch(setTotalCountAC(c))}
-    }
+let mapDispatchToProps = {
+        follow,
+        unfollow,
+        setUsers,
+        setCurrentPage,
+        setTotalCount,
+        setLoading
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClass)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)
 

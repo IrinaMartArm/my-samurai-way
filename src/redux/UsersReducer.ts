@@ -15,56 +15,55 @@ export type UsersType = {
     pageSize: number
     totalCount: number
     currentPage: number
+    isLoading: boolean
 }
 
-export type ActionsType = ReturnType<typeof followAC>
-                            | ReturnType<typeof unfollowAC>
-                            | ReturnType<typeof setUsersAC>
-                            | ReturnType<typeof setCurrentPageAC>
-                            | ReturnType<typeof setTotalCountAC>
+export type ActionsType = ReturnType<typeof follow>
+                            | ReturnType<typeof unfollow>
+                            | ReturnType<typeof setUsers>
+                            | ReturnType<typeof setCurrentPage>
+                            | ReturnType<typeof setTotalCount>
+                            | ReturnType<typeof setLoading>
 
 const initialState: UsersType = {
     items: [],
     pageSize: 10,
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isLoading: false
 }
 
 export const UsersReducer = (state: UsersType = initialState, action: ActionsType): UsersType => {
     switch (action.type) {
-        case 'FOLLOW': {
+        case 'FOLLOW':
             return {...state, items: state.items.map(u => u.id === action.userId ? {...u, followed: true} : u)}
-        }
-        case 'UNFOLLOW': {
+        case 'UNFOLLOW':
             return {...state, items: state.items.map(u => u.id === action.userId ? {...u, followed: false} : u)}
-        }
-        case 'SET_USERS': {
+        case 'SET_USERS':
             return {...state, items: action.items}
-        }
-        case 'SET_CURRENT-PAGE': {
+        case 'SET_CURRENT-PAGE':
             return {...state, currentPage: action.page}
-        }
-        case 'SET_TOTAL-COUNT': {
+        case 'SET_TOTAL-COUNT':
             return {...state, totalCount: action.count}
-        }
+        case 'SET_IS-LOADING':
+            return {...state, isLoading: action.isLoading}
         default:
             return state
     }
 }
 
-export const followAC = (userId: string) => {
-    return {type: 'FOLLOW',
-        userId: userId
-    } as const
-}
-export const unfollowAC = (userId: string) => {
-    return {type: 'UNFOLLOW',
-        userId: userId
-    } as const
-}
-export const setUsersAC = (items: UserType[]) => {
-    return {type: 'SET_USERS', items} as const
-}
-export const setCurrentPageAC = (page: number) => ({type: 'SET_CURRENT-PAGE', page} as const)
+export const follow = (userId: string) => ({type: 'FOLLOW', userId} as const)
+export const unfollow = (userId: string) => ({type: 'UNFOLLOW', userId} as const)
+export const setUsers = (items: UserType[]) =>({type: 'SET_USERS', items} as const)
+export const setCurrentPage = (page: number) => ({type: 'SET_CURRENT-PAGE', page} as const)
+export const setTotalCount = (count: number) => ({type: 'SET_TOTAL-COUNT', count} as const)
+export const setLoading = (isLoading: boolean) => ({type: 'SET_IS-LOADING', isLoading} as const)
 
-export const setTotalCountAC = (count: number) => ({type: 'SET_TOTAL-COUNT', count} as const)
+
+
+
+
+
+
+
+

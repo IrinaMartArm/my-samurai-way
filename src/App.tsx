@@ -3,7 +3,6 @@ import "./App.css";
 import { Header } from "./layaut/header/Header";
 import { Aside } from "./layaut/aside/Aside";
 import { StyledApp } from "./styles/StyledApp";
-import { ProfilePage } from "./layaut/main/profilePage/ProfilePage";
 import styled from "styled-components";
 import { Theme } from "./styles/Theme";
 import { Route } from "react-router-dom";
@@ -11,6 +10,7 @@ import { News } from "./layaut/main/news/News";
 import a from "./assets/images/IMG_3719 1 2.png";
 import {DialogsContainer} from "./layaut/main/dialogs/DialogsContainer";
 import {UsersContainer} from "./layaut/main/users/UsersContainer";
+import {ProfilePageContainer} from "./layaut/main/profilePage/ProfilePageContainer";
 
 
 const App: React.FC = () => {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
                 </Box>
                 <Route
                     path={"/profile"}
-                    render={() => <ProfilePage/>}
+                    render={() => <ProfilePageContainer/>}
                 />
                 <Route
                     path={"/dialogs"}

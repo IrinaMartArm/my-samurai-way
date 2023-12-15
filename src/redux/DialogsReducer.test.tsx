@@ -1,4 +1,4 @@
-import {addMessageAC, changeMessageAC, changePostAC, DialogsPageType, ProfilePageType} from "./state";
+import {addMessageAC, changeMessageAC, DialogsPageType} from "./state";
 import {v1} from "uuid";
 import {DialogsReducer} from "./DialogsReducer";
 

@@ -1,28 +1,19 @@
 import React from "react";
 import { ProfileInfo } from "./profileInfo/ProfileInfo";
-import {ActionType} from "../../../redux/state";
 import {MyPostsContainer} from "./myposts/MyPostsContainer";
-import {StoreAppType} from "../../../redux/Store";
+import {UserProfile} from "../../../redux/ProfileReducer";
 
 
-// type PropsType = {
-//     store: StoreAppType
-//     dispatch: (action: ActionType) => void
-// }
-export const ProfilePage: React.FC = () => {
-  // const {store, dispatch} = props
+type PropsType = {
+    profile: UserProfile
+}
+
+export const ProfilePage = (props: PropsType) => {
 
   return (
     <div>
-      <ProfileInfo />
+      <ProfileInfo profile={props.profile}/>
       <MyPostsContainer/>
     </div>
   );
 };
-
-// const Box = styled.div`
-//   img {
-//     width: 100%;
-//     height: 150px;
-//   }
-// `;

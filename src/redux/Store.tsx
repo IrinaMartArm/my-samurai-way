@@ -15,3 +15,5 @@ export const store = createStore(rootReducer)
 
 export type StoreAppType = typeof store
 
+// @ts-ignore
+window.store = store

@@ -1,34 +1,34 @@
 
-import {setCurrentPageAC, setTotalCountAC, UsersReducer, UsersType} from "./UsersReducer";
+import {setCurrentPage, setLoading, setTotalCount, UsersReducer, UsersType} from "./UsersReducer";
 
-test('totalCount should be added', () => {
-
-
-    const startState: UsersType = {
+let startState: UsersType
+beforeEach(()=> {
+     startState = {
         items: [],
         pageSize: 3,
         totalCount: 0,
-        currentPage: 1
+        currentPage: 1,
+        isLoading: false
     }
+})
 
+test('totalCount should be added', () => {
 
-    const endState = UsersReducer(startState, setTotalCountAC(10))
+    const endState = UsersReducer(startState, setTotalCount(10))
 
     expect(endState.totalCount).toBe(10)
 })
 
 test('currentPage should be changed', () => {
 
-
-    const startState: UsersType = {
-        items: [],
-        pageSize: 3,
-        totalCount: 0,
-        currentPage: 1
-    }
-
-
-    const endState = UsersReducer(startState, setCurrentPageAC(2))
+    const endState = UsersReducer(startState, setCurrentPage(2))
 
     expect(endState.currentPage).toBe(2)
 })
+test('isLoading should be changed', () => {
+
+    const endState = UsersReducer(startState, setLoading(true))
+
+    expect(endState.isLoading).toBe(true)
+})
+
