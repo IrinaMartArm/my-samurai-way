@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import { Header } from "./layaut/header/Header";
 import { Aside } from "./layaut/aside/Aside";
 import { StyledApp } from "./styles/StyledApp";
 import styled from "styled-components";
@@ -11,6 +10,7 @@ import a from "./assets/images/IMG_3719 1 2.png";
 import {DialogsContainer} from "./layaut/main/dialogs/DialogsContainer";
 import {UsersContainer} from "./layaut/main/users/UsersContainer";
 import {ProfilePageContainer} from "./layaut/main/profilePage/ProfilePageContainer";
+import {HeaderContainer} from "./layaut/header/HeaderContainer";
 
 
 const App: React.FC = () => {
@@ -18,14 +18,14 @@ const App: React.FC = () => {
 
     return (
         <StyledApp>
-            <Header />
+            <HeaderContainer/>
             <Aside />
             <Main>
                 <Box>
                     <img src={a} alt="" />
                 </Box>
                 <Route
-                    path={"/profile"}
+                    path={"/profile/:userId"}
                     render={() => <ProfilePageContainer/>}
                 />
                 <Route

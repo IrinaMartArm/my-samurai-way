@@ -4,12 +4,10 @@ import {RootStateType} from "../../../redux/Store";
 import {follow, setCurrentPage, setLoading, setTotalCount, setUsers, unfollow, UserType
         } from "../../../redux/UsersReducer";
 import React from "react";
-import axios from "axios";
 import {Preloader} from "../../../components/Preloader";
+import {instance} from "../../../api/Api";
 
-export const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/'
-})
+
 export class UsersClassContainer extends React.Component<MapStateToProps & MapDispatchToProps> {
     componentDidMount() {
         this.props.setLoading(true)
