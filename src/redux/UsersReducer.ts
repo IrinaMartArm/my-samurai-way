@@ -1,6 +1,7 @@
 
 
-export type UserType = {id: string
+export type UserType = {
+    id: string
     name: string
     followed: boolean
     status: string
@@ -16,7 +17,7 @@ export type UsersType = {
     totalCount: number
     currentPage: number
     isLoading: boolean
-    disabled: boolean
+    blocked: Array<string>
 }
 
 export type ActionsType = ReturnType<typeof follow>
@@ -25,7 +26,7 @@ export type ActionsType = ReturnType<typeof follow>
                             | ReturnType<typeof setCurrentPage>
                             | ReturnType<typeof setTotalCount>
                             | ReturnType<typeof setLoading>
-                            | ReturnType<typeof setDisabled>
+                            | ReturnType<typeof setBlocked>
 
 const initialState: UsersType = {
     items: [],
@@ -33,7 +34,7 @@ const initialState: UsersType = {
     totalCount: 0,
     currentPage: 1,
     isLoading: false,
-    disabled: false
+    blocked: []
 }
 
 export const UsersReducer = (state: UsersType = initialState, action: ActionsType): UsersType => {
@@ -50,8 +51,10 @@ export const UsersReducer = (state: UsersType = initialState, action: ActionsTyp
             return {...state, totalCount: action.count}
         case 'SET_IS-LOADING':
             return {...state, isLoading: action.isLoading}
-        case 'SET_DISABLED':
-            return {...state, disabled: action.disabled}
+        case 'SET_BLOCKED':
+            return {...state, blocked: action.isLoading ?
+                    [...state.blocked, action.id] :
+                    state.blocked.filter(id => id !== action.id)}
         default:
             return state
     }
@@ -63,7 +66,7 @@ export const setUsers = (items: UserType[]) =>({type: 'SET_USERS', items} as con
 export const setCurrentPage = (page: number) => ({type: 'SET_CURRENT-PAGE', page} as const)
 export const setTotalCount = (count: number) => ({type: 'SET_TOTAL-COUNT', count} as const)
 export const setLoading = (isLoading: boolean) => ({type: 'SET_IS-LOADING', isLoading} as const)
-export const setDisabled = (disabled: boolean) => ({type: 'SET_DISABLED', disabled} as const)
+export const setBlocked = (id: string, isLoading: boolean) => ({type: 'SET_BLOCKED', id, isLoading} as const)
 
 
 

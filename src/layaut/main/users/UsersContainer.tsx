@@ -2,7 +2,7 @@ import {Users} from "./Users";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/Store";
 import {
-    follow, setCurrentPage, setDisabled, setLoading, setTotalCount, setUsers, unfollow, UserType
+    follow, setBlocked, setCurrentPage, setLoading, setTotalCount, setUsers, unfollow, UserType
 } from "../../../redux/UsersReducer";
 import React from "react";
 import {Preloader} from "../../../components/Preloader";
@@ -42,8 +42,8 @@ export class UsersClassContainer extends React.Component<MapStateToProps & MapDi
                            follow={this.props.follow}
                            unfollow={this.props.unfollow}
                            onClickHandler={this.onClickHandler}
-                           setDisabled={this.props.setDisabled}
-                           disable={this.props.disabled}
+                           setBlocked={this.props.setBlocked}
+                           blocked={this.props.blocked}
                     />}
 
             </>
@@ -56,7 +56,7 @@ type MapStateToProps = {
     pageSize: number
     currentPage: number
     isLoading: boolean
-    disabled: boolean
+    blocked: Array<string>
 }
 type MapDispatchToProps = {
 
@@ -66,7 +66,7 @@ type MapDispatchToProps = {
     setCurrentPage: (page: number) => void
     setTotalCount: (c: number) => void
     setLoading: (status: boolean) => void
-    setDisabled: (status: boolean) => void
+    setBlocked: (userId: string, status: boolean) => void
 }
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
 
@@ -76,7 +76,7 @@ let mapStateToProps = (state: RootStateType): MapStateToProps => {
         totalCount: state.usersReducer.totalCount,
         currentPage: state.usersReducer.currentPage,
         isLoading: state.usersReducer.isLoading,
-        disabled: state.usersReducer.disabled
+        blocked: state.usersReducer.blocked
     }
 }
 
@@ -87,7 +87,7 @@ let mapDispatchToProps = {
         setCurrentPage,
         setTotalCount,
         setLoading,
-        setDisabled
+        setBlocked
 }
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)

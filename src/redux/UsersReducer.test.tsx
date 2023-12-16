@@ -8,7 +8,8 @@ beforeEach(()=> {
         pageSize: 3,
         totalCount: 0,
         currentPage: 1,
-        isLoading: false
+        isLoading: false,
+         blocked: []
     }
 })
 

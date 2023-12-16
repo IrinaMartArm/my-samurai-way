@@ -1,8 +1,9 @@
-import {_Btn} from "./_Btn";
+import {Btn} from "./_Btn";
 
 type PropsType = {
     name: string
     onClick: ()=> void
+    disabled?: boolean
 }
 
 export const Button = (props: PropsType) => {
@@ -10,6 +11,6 @@ export const Button = (props: PropsType) => {
         props.onClick()
     }
     return (
-        <_Btn onClick={handler}>{props.name}</_Btn>
+        <Btn onClick={handler}>{props.name}</Btn>
     );
 }
