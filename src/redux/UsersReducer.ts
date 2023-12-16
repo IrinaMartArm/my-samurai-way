@@ -16,6 +16,7 @@ export type UsersType = {
     totalCount: number
     currentPage: number
     isLoading: boolean
+    disabled: boolean
 }
 
 export type ActionsType = ReturnType<typeof follow>
@@ -24,13 +25,15 @@ export type ActionsType = ReturnType<typeof follow>
                             | ReturnType<typeof setCurrentPage>
                             | ReturnType<typeof setTotalCount>
                             | ReturnType<typeof setLoading>
+                            | ReturnType<typeof setDisabled>
 
 const initialState: UsersType = {
     items: [],
     pageSize: 10,
     totalCount: 0,
     currentPage: 1,
-    isLoading: false
+    isLoading: false,
+    disabled: false
 }
 
 export const UsersReducer = (state: UsersType = initialState, action: ActionsType): UsersType => {
@@ -47,6 +50,8 @@ export const UsersReducer = (state: UsersType = initialState, action: ActionsTyp
             return {...state, totalCount: action.count}
         case 'SET_IS-LOADING':
             return {...state, isLoading: action.isLoading}
+        case 'SET_DISABLED':
+            return {...state, disabled: action.disabled}
         default:
             return state
     }
@@ -58,6 +63,7 @@ export const setUsers = (items: UserType[]) =>({type: 'SET_USERS', items} as con
 export const setCurrentPage = (page: number) => ({type: 'SET_CURRENT-PAGE', page} as const)
 export const setTotalCount = (count: number) => ({type: 'SET_TOTAL-COUNT', count} as const)
 export const setLoading = (isLoading: boolean) => ({type: 'SET_IS-LOADING', isLoading} as const)
+export const setDisabled = (disabled: boolean) => ({type: 'SET_DISABLED', disabled} as const)
 
 
 

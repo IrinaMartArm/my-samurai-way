@@ -13,13 +13,15 @@ type UserPropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     onClickHandler: (p: number) => void
+    setDisabled: (inProgress: boolean) => void
     totalCount: number
     pageSize: number
     currentPage: number
+    disabled: boolean
 }
 
 export function Users(props: UserPropsType) {
-    const {users, follow, unfollow, totalCount, pageSize, currentPage, onClickHandler} = props
+    const {users, follow, unfollow, totalCount, pageSize, currentPage, onClickHandler, setDisabled, disabled} = props
 
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
@@ -42,20 +44,27 @@ export function Users(props: UserPropsType) {
                                  <img src={u.photos.small != null ? u.photos.small : userPhoto} alt={u.name} className={styles.avatar}/>
                             </NavLink>
                             {u.followed ?
-                                <Button name={'follow'} onClick={()=> {
+                                <Button name={'follow'} disabled={disabled}
+
+                                        onClick={()=> {
+                                            setDisabled(true)
                                     Api.unfollow(u.id)
                                         .then((res) => {
                                             if(res.data.resultCode === 0){
                                                 unfollow(u.id)
                                             }
+                                            setDisabled(false)
                                         })
                                 }} key={u.id}></Button> :
-                                <Button name={'unfollow'} onClick={()=> {
+                                <Button name={'unfollow'} disabled={disabled}
+                                        onClick={()=> {
+                                            setDisabled(true)
                                     Api.follow(u.id)
                                         .then((res) => {
                                             if(res.data.resultCode === 0){
                                                 follow(u.id)
                                             }
+                                            setDisabled(false)
                                         })
                                 }} key={u.id}></Button>}
 

@@ -1,8 +1,9 @@
 import {Users} from "./Users";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/Store";
-import {follow, setCurrentPage, setLoading, setTotalCount, setUsers, unfollow, UserType
-        } from "../../../redux/UsersReducer";
+import {
+    follow, setCurrentPage, setDisabled, setLoading, setTotalCount, setUsers, unfollow, UserType
+} from "../../../redux/UsersReducer";
 import React from "react";
 import {Preloader} from "../../../components/Preloader";
 import {Api} from "../../../api/Api";
@@ -41,6 +42,8 @@ export class UsersClassContainer extends React.Component<MapStateToProps & MapDi
                            follow={this.props.follow}
                            unfollow={this.props.unfollow}
                            onClickHandler={this.onClickHandler}
+                           setDisabled={this.props.setDisabled}
+                           disable={this.props.disabled}
                     />}
 
             </>
@@ -53,6 +56,7 @@ type MapStateToProps = {
     pageSize: number
     currentPage: number
     isLoading: boolean
+    disabled: boolean
 }
 type MapDispatchToProps = {
 
@@ -62,6 +66,7 @@ type MapDispatchToProps = {
     setCurrentPage: (page: number) => void
     setTotalCount: (c: number) => void
     setLoading: (status: boolean) => void
+    setDisabled: (status: boolean) => void
 }
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
 
@@ -70,7 +75,8 @@ let mapStateToProps = (state: RootStateType): MapStateToProps => {
         pageSize: state.usersReducer.pageSize,
         totalCount: state.usersReducer.totalCount,
         currentPage: state.usersReducer.currentPage,
-        isLoading: state.usersReducer.isLoading
+        isLoading: state.usersReducer.isLoading,
+        disabled: state.usersReducer.disabled
     }
 }
 
@@ -80,7 +86,8 @@ let mapDispatchToProps = {
         setUsers,
         setCurrentPage,
         setTotalCount,
-        setLoading
+        setLoading,
+        setDisabled
 }
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)
