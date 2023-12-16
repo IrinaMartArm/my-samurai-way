@@ -5,30 +5,29 @@ import {follow, setCurrentPage, setLoading, setTotalCount, setUsers, unfollow, U
         } from "../../../redux/UsersReducer";
 import React from "react";
 import {Preloader} from "../../../components/Preloader";
-import {instance} from "../../../api/Api";
+import {Api} from "../../../api/Api";
 
 
 export class UsersClassContainer extends React.Component<MapStateToProps & MapDispatchToProps> {
+
     componentDidMount() {
         this.props.setLoading(true)
-        instance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        Api.getUsers(this.props.currentPage, this.props.pageSize)
             .then((res)=> {
                 this.props.setLoading(false)
-                this.props.setUsers(res.data.items)
-                this.props.setTotalCount(res.data.totalCount)
+                this.props.setUsers(res.items)
+                this.props.setTotalCount(res.totalCount)
             })
     }
     onClickHandler = (p: number)=> {
         this.props.setLoading(true)
         this.props.setCurrentPage(p)
-        instance.get(`users?page=${p}&count=${this.props.pageSize}`)
-            .then((res) =>
-                {
+        Api.getUsers(p, this.props.pageSize)
+            .then((res) => {
                     this.props.setLoading(false)
-                    this.props.setUsers(res.data.items)
-                    this.props.setTotalCount(res.data.totalCount)
-                }
-            )
+                    this.props.setUsers(res.items)
+                    this.props.setTotalCount(res.totalCount)
+                })
     }
 
     render () {

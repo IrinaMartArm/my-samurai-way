@@ -1,6 +1,6 @@
 import React from "react";
 import {Header} from "./Header";
-import {AuthDataType, instance, ResponseType} from "../../api/Api";
+import {Api, AuthDataType} from "../../api/Api";
 import {connect} from "react-redux";
 import {setAuthUserData} from "../../redux/AuthReducer";
 import {RootStateType} from "../../redux/Store";
@@ -9,10 +9,10 @@ import {RootStateType} from "../../redux/Store";
 class HeaderContainerClass extends React.Component<PropsType>{
 
     componentDidMount() {
-        instance.get<ResponseType>('auth/me')
+            Api.auth()
             .then((res) => {
-                if(res.data.resultCode === 0) {
-                    this.props.setAuthUserData(res.data.data)
+                if(res.resultCode === 0) {
+                    this.props.setAuthUserData(res.data)
                 }
             })
     }

@@ -14,7 +14,15 @@ export const Api = {
     },
     unfollow(id: string)  {
         return instance.delete(`follow/${id}`)
-}
+    },
+    async getUsers(page: number = 1, pageSize: number = 10) {
+        const res = await instance.get(`users?page=${page}&count=${pageSize}`);
+        return res.data;
+    },
+    async auth(){
+        const res = await instance.get<ResponseType>('auth/me')
+        return res.data
+    }
 }
 
 
