@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 import { S } from "./StyledDialogs"
 
 type PropsType = {
-    id: string
+    id: number
     name: string
 }
 

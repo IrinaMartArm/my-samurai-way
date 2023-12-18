@@ -2,33 +2,20 @@ import {Users} from "./Users";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/Store";
 import {
-    follow, setBlocked, setCurrentPage, setLoading, setTotalCount, setUsers, unfollow, UserType
+    follow, getUsersTC, setBlocked, unfollow, UserType
 } from "../../../redux/UsersReducer";
 import React from "react";
 import {Preloader} from "../../../components/Preloader";
-import {Api} from "../../../api/Api";
+
 
 
 export class UsersClassContainer extends React.Component<MapStateToProps & MapDispatchToProps> {
 
     componentDidMount() {
-        this.props.setLoading(true)
-        Api.getUsers(this.props.currentPage, this.props.pageSize)
-            .then((res)=> {
-                this.props.setLoading(false)
-                this.props.setUsers(res.items)
-                this.props.setTotalCount(res.totalCount)
-            })
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
-    onClickHandler = (p: number)=> {
-        this.props.setLoading(true)
-        this.props.setCurrentPage(p)
-        Api.getUsers(p, this.props.pageSize)
-            .then((res) => {
-                    this.props.setLoading(false)
-                    this.props.setUsers(res.items)
-                    this.props.setTotalCount(res.totalCount)
-                })
+    onClickHandler = (page: number)=> {
+        this.props.getUsersTC(page, this.props.pageSize)
     }
 
     render () {
@@ -39,10 +26,9 @@ export class UsersClassContainer extends React.Component<MapStateToProps & MapDi
                            currentPage={this.props.currentPage}
                            pageSize={this.props.pageSize}
                            totalCount={this.props.totalCount}
-                           follow={this.props.follow}
-                           unfollow={this.props.unfollow}
+                           followTC={this.props.follow}
+                           unfollowTC={this.props.unfollow}
                            onClickHandler={this.onClickHandler}
-                           setBlocked={this.props.setBlocked}
                            blocked={this.props.blocked}
                     />}
 
@@ -56,17 +42,18 @@ type MapStateToProps = {
     pageSize: number
     currentPage: number
     isLoading: boolean
-    blocked: Array<string>
+    blocked: Array<number>
 }
 type MapDispatchToProps = {
 
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setUsers: (users: UserType[]) =>void
-    setCurrentPage: (page: number) => void
-    setTotalCount: (c: number) => void
-    setLoading: (status: boolean) => void
-    setBlocked: (userId: string, status: boolean) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    // setUsers: (users: UserType[]) =>void
+    // setCurrentPage: (page: number) => void
+    // setTotalCount: (c: number) => void
+    // setLoading: (status: boolean) => void
+    // setBlocked: (userId: number, status: boolean) => void
+    getUsersTC: (page: number, pageSize: number) => void
 }
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
 
@@ -83,11 +70,8 @@ let mapStateToProps = (state: RootStateType): MapStateToProps => {
 let mapDispatchToProps = {
         follow,
         unfollow,
-        setUsers,
-        setCurrentPage,
-        setTotalCount,
-        setLoading,
-        setBlocked
+        setBlocked,
+        getUsersTC
 }
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)

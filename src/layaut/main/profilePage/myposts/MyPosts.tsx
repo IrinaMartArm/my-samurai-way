@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import React from "react";
 import { Post } from "./Post";
-import {PostsType} from "../../../../redux/state";
 import {Button} from "../../../../components/Button";
 import {TextAria} from "../../../../components/TextAria";
+import {PostType} from "../../../../redux/ProfileReducer";
 
 
 
 export type PropsType = {
-    posts: PostsType
+    posts: PostType[]
     addPost: () => void
     newPostText: string
     changePost: (post: string) => void

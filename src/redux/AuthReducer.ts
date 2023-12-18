@@ -7,7 +7,7 @@ const initState = {
     isAuth: false
 }
 
-export const AuthReducer = (state: InitStateType = initState, action: ActionType): InitStateType => {
+export const AuthReducer = (state: InitStateType = initState, action: AuthReducerActionType): InitStateType => {
     switch (action.type) {
         case 'SET_USER-DATA':
             return {...state, ...action.data, isAuth: true}
@@ -27,4 +27,4 @@ export type InitStateType = {
     login: string
     isAuth: boolean
 }
-type ActionType = ReturnType<typeof setAuthUserData>
+export type AuthReducerActionType = ReturnType<typeof setAuthUserData>

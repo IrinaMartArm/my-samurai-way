@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {PostsType, PostType} from "./state";
+
 
 const initialState: ProfilePageType = {
     posts: [
@@ -30,7 +30,7 @@ const initialState: ProfilePageType = {
     }
 }
 
-export const ProfileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
+export const ProfileReducer = (state: ProfilePageType = initialState, action: ProfileReducerActionType): ProfilePageType => {
 
     switch (action.type) {
         case 'ADD-POST':
@@ -65,7 +65,7 @@ export const changePost = (post: string) => {
 
 export const setUserProfile = (profile: UserProfile) => ({type: 'SET_USER-PROFILE', profile} as const)
 
-type ActionType = ReturnType<typeof setUserProfile>
+export type ProfileReducerActionType = ReturnType<typeof setUserProfile>
                 | ReturnType<typeof changePost>
             | ReturnType<typeof addPost>
 
@@ -91,7 +91,14 @@ export type UserProfile = {
     }
 }
 export type ProfilePageType = {
-    posts: PostsType
+    posts: PostType[]
     newPostText: string
     profile: UserProfile
 }
+
+export type PostType = {
+    id: string
+    post: string
+    likes: number
+}
+// export type PostsType = PostType[]

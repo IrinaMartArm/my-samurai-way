@@ -4,31 +4,30 @@ import {Button} from "../../../components/Button";
 import styles from "./Users.module.css"
 import userPhoto from './../../../assets/images/585e4beacb11b227491c3399.png'
 import {NavLink} from "react-router-dom";
-import { Api } from '../../../api/Api';
+
 
 
 
 type UserPropsType = {
     users: UserType[]
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
     onClickHandler: (p: number) => void
-    setBlocked: (userId: string, inProgress: boolean) => void
     totalCount: number
     pageSize: number
     currentPage: number
-    blocked: Array<string>
+    blocked: Array<number>
 }
 
 export function Users(props: UserPropsType) {
-    const {users, follow, unfollow, totalCount, pageSize, currentPage, onClickHandler, setBlocked, } = props
+    const {users, blocked, totalCount, pageSize, currentPage, followTC, unfollowTC, onClickHandler} = props
 
     let pagesCount = Math.ceil(totalCount / pageSize)
     let pages = []
     for(let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-
+    console.log(props.blocked , users)
     return (
         <div className={styles.box}>
             <div className={styles.pages}>
@@ -46,27 +45,12 @@ export function Users(props: UserPropsType) {
                             {u.followed ?
                                 <Button name={'follow'}
                                         disabled={props.blocked.some(id => id === u.id)}
-                                        onClick={()=> {
-                                            setBlocked(u.id, true)
-                                    Api.unfollow(u.id)
-                                        .then((res) => {
-                                            if(res.data.resultCode === 0){
-                                                unfollow(u.id)
-                                            }
-                                            setBlocked(u.id, false)
-                                        })
-                                }} key={u.id}></Button> :
-                                <Button name={'unfollow'} disabled={props.blocked.some(id => id === u.id)}
-                                        onClick={()=> {
-                                            setBlocked(u.id, true)
-                                    Api.follow(u.id)
-                                        .then((res) => {
-                                            if(res.data.resultCode === 0){
-                                                follow(u.id)
-                                            }
-                                            setBlocked(u.id, false)
-                                        })
-                                }} key={u.id}></Button>}
+                                        onClick={()=> {unfollowTC(u.id)}}
+                                        key={u.id}></Button> :
+                                <Button name={'unfollow'}
+                                        disabled={blocked.some(id => id === u.id)}
+                                        onClick={()=> {followTC(u.id)}}
+                                        key={u.id}></Button>}
 
                         </span>
                     <div className={styles.item_info}>

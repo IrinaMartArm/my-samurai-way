@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -9,27 +9,27 @@ export const instance = axios.create({
 })
 
 export const Api = {
-    follow(id: string) {
-            return instance.post(`follow/${id}`)
+    follow(id: number) {
+            return instance.post<ResponseType>(`follow/${id}`)
     },
-    unfollow(id: string)  {
-        return instance.delete(`follow/${id}`)
+    unfollow(id: number)  {
+        return instance.delete<ResponseType>(`follow/${id}`)
     },
     async getUsers(page: number = 1, pageSize: number = 10) {
-        const res = await instance.get(`users?page=${page}&count=${pageSize}`);
+        const res = await instance.get<ResponseUser>(`users?page=${page}&count=${pageSize}`);
         return res.data;
     },
     async auth(){
-        const res = await instance.get<ResponseType>('auth/me')
+        const res = await instance.get<ResponseType, AxiosResponse<ResponseType<AuthDataType>>>('auth/me')
         return res.data
     }
 }
 
 
-export type ResponseType = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: string[],
-    data: AuthDataType
+    data: D
     fieldsErrors: []
 }
 
@@ -38,3 +38,23 @@ export type AuthDataType = {
     email: string
     login: string
 }
+
+type User =  {
+    id: number
+    name: string
+    status: string
+    photos: {
+        small: string
+        large: string
+    }
+    followed: boolean
+}
+
+type ResponseUser = {
+    items: User[]
+    totalCount: number
+    error: string
+}
+
+
+// AxiosResponse<ResponseUser>

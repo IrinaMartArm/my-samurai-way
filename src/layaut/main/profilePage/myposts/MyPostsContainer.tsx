@@ -2,8 +2,8 @@
 import {MyPosts} from "./MyPosts";
 import {RootStateType} from "../../../../redux/Store";
 import {connect} from "react-redux";
-import {addPost, changePost} from "../../../../redux/ProfileReducer";
-import {PostsType} from "../../../../redux/state";
+import {addPost, changePost, PostType} from "../../../../redux/ProfileReducer";
+
 
 
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
@@ -20,7 +20,7 @@ export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyP
 
 
 type MapStateToProps = {
-    posts: PostsType
+    posts: PostType[]
     newPostText: string
 }
 type MapDispatchToProps = {

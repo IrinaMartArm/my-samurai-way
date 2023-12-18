@@ -1,24 +1,24 @@
-import {addMessageAC, changeMessageAC, DialogsPageType} from "./state";
-import {v1} from "uuid";
-import {DialogsReducer} from "./DialogsReducer";
+import {addMessageAC, changeMessageAC, DialogsPageType, DialogsReducer} from "./DialogsReducer";
 
-test('should add Post', () => {
+let startState: DialogsPageType
 
-
-    const startState: DialogsPageType = {
+beforeEach(() => {
+    startState = {
         contacts: [
-            {id: v1(), name: 'Ira'},
-            {id: v1(), name: 'Suren'},
-            {id: v1(), name: 'Arina'},
-            {id: v1(), name: 'Liana'},
+            {id: 1, name: 'Ira'},
+            {id: 2, name: 'Suren'},
+            {id: 3, name: 'Arina'},
+            {id: 4, name: 'Liana'},
         ],
-            messages: [
-            {id: v1(), text: 'hi'},
-            {id: v1(), text: 'how are you?'},
-            {id: v1(), text: 'ok!'},
+        messages: [
+            {id: "1", text: 'hi'},
+            {id: '2', text: 'how are you?'},
+            {id: '3', text: 'ok!'},
         ],
-            newMessageText: ''
+        newMessageText: ''
     }
+})
+test('should add Post', () => {
 
     const endState = DialogsReducer(startState, addMessageAC())
 
@@ -26,23 +26,6 @@ test('should add Post', () => {
     expect(endState.messages[3].text).toBe(endState.newMessageText)
 })
 test('should Change PostText', () => {
-
-
-    const startState: DialogsPageType = {
-        contacts: [
-            {id: v1(), name: 'Ira'},
-            {id: v1(), name: 'Suren'},
-            {id: v1(), name: 'Arina'},
-            {id: v1(), name: 'Liana'},
-        ],
-        messages: [
-            {id: v1(), text: 'hi'},
-            {id: v1(), text: 'how are you?'},
-            {id: v1(), text: 'ok!'},
-        ],
-        newMessageText: ''
-    }
-
 
     const endState = DialogsReducer(startState, changeMessageAC(startState.newMessageText))
 

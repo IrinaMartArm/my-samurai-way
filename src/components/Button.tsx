@@ -11,6 +11,6 @@ export const Button = (props: PropsType) => {
         props.onClick()
     }
     return (
-        <Btn onClick={handler}>{props.name}</Btn>
+        <Btn onClick={handler} disabled={props.disabled}>{props.name}</Btn>
     );
 }

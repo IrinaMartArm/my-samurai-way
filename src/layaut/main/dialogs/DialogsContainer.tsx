@@ -1,8 +1,7 @@
-
-import {ActionType, addMessageAC, changeMessageAC} from "../../../redux/state";
 import {RootStateType} from "../../../redux/Store";
 import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
+import {addMessageAC, changeMessageAC, DialogsReducerActionType} from "../../../redux/DialogsReducer";
 
 
 let mapStateToProps = (state: RootStateType) => {
@@ -12,7 +11,7 @@ let mapStateToProps = (state: RootStateType) => {
             contacts: state.dialogsReducer.contacts
     }
 }
-let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+let mapDispatchToProps = (dispatch: (action: DialogsReducerActionType) => void) => {
     return {
         addMessage: () => {dispatch(addMessageAC())},
         changeMessageText: (message: string) => {dispatch(changeMessageAC(message))}
