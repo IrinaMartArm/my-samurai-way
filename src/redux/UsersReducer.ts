@@ -87,7 +87,7 @@ export const followTC = (userId: number) => (dispatch: Dispatch) => {
     Api.follow(userId)
         .then((res) => {
             if (res.data.resultCode === 0) {
-                follow(userId)
+                dispatch(follow(userId))
             }
             dispatch(setBlocked(userId, false))
         })
@@ -99,7 +99,7 @@ export const unfollowTC = (userId: number) => (dispatch: Dispatch) => {
     Api.unfollow(userId)
         .then((res) => {
             if (res.data.resultCode === 0) {
-                unfollow(userId)
+                dispatch(unfollow(userId))
             }
             dispatch(setBlocked(userId, false))
         })

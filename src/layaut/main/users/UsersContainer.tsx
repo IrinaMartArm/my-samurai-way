@@ -2,7 +2,7 @@ import {Users} from "./Users";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/Store";
 import {
-    follow, getUsersTC, setBlocked, unfollow, UserType
+    followTC, getUsersTC, setBlocked, unfollowTC, UserType
 } from "../../../redux/UsersReducer";
 import React from "react";
 import {Preloader} from "../../../components/Preloader";
@@ -26,8 +26,8 @@ export class UsersClassContainer extends React.Component<MapStateToProps & MapDi
                            currentPage={this.props.currentPage}
                            pageSize={this.props.pageSize}
                            totalCount={this.props.totalCount}
-                           followTC={this.props.follow}
-                           unfollowTC={this.props.unfollow}
+                           followTC={this.props.followTC}
+                           unfollowTC={this.props.unfollowTC}
                            onClickHandler={this.onClickHandler}
                            blocked={this.props.blocked}
                     />}
@@ -46,8 +46,8 @@ type MapStateToProps = {
 }
 type MapDispatchToProps = {
 
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
     // setUsers: (users: UserType[]) =>void
     // setCurrentPage: (page: number) => void
     // setTotalCount: (c: number) => void
@@ -68,8 +68,8 @@ let mapStateToProps = (state: RootStateType): MapStateToProps => {
 }
 
 let mapDispatchToProps = {
-        follow,
-        unfollow,
+        followTC,
+        unfollowTC,
         setBlocked,
         getUsersTC
 }
