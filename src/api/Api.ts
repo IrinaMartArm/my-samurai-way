@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from "axios";
+import {UserProfile} from "../redux/ProfileReducer";
 
 export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -9,11 +10,11 @@ export const instance = axios.create({
 })
 
 export const Api = {
-    follow(id: number) {
-            return instance.post<ResponseType>(`follow/${id}`)
+    async follow(id: number) {
+            return await instance.post<ResponseType>(`follow/${id}`)
     },
-    unfollow(id: number)  {
-        return instance.delete<ResponseType>(`follow/${id}`)
+    async unfollow(id: number)  {
+        return await instance.delete<ResponseType>(`follow/${id}`)
     },
     async getUsers(page: number = 1, pageSize: number = 10) {
         const res = await instance.get<ResponseUser>(`users?page=${page}&count=${pageSize}`);
@@ -22,6 +23,9 @@ export const Api = {
     async auth(){
         const res = await instance.get<ResponseType, AxiosResponse<ResponseType<AuthDataType>>>('auth/me')
         return res.data
+    },
+    async getProfile(userId: number){
+        return await instance.get<UserProfile>(`profile/${userId}`)
     }
 }
 

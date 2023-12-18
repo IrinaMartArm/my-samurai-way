@@ -45,11 +45,11 @@ export function Users(props: UserPropsType) {
                             {u.followed ?
                                 <Button name={'follow'}
                                         disabled={props.blocked.some(id => id === u.id)}
-                                        onClick={()=> {unfollowTC(u.id)}}
+                                        onClick={()=> unfollowTC(u.id)}
                                         key={u.id}></Button> :
                                 <Button name={'unfollow'}
                                         disabled={blocked.some(id => id === u.id)}
-                                        onClick={()=> {followTC(u.id)}}
+                                        onClick={()=> followTC(u.id)}
                                         key={u.id}></Button>}
 
                         </span>

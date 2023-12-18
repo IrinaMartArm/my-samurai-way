@@ -11,6 +11,7 @@ import {DialogsContainer} from "./layaut/main/dialogs/DialogsContainer";
 import {UsersContainer} from "./layaut/main/users/UsersContainer";
 import {ProfilePageContainer} from "./layaut/main/profilePage/ProfilePageContainer";
 import {HeaderContainer} from "./layaut/header/HeaderContainer";
+import {Login} from "./layaut/Login";
 
 
 const App: React.FC = () => {
@@ -33,7 +34,8 @@ const App: React.FC = () => {
                     render={() => <DialogsContainer/>}
                 />
                 <Route path={"/users"} render={() => <UsersContainer/>} />
-                <Route path={"/news"} render={() => <News />} />
+                <Route path={"/login"} render={() => <Login/>} />
+                <Route path={"/news"} render={() => <News/>} />
             </Main>
         </StyledApp>
     );

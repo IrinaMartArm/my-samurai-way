@@ -6,6 +6,7 @@ import {addMessageAC, changeMessageAC, DialogsReducerActionType} from "../../../
 
 let mapStateToProps = (state: RootStateType) => {
     return {
+        isAuth: state.authReducer.isAuth,
         messages: state.dialogsReducer.messages,
         newMessageText: state.dialogsReducer.newMessageText,
             contacts: state.dialogsReducer.contacts

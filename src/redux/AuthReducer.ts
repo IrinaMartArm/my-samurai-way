@@ -1,4 +1,5 @@
-import {AuthDataType} from "../api/Api";
+import {Api, AuthDataType} from "../api/Api";
+import {Dispatch} from "redux";
 
 const initState = {
     id: 0,
@@ -20,6 +21,14 @@ export const setAuthUserData = (data: AuthDataType) => {
     return {type: 'SET_USER-DATA', data} as const
 }
 
+export const authTC = () => (dispatch: Dispatch) => {
+    Api.auth()
+        .then((res) => {
+            if(res.resultCode === 0) {
+                dispatch(setAuthUserData(res.data))
+            }
+        })
+}
 
 export type InitStateType = {
     id: number

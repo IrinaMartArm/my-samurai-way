@@ -3,7 +3,7 @@ import {ProfileReducer, ProfileReducerActionType} from "./ProfileReducer";
 import {DialogsReducer, DialogsReducerActionType} from "./DialogsReducer";
 import {UserReducerActionsType, UsersReducer} from "./UsersReducer";
 import {AuthReducer, AuthReducerActionType} from "./AuthReducer";
-import thunk, {ThunkDispatch} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {useDispatch} from "react-redux";
 
 let rootReducer = combineReducers({
@@ -19,6 +19,8 @@ export type BasicAction = UserReducerActionsType
                     | ProfileReducerActionType
                     | DialogsReducerActionType
                     | AuthReducerActionType
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, BasicAction>
 
 export const useAppDispatch: RootDispatchType = useDispatch
 

@@ -36,25 +36,7 @@ export class UsersClassContainer extends React.Component<MapStateToProps & MapDi
         );
     }
 }
-type MapStateToProps = {
-    users: UserType[]
-    totalCount: number
-    pageSize: number
-    currentPage: number
-    isLoading: boolean
-    blocked: Array<number>
-}
-type MapDispatchToProps = {
 
-    followTC: (userId: number) => void
-    unfollowTC: (userId: number) => void
-    // setUsers: (users: UserType[]) =>void
-    // setCurrentPage: (page: number) => void
-    // setTotalCount: (c: number) => void
-    // setLoading: (status: boolean) => void
-    // setBlocked: (userId: number, status: boolean) => void
-    getUsersTC: (page: number, pageSize: number) => void
-}
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
 
     return {
@@ -76,3 +58,16 @@ let mapDispatchToProps = {
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)
 
+type MapStateToProps = {
+    users: UserType[]
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    isLoading: boolean
+    blocked: Array<number>
+}
+type MapDispatchToProps = {
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
+    getUsersTC: (page: number, pageSize: number) => void
+}
