@@ -6,6 +6,7 @@ import {
 } from "../../../redux/UsersReducer";
 import React from "react";
 import {Preloader} from "../../../components/Preloader";
+import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
 
 
 
@@ -55,8 +56,9 @@ let mapDispatchToProps = {
         setBlocked,
         getUsersTC
 }
+let WithRedirect = WithAuthRedirect(UsersClassContainer)
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClassContainer)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(WithRedirect)
 
 type MapStateToProps = {
     users: UserType[]
