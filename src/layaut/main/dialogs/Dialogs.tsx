@@ -5,13 +5,11 @@ import {TextAria} from "../../../components/TextAria";
 import {Button} from "../../../components/Button";
 import React from "react";
 import {ContactType, MessagesType} from "../../../redux/DialogsReducer";
-import {Redirect} from "react-router-dom";
 
 
 type PropsType = {
     contacts: ContactType[]
     messages: MessagesType[]
-    isAuth: boolean
     newMessageText: string
     addMessage: () => void
     changeMessageText: (message: string) => void
@@ -19,7 +17,7 @@ type PropsType = {
 
 export const Dialogs = (props:  PropsType) => {
 
-    const {messages,isAuth , newMessageText, changeMessageText, contacts, addMessage} = props
+    const {messages, newMessageText, changeMessageText, contacts, addMessage} = props
 
     const myMessages = messages.map(m => <Messages key={m.id} id={m.id} text={m.text}/>)
 
@@ -33,8 +31,6 @@ export const Dialogs = (props:  PropsType) => {
     const onChangeHandler = (message: string) => {
         changeMessageText(message)
     }
-
-    if(!isAuth) return <Redirect to={'/login'}/>
 
     return (
         <>

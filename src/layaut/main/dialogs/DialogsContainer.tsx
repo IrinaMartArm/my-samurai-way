@@ -1,15 +1,21 @@
 import {RootStateType} from "../../../redux/Store";
 import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
-import {addMessageAC, changeMessageAC, DialogsReducerActionType} from "../../../redux/DialogsReducer";
+import {
+    addMessageAC,
+    changeMessageAC,
+    ContactType,
+    DialogsReducerActionType,
+    MessagesType
+} from "../../../redux/DialogsReducer";
+import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
 
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        isAuth: state.authReducer.isAuth,
         messages: state.dialogsReducer.messages,
         newMessageText: state.dialogsReducer.newMessageText,
-            contacts: state.dialogsReducer.contacts
+        contacts: state.dialogsReducer.contacts
     }
 }
 let mapDispatchToProps = (dispatch: (action: DialogsReducerActionType) => void) => {
@@ -19,10 +25,22 @@ let mapDispatchToProps = (dispatch: (action: DialogsReducerActionType) => void) 
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const RedirectComponent = WithAuthRedirect(Dialogs)
 
 
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(RedirectComponent)
 
+
+type MapStateToPropsType = {
+    messages: MessagesType[]
+    newMessageText: string
+    contacts: ContactType[]
+}
+type MapDispatchToPropsType = {
+    addMessage: () => void
+    changeMessageText: (message: string) => void
+}
+type PropsType = MapDispatchToPropsType & MapStateToPropsType
 
 
 
