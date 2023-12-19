@@ -19,17 +19,18 @@ class ProfilePageClassContainer extends React.Component<PropsType> {
     }
 }
 
-let RedirectComponent = WithAuthRedirect(ProfilePageClassContainer)
+// let RedirectComponent = WithAuthRedirect(ProfilePageClassContainer)
 
 const MapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: state.profileReducer.profile
 })
-
 const MapDispatchToProps: MapDispatchToPropsType = {getProfileTC}
 
-const RouterBox = withRouter(RedirectComponent)
+const WithRouterContainer = withRouter(ProfilePageClassContainer)
 
-export const ProfilePageContainer= connect(MapStateToProps, MapDispatchToProps)(RouterBox)
+export const ProfilePageContainer= WithAuthRedirect(connect(MapStateToProps, MapDispatchToProps)(WithRouterContainer))
+
+
 
 
 type ProfilePagePropsType = MapStateToPropsType & MapDispatchToPropsType
