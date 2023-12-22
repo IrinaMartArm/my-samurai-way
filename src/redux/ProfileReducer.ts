@@ -65,7 +65,7 @@ export const setUserStatus = (status: string) => ({type: 'PROFILE/SET_USER-STATU
 export const changeUserStatus = (status: string) => ({type: 'PROFILE/CHANGE_USER-STATUS', status}as const)
 
 
-export const getProfileTC = (userId: number): AppThunk => async (dispatch) => {
+export const getUserProfileTC = (userId: number): AppThunk => async (dispatch) => {
      const res = await ProfileApi.getProfile(userId)
      dispatch(setUserProfile(res.data))
 }
@@ -77,7 +77,7 @@ export const getUserStatusTC = (userId: number) => async (dispatch: Dispatch) =>
 
     }
 }
-export const changeStatusTC = (status: string) => async (dispatch: Dispatch) => {
+export const changeUserStatusTC = (status: string) => async (dispatch: Dispatch) => {
     try {
         const res = await ProfileApi.updateStatus(status)
         if(res.data.resultCode === 0) {

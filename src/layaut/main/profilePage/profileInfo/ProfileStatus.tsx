@@ -1,7 +1,7 @@
 import {Input} from "../../../../components/Input";
 import React from "react";
 
-export class ProfileStatus extends React.Component<any> {
+export class ProfileStatus extends React.Component<PropsType> {
 
     state = {
         editMode: false,
@@ -24,6 +24,12 @@ export class ProfileStatus extends React.Component<any> {
         console.log(value)
     }
 
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>) {
+        if(prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
+    }
+
     render() {
         return (
             <>
@@ -39,10 +45,7 @@ export class ProfileStatus extends React.Component<any> {
         )
     }
 }
-
-// let mapStateToProps = () => {
-//
-// }
-// let mapDispatchToProps = {
-//
-// }
+type PropsType = {
+    status: string
+    changeStatus: (status: string) => void
+}

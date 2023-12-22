@@ -5,12 +5,14 @@ import {UserReducerActionsType, UsersReducer} from "./UsersReducer";
 import {AuthReducer, AuthReducerActionType} from "./AuthReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {useDispatch} from "react-redux";
+import {reducer as formReducer} from "redux-form"
 
 let rootReducer = combineReducers({
     profileReducer: ProfileReducer,
     dialogsReducer: DialogsReducer,
     usersReducer: UsersReducer,
-    authReducer: AuthReducer
+    authReducer: AuthReducer,
+    form: formReducer
 })
 
 export type RootStateType = ReturnType<typeof rootReducer>
