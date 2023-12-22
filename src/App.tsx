@@ -8,8 +8,8 @@ import { Route } from "react-router-dom";
 import { News } from "./layaut/main/news/News";
 import a from "./assets/images/IMG_3719 1 2.png";
 import {DialogsContainer} from "./layaut/main/dialogs/DialogsContainer";
-import {UsersContainer} from "./layaut/main/users/UsersContainer";
-import {ProfilePageContainer} from "./layaut/main/profilePage/ProfilePageContainer";
+import UsersContainer from "./layaut/main/users/UsersContainer";
+import ProfilePageContainer from "./layaut/main/profilePage/ProfilePageContainer";
 import {HeaderContainer} from "./layaut/header/HeaderContainer";
 import {Login} from "./layaut/Login";
 
@@ -33,7 +33,8 @@ const App: React.FC = () => {
                     path={"/dialogs"}
                     render={() => <DialogsContainer/>}
                 />
-                <Route path={"/users"} render={() => <UsersContainer/>} />
+                <Route path={"/users"} render={() =>
+                    <UsersContainer/>} />
                 <Route path={"/login"} render={() => <Login/>} />
                 <Route path={"/news"} render={() => <News/>} />
             </Main>

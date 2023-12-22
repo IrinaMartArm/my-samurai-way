@@ -24,11 +24,19 @@ export const Api = {
         const res = await instance.get<ResponseType, AxiosResponse<ResponseType<AuthDataType>>>('auth/me')
         return res.data
     },
+
+}
+export const ProfileApi = {
     async getProfile(userId: number){
         return await instance.get<UserProfile>(`profile/${userId}`)
+    },
+    async getUserStatus(userId: number){
+        return await instance.get<UserProfile>(`profile/status/${userId}`)
+    },
+    async updateStatus(status: string) {
+        return await instance.put<ResponseType>(`profile/status`, {status})
     }
 }
-
 
 export type ResponseType<D = {}> = {
     resultCode: number

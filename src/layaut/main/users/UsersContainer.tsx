@@ -4,13 +4,13 @@ import {RootStateType} from "../../../redux/Store";
 import {
     followTC, getUsersTC, setBlocked, unfollowTC, UserType
 } from "../../../redux/UsersReducer";
-import React from "react";
+import React, {ComponentType} from "react";
 import {Preloader} from "../../../components/Preloader";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
+import {compose} from "redux";
 
 
-
-export class UsersClassContainer extends React.Component<MapStateToProps & MapDispatchToProps> {
+class UsersContainer extends React.Component<MapStateToProps & MapDispatchToProps> {
 
     componentDidMount() {
         this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
@@ -56,9 +56,12 @@ let mapDispatchToProps = {
         setBlocked,
         getUsersTC
 }
-let WithRedirect = WithAuthRedirect(UsersClassContainer)
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(WithRedirect)
+export default compose<ComponentType>(
+    WithAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps)
+)(UsersContainer)
+
 
 type MapStateToProps = {
     users: UserType[]

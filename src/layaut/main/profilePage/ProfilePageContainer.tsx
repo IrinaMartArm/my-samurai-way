@@ -1,34 +1,42 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {ProfilePage} from "./ProfilePage";
 import {connect} from "react-redux";
-import {getProfileTC, UserProfile} from "../../../redux/ProfileReducer";
+import {changeStatusTC, getProfileTC, getUserStatusTC, UserProfile} from "../../../redux/ProfileReducer";
 import {RootStateType} from "../../../redux/Store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
+import {compose} from "redux";
 
 
 
-class ProfilePageClassContainer extends React.Component<PropsType> {
+class ProfilePageContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
+        if(!userId)(userId = String(2))
         this.props.getProfileTC(+userId)
+        this.props.getUserStatusTC(+userId)
     }
     render() {
-        return <ProfilePage {...this.props} profile={this.props.profile}/>
+        return <ProfilePage {...this.props}
+                            profile={this.props.profile}
+                            status={this.props.status}
+                            changeStatus={this.props.changeStatusTC}
+        />
     }
 }
 
-// let RedirectComponent = WithAuthRedirect(ProfilePageClassContainer)
-
 const MapStateToProps = (state: RootStateType): MapStateToPropsType => ({
-    profile: state.profileReducer.profile
+    profile: state.profileReducer.profile,
+    status: state.profileReducer.status
 })
-const MapDispatchToProps: MapDispatchToPropsType = {getProfileTC}
+const MapDispatchToProps: MapDispatchToPropsType = {getProfileTC, getUserStatusTC, changeStatusTC}
 
-const WithRouterContainer = withRouter(ProfilePageClassContainer)
-
-export const ProfilePageContainer= WithAuthRedirect(connect(MapStateToProps, MapDispatchToProps)(WithRouterContainer))
+export default compose<ComponentType>(
+    connect(MapStateToProps, MapDispatchToProps),
+    withRouter,
+    WithAuthRedirect
+)(ProfilePageContainer)
 
 
 
@@ -38,9 +46,12 @@ type PropsType = ProfilePagePropsType & RouteComponentProps<{userId: string}>
 
 type MapStateToPropsType = {
     profile: UserProfile
+    status: string
 }
 
 
 type MapDispatchToPropsType = {
     getProfileTC: (userId: number) => void
+    getUserStatusTC: (userId: number) => void
+    changeStatusTC: (status: string) => void
 }

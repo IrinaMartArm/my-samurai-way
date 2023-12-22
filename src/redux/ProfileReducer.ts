@@ -1,6 +1,7 @@
 import {v1} from "uuid";
-import {Api} from "../api/Api";
+import {ProfileApi} from "../api/Api";
 import {AppThunk} from "./Store";
+import {Dispatch} from "redux";
 
 
 const initialState: ProfilePageType = {
@@ -29,13 +30,14 @@ const initialState: ProfilePageType = {
             small: 'string',
             large: 'string'
         }
-    }
+    },
+    status: ''
 }
 
 export const ProfileReducer = (state: ProfilePageType = initialState, action: ProfileReducerActionType): ProfilePageType => {
 
     switch (action.type) {
-        case 'ADD-POST':
+        case 'PROFILE/ADD-POST':
             let newPost: PostType = {
             id: v1(),
             post: state.newPostText,
@@ -43,23 +45,48 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Pr
             }
             state.newPostText = ''
             return  {...state, posts: [newPost, ...state.posts]}
-        case 'CHANGE-TEXT':
+        case 'PROFILE/CHANGE-TEXT':
             return {...state, newPostText: action.post}
-        case 'SET_USER-PROFILE':
+        case 'PROFILE/SET_USER-PROFILE':
             return {...state, profile: action.profile}
+        case 'PROFILE/SET_USER-STATUS':
+            return {...state, status: action.status}
+        case 'PROFILE/CHANGE_USER-STATUS':
+            return {...state, status: action.status}
         default:
             return state
     }
 }
 
-export const addPost = () => ({type: 'ADD-POST',} as const)
-export const changePost = (post: string) => ({type: 'CHANGE-TEXT', post} as const)
-export const setUserProfile = (profile: UserProfile) => ({type: 'SET_USER-PROFILE', profile} as const)
+export const addPost = () => ({type: 'PROFILE/ADD-POST',} as const)
+export const changePost = (post: string) => ({type: 'PROFILE/CHANGE-TEXT', post} as const)
+export const setUserProfile = (profile: UserProfile) => ({type: 'PROFILE/SET_USER-PROFILE', profile} as const)
+export const setUserStatus = (status: string) => ({type: 'PROFILE/SET_USER-STATUS', status}as const)
+export const changeUserStatus = (status: string) => ({type: 'PROFILE/CHANGE_USER-STATUS', status}as const)
 
 
 export const getProfileTC = (userId: number): AppThunk => async (dispatch) => {
-     const res = await Api.getProfile(userId)
+     const res = await ProfileApi.getProfile(userId)
      dispatch(setUserProfile(res.data))
+}
+export const getUserStatusTC = (userId: number) => async (dispatch: Dispatch) => {
+    try {
+        const res = await ProfileApi.getUserStatus(userId)
+        dispatch(setUserStatus(res.data))
+    } catch (err) {
+
+    }
+}
+export const changeStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    try {
+        const res = await ProfileApi.updateStatus(status)
+        if(res.data.resultCode === 0) {
+            dispatch(changeUserStatus(status))
+        }
+
+    } catch (err) {
+
+    }
 }
 
 
@@ -67,6 +94,8 @@ export const getProfileTC = (userId: number): AppThunk => async (dispatch) => {
 export type ProfileReducerActionType = ReturnType<typeof setUserProfile>
                 | ReturnType<typeof changePost>
                 | ReturnType<typeof addPost>
+                | ReturnType<typeof setUserStatus>
+                | ReturnType<typeof changeUserStatus>
 
 type ContactKey = 'github'| 'vk' | 'facebook' | 'instagram' | 'twitter' | 'website' | 'youtube' | 'mainLink'
 type ContactsType = Record<ContactKey, string>
@@ -90,6 +119,7 @@ export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
     profile: UserProfile
+    status: string
 }
 
 export type PostType = {
