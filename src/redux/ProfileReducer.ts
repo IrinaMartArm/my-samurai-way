@@ -72,7 +72,7 @@ export const getUserProfileTC = (userId: number): AppThunk => async (dispatch) =
 export const getUserStatusTC = (userId: number) => async (dispatch: Dispatch) => {
     try {
         const res = await ProfileApi.getUserStatus(userId)
-        dispatch(setUserStatus(res.data))
+        dispatch(setUserStatus(res.data.status))
     } catch (err) {
 
     }

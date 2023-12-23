@@ -29,7 +29,8 @@ beforeEach(() => {
                 small: 'string',
                 large: 'string'
             }
-        }
+        },
+        status: 'hi'
     }
 })
 test('should add Post', () => {

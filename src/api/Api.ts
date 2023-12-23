@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {UserProfile} from "../redux/ProfileReducer";
+import {ProfilePageType, UserProfile} from "../redux/ProfileReducer";
 
 export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -31,7 +31,7 @@ export const ProfileApi = {
         return await instance.get<UserProfile>(`profile/${userId}`)
     },
     async getUserStatus(userId: number){
-        return await instance.get<UserProfile>(`profile/status/${userId}`)
+        return await instance.get<ProfilePageType>(`profile/status/${userId}`)
     },
     async updateStatus(status: string) {
         return await instance.put<ResponseType>(`profile/status`, {status})
