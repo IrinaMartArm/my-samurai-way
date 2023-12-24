@@ -4,9 +4,7 @@ import {Button} from "../../../components/Button";
 import styles from "./Users.module.css"
 import userPhoto from './../../../assets/images/585e4beacb11b227491c3399.png'
 import {NavLink} from "react-router-dom";
-
-
-
+import {Paginator} from "../../../components/Paginator";
 
 type UserPropsType = {
     users: UserType[]
@@ -22,20 +20,16 @@ type UserPropsType = {
 export function Users(props: UserPropsType) {
     const {users, blocked, totalCount, pageSize, currentPage, followTC, unfollowTC, onClickHandler} = props
 
-    let pagesCount = Math.ceil(totalCount / pageSize)
-    let pages = []
-    for(let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-    console.log(props.blocked , users)
+    let portionSize = 10
+
     return (
         <div className={styles.box}>
-            <div className={styles.pages}>
-                {pages.map(p => <div key={p}
-                                              className={currentPage === p ? styles.selected : styles.page}
-                                              onClick={()=>{onClickHandler(p)}}
-                >{p}</div>)}
-            </div>
+            <Paginator totalCount={totalCount}
+                       pageSize={pageSize}
+                       currentPage={currentPage}
+                       portionSize={portionSize}
+                       onClickHandler={onClickHandler}
+            />
             {users.map(u =>
                 <div key={u.id} className={styles.box_item}>
                         <span className={styles.item_follow}>

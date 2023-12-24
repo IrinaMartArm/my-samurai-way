@@ -1,4 +1,4 @@
-import {Btn} from "./_Btn";
+import {Btn, Btn2} from "./_Btn";
 
 type PropsType = {
     name: string
@@ -12,5 +12,13 @@ export const Button = (props: PropsType) => {
     }
     return (
         <Btn onClick={handler} disabled={props.disabled}>{props.name}</Btn>
+    );
+}
+export const Button2 = (props: PropsType) => {
+    const handler = () => {
+        props.onClick()
+    }
+    return (
+        <Btn2 onClick={handler} disabled={props.disabled}>{props.name}</Btn2>
     );
 }
