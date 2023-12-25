@@ -23,7 +23,7 @@ const DialogList = styled.div`
     display: flex;
     justify-content: space-between;
 `
-const TextAreaBox = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -35,5 +35,5 @@ export const S = {
     DialogPersons,
     DialogList,
     DialogPerson,
-    TextAreaBox
+    Form
 }

@@ -5,6 +5,7 @@ import {TextAria} from "../../../components/TextAria";
 import {Button} from "../../../components/Button";
 import React from "react";
 import {ContactType, MessagesType} from "../../../redux/DialogsReducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 
 type PropsType = {
@@ -47,11 +48,36 @@ export const Dialogs = (props:  PropsType) => {
                     </div>
                 </S.DialogList>
             </S.Dialogs>
-            <S.TextAreaBox>
-                <TextAria value={newMessageText} onChange={onChangeHandler}/>
-                <Button onClick={onAddMessage} name={'Add Post'}/>
-            </S.TextAreaBox>
+            <AddMessageFormRedux onSubmit={onSubmit}/>
         </>
     );
 }
 
+
+
+
+
+
+
+
+
+
+export const AddMessageForm: React.FC<InjectedFormProps<FormData>> = (props) => {
+
+    return (
+        <S.Form onSubmit={props.handleSubmit}>
+            <Field name='newMessageText'
+                   component='textarea'
+                   placeholder='Enter your message'/>
+            <Button disabled={false} onClick={()=>{}} name={'Add Post'}/>
+        </S.Form>
+    )
+}
+
+type FormData = {
+    newMessageText: string
+}
+
+const AddMessageFormRedux = reduxForm<FormData>({
+    form: 'dialogAddMessageForm'
+})(AddMessageForm)
