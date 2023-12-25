@@ -28,12 +28,15 @@ const Form = styled.form`
   flex-direction: column;
   gap: 10px;
   margin: 30px;
+  //border: 1px solid red;
 `
+
+
 
 export const S = {
     Dialogs,
     DialogPersons,
     DialogList,
     DialogPerson,
-    Form
+    Form,
 }

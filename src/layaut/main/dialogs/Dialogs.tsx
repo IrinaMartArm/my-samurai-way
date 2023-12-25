@@ -1,36 +1,29 @@
 import { S } from "./StyledDialogs";
 import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
-import {TextAria} from "../../../components/TextAria";
-import {Button} from "../../../components/Button";
 import React from "react";
 import {ContactType, MessagesType} from "../../../redux/DialogsReducer";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Field, focus, InjectedFormProps, reduxForm} from "redux-form";
+import {Button} from "../../../components/Button";
 
 
 type PropsType = {
     contacts: ContactType[]
     messages: MessagesType[]
-    newMessageText: string
-    addMessage: () => void
-    changeMessageText: (message: string) => void
+    addMessage: (message: string) => void
 }
 
 export const Dialogs = (props:  PropsType) => {
 
-    const {messages, newMessageText, changeMessageText, contacts, addMessage} = props
+    const {messages, contacts, addMessage} = props
 
     const myMessages = messages.map(m => <Messages key={m.id} id={m.id} text={m.text}/>)
 
     const friendsMessages = messages.map(m => <Messages key={m.id} id={m.id} text={m.text}/>)
 
 
-    const onAddMessage = () => {
-        addMessage()
-    }
-
-    const onChangeHandler = (message: string) => {
-        changeMessageText(message)
+    const addNewMessage = (formData: FormData) => {
+        addMessage(formData.newMessageText)
     }
 
     return (
@@ -48,7 +41,7 @@ export const Dialogs = (props:  PropsType) => {
                     </div>
                 </S.DialogList>
             </S.Dialogs>
-            <AddMessageFormRedux onSubmit={onSubmit}/>
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
         </>
     );
 }
@@ -63,12 +56,20 @@ export const Dialogs = (props:  PropsType) => {
 
 
 export const AddMessageForm: React.FC<InjectedFormProps<FormData>> = (props) => {
+    const style = {
+        backgroundColor: 'transparent',
+        padding: '3px',
+        resize: 'none',
+        height: '50px',
+    }
 
     return (
         <S.Form onSubmit={props.handleSubmit}>
             <Field name='newMessageText'
                    component='textarea'
-                   placeholder='Enter your message'/>
+                   placeholder='Enter your message'
+                   style={style}
+            />
             <Button disabled={false} onClick={()=>{}} name={'Add Post'}/>
         </S.Form>
     )

@@ -3,50 +3,64 @@ import {connect} from "react-redux";
 import {Dialogs} from "./Dialogs";
 import {
     addMessageAC,
-    changeMessageAC,
     ContactType,
     DialogsReducerActionType,
     MessagesType
 } from "../../../redux/DialogsReducer";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
+import {compose} from "redux";
+import React, {ComponentType} from "react";
+import {RouteComponentProps} from "react-router-dom";
 
+
+class DialogsContainer extends React.Component<PropsType>{
+    render() {
+        return <Dialogs {...this.props}
+            addMessage={this.props.addMessage} messages={this.props.messages} contacts={this.props.contacts}
+        />;
+    }
+}
 
 let mapStateToProps = (state: RootStateType) => {
     return {
         messages: state.dialogsReducer.messages,
-        newMessageText: state.dialogsReducer.newMessageText,
         contacts: state.dialogsReducer.contacts
     }
 }
 let mapDispatchToProps = (dispatch: (action: DialogsReducerActionType) => void) => {
     return {
-        addMessage: () => {dispatch(addMessageAC())},
-        changeMessageText: (message: string) => {dispatch(changeMessageAC(message))}
+        addMessage: (message: string) => {dispatch(addMessageAC(message))},
     }
 }
 
-const RedirectComponent = WithAuthRedirect(Dialogs)
 
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(RedirectComponent)
+export default compose<ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect
+)(DialogsContainer)
+
+
 
 
 type MapStateToPropsType = {
     messages: MessagesType[]
-    newMessageText: string
     contacts: ContactType[]
 }
 type MapDispatchToPropsType = {
     addMessage: () => void
-    changeMessageText: (message: string) => void
 }
-type PropsType = MapDispatchToPropsType & MapStateToPropsType
+type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+type PropsType = DialogsPropsType & RouteComponentProps
 
 
 
 
 
-
+// const RedirectComponent = WithAuthRedirect(Dialogs)
+// export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(RedirectComponent)
+// type PropsType = MapDispatchToPropsType & MapStateToPropsType
 
 // type PropsType = {
 //     store: StoreAppType
