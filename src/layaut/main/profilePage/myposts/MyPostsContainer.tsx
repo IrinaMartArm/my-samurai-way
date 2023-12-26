@@ -2,28 +2,42 @@
 import {MyPosts} from "./MyPosts";
 import {RootStateType} from "../../../../redux/Store";
 import {connect} from "react-redux";
-import {addPost, changePost, PostType} from "../../../../redux/ProfileReducer";
+import {addPost,  PostType} from "../../../../redux/ProfileReducer";
+import React, {ComponentType} from "react";
+import {RouteComponentProps} from "react-router-dom";
+import {compose} from "redux";
 
 
-
+class MyPostsContainer extends React.Component<PropsType>{
+    render() {
+        return (
+            <MyPosts addPost={this.props.addPost}
+                    posts={this.props.posts}
+            />
+        )
+    }
+}
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
     return {
         posts: state.profileReducer.posts,
-        newPostText: state.profileReducer.newPostText
     }
 }
 let mapDispatchToProps: MapDispatchToProps =  {
-        addPost, changePost
+        addPost
 }
 
-export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+export default compose<ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps)
+)(MyPostsContainer)
+
 
 
 type MapStateToProps = {
     posts: PostType[]
-    newPostText: string
 }
 type MapDispatchToProps = {
-    addPost: () => void
-    changePost: (post: string) => void
+    addPost: (post: string) => void
 }
+type MyPostsType = MapStateToProps & MapDispatchToProps
+
+type PropsType = MyPostsType & RouteComponentProps

@@ -10,7 +10,6 @@ const initialState: ProfilePageType = {
         {id: v1(), post: 'hello', likes: 28},
         {id: v1(), post: 'yo', likes: 28},
     ],
-    newPostText: '',
     profile: {
         userId: 'string',
         lookingForAJob: true,
@@ -40,13 +39,10 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Pr
         case 'PROFILE/ADD-POST':
             let newPost: PostType = {
             id: v1(),
-            post: state.newPostText,
+            post: action.post,
             likes: 0
             }
-            state.newPostText = ''
             return  {...state, posts: [newPost, ...state.posts]}
-        case 'PROFILE/CHANGE-TEXT':
-            return {...state, newPostText: action.post}
         case 'PROFILE/SET_USER-PROFILE':
             return {...state, profile: action.profile}
         case 'PROFILE/SET_USER-STATUS':
@@ -58,8 +54,7 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Pr
     }
 }
 
-export const addPost = () => ({type: 'PROFILE/ADD-POST',} as const)
-export const changePost = (post: string) => ({type: 'PROFILE/CHANGE-TEXT', post} as const)
+export const addPost = (post: string) => ({type: 'PROFILE/ADD-POST', post} as const)
 export const setUserProfile = (profile: UserProfile) => ({type: 'PROFILE/SET_USER-PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'PROFILE/SET_USER-STATUS', status}as const)
 export const changeUserStatus = (status: string) => ({type: 'PROFILE/CHANGE_USER-STATUS', status}as const)
@@ -92,7 +87,6 @@ export const changeUserStatusTC = (status: string) => async (dispatch: Dispatch)
 
 
 export type ProfileReducerActionType = ReturnType<typeof setUserProfile>
-                | ReturnType<typeof changePost>
                 | ReturnType<typeof addPost>
                 | ReturnType<typeof setUserStatus>
                 | ReturnType<typeof changeUserStatus>
@@ -117,7 +111,6 @@ export type UserProfile = {
 
 export type ProfilePageType = {
     posts: PostType[]
-    newPostText: string
     profile: UserProfile
     status: string
 }

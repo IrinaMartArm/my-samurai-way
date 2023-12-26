@@ -3,7 +3,7 @@ import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
 import React from "react";
 import {ContactType, MessagesType} from "../../../redux/DialogsReducer";
-import {Field, focus, InjectedFormProps, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Button} from "../../../components/Button";
 
 
@@ -70,7 +70,7 @@ export const AddMessageForm: React.FC<InjectedFormProps<FormData>> = (props) => 
                    placeholder='Enter your message'
                    style={style}
             />
-            <Button disabled={false} onClick={()=>{}} name={'Add Post'}/>
+            <Button disabled={false} onClick={()=>{}} name={'Add Message'}/>
         </S.Form>
     )
 }

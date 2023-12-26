@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {addPost, changePost, ProfilePageType, ProfileReducer} from "./ProfileReducer";
+import {addPost, ProfilePageType, ProfileReducer} from "./ProfileReducer";
 
 let startState: ProfilePageType
 beforeEach(() => {
@@ -9,7 +9,6 @@ beforeEach(() => {
             {id: v1(), post: 'hello', likes: 28},
             {id: v1(), post: 'yo', likes: 28},
         ],
-        newPostText: '',
         profile: {
             userId: 'string',
             lookingForAJob: true,
@@ -34,16 +33,16 @@ beforeEach(() => {
     }
 })
 test('should add Post', () => {
-
-    const endState = ProfileReducer(startState, addPost())
+    let post = 'hello'
+    const endState = ProfileReducer(startState, addPost(post))
 
     expect(endState.posts.length).toBe(4)
-    expect(endState.posts[0].post).toBe(endState.newPostText)
+    expect(endState.posts[0].post).toBe(post)
 })
-test('should Change PostText', () => {
-
-    const endState = ProfileReducer(startState, changePost(startState.newPostText))
-
-    expect(endState.newPostText).toBe(endState.newPostText)
-})
+// test('should Change PostText', () => {
+//
+//     const endState = ProfileReducer(startState, changePost(startState.newPostText))
+//
+//     expect(endState.newPostText).toBe(endState.newPostText)
+// })
 

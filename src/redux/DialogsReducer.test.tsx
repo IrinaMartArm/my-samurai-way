@@ -1,4 +1,4 @@
-import {addMessageAC, changeMessageAC, DialogsPageType, DialogsReducer} from "./DialogsReducer";
+import {addMessageAC, DialogsPageType, DialogsReducer} from "./DialogsReducer";
 
 let startState: DialogsPageType
 
@@ -15,19 +15,19 @@ beforeEach(() => {
             {id: '2', text: 'how are you?'},
             {id: '3', text: 'ok!'},
         ],
-        newMessageText: ''
     }
 })
 test('should add Post', () => {
+    let post = 'hello'
 
-    const endState = DialogsReducer(startState, addMessageAC())
+    const endState = DialogsReducer(startState, addMessageAC(post))
 
     expect(endState.messages.length).toBe(4)
-    expect(endState.messages[3].text).toBe(endState.newMessageText)
+    expect(endState.messages[3].text).toBe(post)
 })
-test('should Change PostText', () => {
-
-    const endState = DialogsReducer(startState, changeMessageAC(startState.newMessageText))
-
-    expect(endState.newMessageText).toBe(endState.newMessageText)
-})
+// test('should Change PostText', () => {
+//
+//     const endState = DialogsReducer(startState, changeMessageAC(startState.newMessageText))
+//
+//     expect(endState.newMessageText).toBe(endState.newMessageText)
+// })
