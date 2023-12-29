@@ -4,13 +4,12 @@ import {Button} from "../../components/Button";
 import styled from "styled-components";
 import {Input} from "../../components/Input";
 import {minLengthCreator, required} from "../../Utils/Validators";
+import {connect} from "react-redux";
+import {authTC, LoginTC} from "./AuthReducer";
+import {Redirect} from "react-router-dom";
+import {RootDispatchType, RootStateType} from "../../redux/Store";
 
 
-type FormData = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
 const minLength = minLengthCreator(10)
 const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
     return (
@@ -25,14 +24,15 @@ const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
             </label>
             <label>
                 Password
-                <Field placeholder={'Password'}
+                <Field type='password'
+                       placeholder={'Password'}
                        name={'password'}
                        component={Input}
-                       validate={[required, minLength]}
+                       validate={[required]}
                 />
             </label>
             <label>
-                <Field type={"checkbox"} name={'rememberMe'} component={"input"}/>
+                <Field type={"checkbox"} name={'rememberMe'} component={Input}/>
                 Remember me
             </label>
             <Button name={'Login'} disabled={false}/>
@@ -40,27 +40,50 @@ const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
     )
 }
 
+
 const LoginReduxForm = reduxForm<FormData>({
     form: 'login'
 })(LoginForm)
 
-export const Login = () => {
+
+const Login = (props: LoginProps) => {
     const onSubmit = (formData: FormData) => {
-        console.log(formData)
+        props.LoginTC(formData)
+    }
+    if(props.isAuth) {
+        return <Redirect to={"/users"}/>
     }
     return (
         <div>
-            {/*<h1>Login</h1>*/}
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     )
 }
 
+const mapStateToProps = (state: RootStateType) => ({
+    isAuth: state.authReducer.isAuth
+})
+const mapDispatchToProps: MapDispatchToPropsType = {LoginTC}
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
+
+
+
+type MapStateToProps = {
+    isAuth: boolean}
+
+type MapDispatchToPropsType = {
+    LoginTC: any
+}
+type LoginProps = MapStateToProps & MapDispatchToPropsType
+
+
+
+
+
 export const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    //border: 1px solid red;
     align-items: start;
     justify-content: space-between;
     width: 150px;

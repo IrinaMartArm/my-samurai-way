@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 
 type PropsType = {
     isAuth: boolean
-    login: string
+    password: string | null
 }
 
 export const Header: React.FC <PropsType>= (props: PropsType) => {

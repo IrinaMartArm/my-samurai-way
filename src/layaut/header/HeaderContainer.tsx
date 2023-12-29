@@ -17,7 +17,7 @@ class HeaderContainerClass extends React.Component<PropsType>{
 
 const mapStateToProps = (state: RootStateType): MapStateToProps => ({
     isAuth: state.authReducer.isAuth,
-    login: state.authReducer.login
+    password: state.authReducer.password
 })
 const mapDispatchToProps: MapDispatchToProps = {authTC}
 
@@ -28,7 +28,7 @@ export const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Head
 
 type MapStateToProps = {
     isAuth: boolean
-    login: string
+    password: string | null
 }
 
 type MapDispatchToProps = {

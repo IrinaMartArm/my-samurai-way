@@ -1,39 +1,62 @@
-import {Api, AuthDataType} from "../../api/Api";
+import {AuthApi, FormData} from "../../api/Api";
 import {Dispatch} from "redux";
+import {RootDispatchType} from "../../redux/Store";
 
 const initState = {
     id: 0,
     email: '',
-    login: '',
+    password: '',
     isAuth: false
 }
 
 export const AuthReducer = (state: InitStateType = initState, action: AuthReducerActionType): InitStateType => {
     switch (action.type) {
         case 'SET_USER-DATA':
-            return {...state, ...action.data, isAuth: true}
+            return {...state, ...action.payload}
         default:
             return state
     }
 }
 
-export const setAuthUserData = (data: AuthDataType) => {
-    return {type: 'SET_USER-DATA', data} as const
+export const setAuthUserData = ( id: number | null,
+                                email: string | null,
+                                 password: string | null,
+                                isAuth: boolean) => {
+    return {type: 'SET_USER-DATA', payload: {id, email, password, isAuth}} as const
 }
 
 export const authTC = () => (dispatch: Dispatch) => {
-    Api.auth()
+    AuthApi.me()
         .then((res) => {
+            const {id, email, login} = res.data
             if(res.resultCode === 0) {
-                dispatch(setAuthUserData(res.data))
+                dispatch(setAuthUserData(id, email, login, true))
             }
         })
 }
 
+export const LoginTC = (data: FormData) => (dispatch: RootDispatchType) => {
+    AuthApi.login(data)
+        .then((res) => {
+            if(res.data.resultCode === 0) {
+                dispatch(authTC())
+            }
+        })
+}
+export const LogoutTC = () => (dispatch: Dispatch) => {
+    AuthApi.logout()
+        .then((res) => {
+            if(res.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false))
+            }
+        })
+}
+
+
 export type InitStateType = {
-    id: number
-    email: string
-    login: string
+    id: number | null
+    email: string | null
+    password: string | null
     isAuth: boolean
 }
 export type AuthReducerActionType = ReturnType<typeof setAuthUserData>

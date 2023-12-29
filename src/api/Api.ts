@@ -20,11 +20,6 @@ export const Api = {
         const res = await instance.get<ResponseUser>(`users?page=${page}&count=${pageSize}`);
         return res.data;
     },
-    async auth(){
-        const res = await instance.get<ResponseType, AxiosResponse<ResponseType<AuthDataType>>>('auth/me')
-        return res.data
-    },
-
 }
 export const ProfileApi = {
     async getProfile(userId: number){
@@ -37,6 +32,19 @@ export const ProfileApi = {
         return await instance.put<ResponseType>(`profile/status`, {status})
     }
 }
+export const AuthApi = {
+    async login(data: FormData) {
+        return await instance.post<ResponseType<{userId?: number}>, AxiosResponse<ResponseType<{userId?: number}>>, FormData>('auth/login', data)
+    },
+    async logout() {
+        return await instance.delete<ResponseType>('auth/login')
+    },
+    async me(){
+        const res = await instance.get<ResponseType, AxiosResponse<ResponseType<AuthDataType>>>('auth/me')
+        return res.data
+    },
+}
+
 
 export type ResponseType<D = {}> = {
     resultCode: number
@@ -66,6 +74,11 @@ type ResponseUser = {
     items: User[]
     totalCount: number
     error: string
+}
+export type FormData = {
+    email: string
+    password: string
+    rememberMe: boolean
 }
 
 

@@ -26,6 +26,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType,
 
 export const useAppDispatch: RootDispatchType = useDispatch
 
+
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 // @ts-ignore
