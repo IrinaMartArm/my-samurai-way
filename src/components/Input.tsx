@@ -6,6 +6,7 @@ type PropsType = {
     input: object
     meta: {
         error: string
+        touched: boolean
     }
     value: string
     onBlur?: () => void
@@ -13,21 +14,25 @@ type PropsType = {
 }
 
 export const Input: React.FC<PropsType> = ({input, meta, ...props}) => {
-
+    const hasError = meta.error && meta.touched
     return (
         <>
-            <input type="text"
+            <StyledInput type="text"
+                         {...input} {...props}
                    value={props.value}
                    onBlur={props.onBlur}
                    autoFocus={props.autoFocus}
             />
-            {meta.error && <Error>{meta.error}</Error>}
+            {hasError && <Error>{meta.error}</Error>}
         </>
     );
 }
 
 const Error = styled.div`
     color: red;
+`
+const StyledInput = styled.input`
+  
 `
 
 

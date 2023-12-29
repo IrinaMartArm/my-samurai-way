@@ -3,6 +3,7 @@ import React from "react";
 import {Button} from "../../components/Button";
 import styled from "styled-components";
 import {Input} from "../../components/Input";
+import {minLengthCreator, required} from "../../Utils/Validators";
 
 
 type FormData = {
@@ -10,17 +11,25 @@ type FormData = {
     password: string
     rememberMe: boolean
 }
-
+const minLength = minLengthCreator(10)
 const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
     return (
         <StyledForm onSubmit={props.handleSubmit}>
             <label>
                 Email
-                <Field placeholder={'Email'} name={'email'} component={Input}/>
+                <Field placeholder={'Email'}
+                       name={'email'}
+                       component={Input}
+                       validate={[required]}
+                />
             </label>
             <label>
                 Password
-                <Field placeholder={'Password'} name={'password'} component={Input}/>
+                <Field placeholder={'Password'}
+                       name={'password'}
+                       component={Input}
+                       validate={[required, minLength]}
+                />
             </label>
             <label>
                 <Field type={"checkbox"} name={'rememberMe'} component={"input"}/>

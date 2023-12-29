@@ -1,4 +1,4 @@
-import {Input} from "../../../../components/Input";
+import {Input2} from "../../../../components/Input";
 import React from "react";
 
 export class ProfileStatus extends React.Component<PropsType> {
@@ -35,7 +35,7 @@ export class ProfileStatus extends React.Component<PropsType> {
                 {!this.state.editMode &&
                     <div onDoubleClick={this.activateEditMode}>Status:  {this.props.status}</div>}
                 {this.state.editMode &&
-                    <Input value={this.state.status}
+                    <Input2 value={this.state.status}
                            autoFocus={true}
                            onBlur={this.deActivateEditMode}
                            setValue={this.onStatusChangeHandler}
