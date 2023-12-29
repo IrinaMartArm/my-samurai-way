@@ -21,7 +21,6 @@ export class ProfileStatus extends React.Component<PropsType> {
     }
     onStatusChangeHandler = (value: string) => {
         this.setState({status: value})
-        console.log(value)
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>) {

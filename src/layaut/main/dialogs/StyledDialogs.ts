@@ -26,12 +26,10 @@ const DialogList = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin: 30px;
+  gap: 15px;
+  padding: 20px
   //border: 1px solid red;
 `
-
-
 
 export const S = {
     Dialogs,

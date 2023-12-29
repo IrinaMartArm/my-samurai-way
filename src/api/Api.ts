@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {ProfilePageType, UserProfile} from "../redux/ProfileReducer";
+import {ProfilePageType, UserProfile} from "../layaut/main/profilePage/ProfileReducer";
 
 export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',

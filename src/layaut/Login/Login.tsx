@@ -1,7 +1,8 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import React from "react";
-import {Button} from "../components/Button";
+import {Button} from "../../components/Button";
 import styled from "styled-components";
+import {Input} from "../../components/Input";
 
 
 type FormData = {
@@ -15,17 +16,17 @@ const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
         <StyledForm onSubmit={props.handleSubmit}>
             <label>
                 Email
-                <Field placeholder={'Email'} name={'email'} component={"input"}/>
+                <Field placeholder={'Email'} name={'email'} component={Input}/>
             </label>
             <label>
                 Password
-                <Field placeholder={'Password'} name={'password'} component={"input"}/>
+                <Field placeholder={'Password'} name={'password'} component={Input}/>
             </label>
             <label>
                 <Field type={"checkbox"} name={'rememberMe'} component={"input"}/>
                 Remember me
             </label>
-            <Button name={'Login'} disabled={false} onClick={()=>{}}/>
+            <Button name={'Login'} disabled={false}/>
         </StyledForm>
     )
 }

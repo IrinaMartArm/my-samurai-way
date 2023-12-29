@@ -1,8 +1,8 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {ProfileReducer, ProfileReducerActionType} from "./ProfileReducer";
-import {DialogsReducer, DialogsReducerActionType} from "./DialogsReducer";
-import {UserReducerActionsType, UsersReducer} from "./UsersReducer";
-import {AuthReducer, AuthReducerActionType} from "./AuthReducer";
+import {ProfileReducer, ProfileReducerActionType} from "../layaut/main/profilePage/ProfileReducer";
+import {DialogsReducer, DialogsReducerActionType} from "../layaut/main/dialogs/DialogsReducer";
+import {UserReducerActionsType, UsersReducer} from "../layaut/main/users/UsersReducer";
+import {AuthReducer, AuthReducerActionType} from "../layaut/Login/AuthReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {useDispatch} from "react-redux";
 import {reducer as formReducer} from "redux-form"

@@ -2,7 +2,7 @@
 import {MyPosts} from "./MyPosts";
 import {RootStateType} from "../../../../redux/Store";
 import {connect} from "react-redux";
-import {addPost,  PostType} from "../../../../redux/ProfileReducer";
+import {addPost,  PostType} from "../ProfileReducer";
 import React, {ComponentType} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import {compose} from "redux";

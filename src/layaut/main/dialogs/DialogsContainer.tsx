@@ -6,7 +6,7 @@ import {
     ContactType,
     DialogsReducerActionType,
     MessagesType
-} from "../../../redux/DialogsReducer";
+} from "./DialogsReducer";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
 import {compose} from "redux";
 import React, {ComponentType} from "react";
@@ -16,7 +16,9 @@ import {RouteComponentProps} from "react-router-dom";
 class DialogsContainer extends React.Component<PropsType>{
     render() {
         return <Dialogs {...this.props}
-            addMessage={this.props.addMessage} messages={this.props.messages} contacts={this.props.contacts}
+                        addMessage={this.props.addMessage}
+                        messages={this.props.messages}
+                        contacts={this.props.contacts}
         />;
     }
 }

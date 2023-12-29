@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {UserProfile} from "../../../../redux/ProfileReducer";
+import {UserProfile} from "../ProfileReducer";
 import {Preloader} from "../../../../components/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
 
@@ -16,30 +16,28 @@ export const ProfileInfo = (props: PropsType) => {
     }
     return (
        <>
-           {/*{!props.profile ? <Preloader/> :*/}
-               <ProfileInformation>
-                       <div>
-                           <div>{profile.lookingForAJob}</div>
-                           <div>{profile.lookingForAJobDescription}</div>
-                           <ProfileStatus status={status} changeStatus={changeStatus}/>
-                       </div>
-                       <div>
-                           <img src={profile.photos.small} alt={profile.fullName}/>
-                           <div>{profile.fullName}</div>
+           <ProfileInformation>
+               <div>
+                   <div>{profile.lookingForAJob}</div>
+                   <div>{profile.lookingForAJobDescription}</div>
+                   <ProfileStatus status={status} changeStatus={changeStatus}/>
+               </div>
+               <div>
+                   <img src={profile.photos.small} alt={profile.fullName}/>
+                   <div>{profile.fullName}</div>
 
-                       </div>
-                       <div>
-                           <div>{profile.contacts.facebook}</div>
-                           <div>{profile.contacts.github}</div>
-                           <div>{profile.contacts.vk}</div>
-                           <div>{profile.contacts.twitter}</div>
-                           <div>{profile.contacts.mainLink}</div>
-                           <div>{profile.contacts.website}</div>
-                           <div>{profile.contacts.instagram}</div>
-                           <div>{profile.contacts.youtube}</div>
-                       </div>
-               </ProfileInformation>
-           {/*}*/}
+               </div>
+               <div>
+                   <div>{profile.contacts.facebook}</div>
+                   <div>{profile.contacts.github}</div>
+                   <div>{profile.contacts.vk}</div>
+                   <div>{profile.contacts.twitter}</div>
+                   <div>{profile.contacts.mainLink}</div>
+                   <div>{profile.contacts.website}</div>
+                   <div>{profile.contacts.instagram}</div>
+                   <div>{profile.contacts.youtube}</div>
+               </div>
+           </ProfileInformation>
        </>
     );
 };

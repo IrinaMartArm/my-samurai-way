@@ -1,4 +1,4 @@
-import {Api, AuthDataType} from "../api/Api";
+import {Api, AuthDataType} from "../../api/Api";
 import {Dispatch} from "redux";
 
 const initState = {

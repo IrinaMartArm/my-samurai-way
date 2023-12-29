@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import {ProfileApi} from "../api/Api";
-import {AppThunk} from "./Store";
+import {ProfileApi} from "../../../api/Api";
+import {AppThunk} from "../../../redux/Store";
 import {Dispatch} from "redux";
 
 

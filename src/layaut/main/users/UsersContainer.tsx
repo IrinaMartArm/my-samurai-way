@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/Store";
 import {
     followTC, getUsersTC, setBlocked, unfollowTC, UserType
-} from "../../../redux/UsersReducer";
+} from "./UsersReducer";
 import React, {ComponentType} from "react";
 import {Preloader} from "../../../components/Preloader";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";

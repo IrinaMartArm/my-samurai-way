@@ -1,6 +1,6 @@
 import React from 'react';
-import {UserType} from "../../../redux/UsersReducer";
-import {Button} from "../../../components/Button";
+import {UserType} from "./UsersReducer";
+import {Button2} from "../../../components/Button";
 import styles from "./Users.module.css"
 import userPhoto from './../../../assets/images/585e4beacb11b227491c3399.png'
 import {NavLink} from "react-router-dom";
@@ -37,14 +37,14 @@ export function Users(props: UserPropsType) {
                                  <img src={u.photos.small != null ? u.photos.small : userPhoto} alt={u.name} className={styles.avatar}/>
                             </NavLink>
                             {u.followed ?
-                                <Button name={'follow'}
+                                <Button2 name={'follow'}
                                         disabled={props.blocked.some(id => id === u.id)}
                                         onClick={()=> unfollowTC(u.id)}
-                                        key={u.id}></Button> :
-                                <Button name={'unfollow'}
+                                        key={u.id}></Button2> :
+                                <Button2 name={'unfollow'}
                                         disabled={blocked.some(id => id === u.id)}
                                         onClick={()=> followTC(u.id)}
-                                        key={u.id}></Button>}
+                                        key={u.id}></Button2>}
 
                         </span>
                     <div className={styles.item_info}>

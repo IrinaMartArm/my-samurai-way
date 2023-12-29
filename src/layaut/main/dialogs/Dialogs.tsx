@@ -2,9 +2,10 @@ import { S } from "./StyledDialogs";
 import { DialogPerson } from "./DialogPerson";
 import { Messages } from "./Messages";
 import React from "react";
-import {ContactType, MessagesType} from "../../../redux/DialogsReducer";
+import {ContactType, MessagesType} from "./DialogsReducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Button} from "../../../components/Button";
+import {TextAria} from "../../../components/TextAria";
 
 
 type PropsType = {
@@ -56,21 +57,14 @@ export const Dialogs = (props:  PropsType) => {
 
 
 export const AddMessageForm: React.FC<InjectedFormProps<FormData>> = (props) => {
-    const style = {
-        backgroundColor: 'transparent',
-        padding: '3px',
-        resize: 'none',
-        height: '50px',
-    }
 
     return (
         <S.Form onSubmit={props.handleSubmit}>
             <Field name='newMessageText'
-                   component='textarea'
+                   component={TextAria}
                    placeholder='Enter your message'
-                   style={style}
             />
-            <Button disabled={false} onClick={()=>{}} name={'Add Message'}/>
+            <Button disabled={false} name={'Add Message'}/>
         </S.Form>
     )
 }

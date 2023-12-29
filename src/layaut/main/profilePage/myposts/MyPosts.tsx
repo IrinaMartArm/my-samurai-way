@@ -1,9 +1,11 @@
-import styled from "styled-components";
 import React from "react";
 import { Post } from "./Post";
 import {Button} from "../../../../components/Button";
-import {PostType} from "../../../../redux/ProfileReducer";
-import {Field, Form, InjectedFormProps, reduxForm} from "redux-form";
+import {PostType} from "../ProfileReducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../../Utils/Validators";
+import {TextAria} from "../../../../components/TextAria";
+import {S} from "../../dialogs/StyledDialogs";
 
 
 
@@ -29,30 +31,19 @@ export const MyPosts = (props: PropsType) => {
 
 
 
-
+const maxLength = maxLengthCreator(50)
 
 export const AddPostForm: React.FC<InjectedFormProps<FormData>> = (props) => {
 
-    const style = {
-        backgroundColor: 'transparent',
-        padding: '3px',
-        height: '50px',
-    }
-    const box = {
-        display: 'grid',
-        gap: "15px",
-        padding: '20px'
-    }
-
     return (
-        <Form style={box}>
+        <S.Form onSubmit={props.handleSubmit}>
             <Field name='newPostText'
-                   component='textarea'
+                   component={TextAria}
                    placeholder='Enter your post'
-                   style={style}
+                   validate={[required, maxLength]}
             />
-            <Button onClick={()=>{}} name={'Add Post'}/>
-        </Form>
+            <Button name={'Add Post'}/>
+        </S.Form>
     )
 }
 

@@ -10,7 +10,7 @@ import a from "./assets/images/IMG_3719 1 2.png";
 import UsersContainer from "./layaut/main/users/UsersContainer";
 import ProfilePageContainer from "./layaut/main/profilePage/ProfilePageContainer";
 import {HeaderContainer} from "./layaut/header/HeaderContainer";
-import {Login} from "./layaut/Login";
+import {Login} from "./layaut/Login/Login";
 import DialogsContainer from "./layaut/main/dialogs/DialogsContainer";
 
 

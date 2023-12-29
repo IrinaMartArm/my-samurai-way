@@ -1,6 +1,6 @@
 import styles from "../layaut/main/users/Users.module.css";
 import React, {useState} from "react";
-import {Button, Button2} from "./Button";
+import {Button2a} from "./Button";
 
 
 type PropsType = {
@@ -27,7 +27,7 @@ export  const Paginator = (props: PropsType) => {
     return (
         <div className={styles.pages}>
             {portionCount > 1 &&
-            <Button2 onClick={() => setPortionNumber(portionNumber - 1)} name={'<< Prev'} key={1}/>}
+            <Button2a onClick={() => setPortionNumber(portionNumber - 1)} name={'<< Prev'} key={1}/>}
 
             {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(p => <div key={p}
@@ -35,7 +35,7 @@ export  const Paginator = (props: PropsType) => {
                                  onClick={()=>{onClickHandler(p)}}
             >{p}</div>)}
             {portionCount > portionNumber &&
-                <Button2 onClick={() => setPortionNumber(portionNumber + 1)} name={'Next >>'}/>}
+                <Button2a onClick={() => setPortionNumber(portionNumber + 1)} name={'Next >>'}/>}
         </div>
     )
 }

@@ -1,32 +1,30 @@
-// @flow
 import * as React from 'react';
 import styled from "styled-components";
 import {Theme} from "../styles/Theme";
-import {ChangeEvent} from "react";
-// import {ActionType} from "../state";
+
+
 
 type Props = {
-    value: string
-    onChange: (value: string) => void
-    // onChange: (action: ActionType) => void
-};
-
-export const TextAria: React.FC<Props> = (props: Props) =>{
-
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChange(e.currentTarget.value)
+    input: object
+    meta: {
+        error: string
     }
+};
+let ErrorMessage = 'Error'
+export const TextAria: React.FC<Props> = ({input, meta, ...props}) =>{
 
     return (
-            <FieldArea onChange={onChangeHandler}
-                       value={props.value}/>
-            );
+        <div>
+            <FieldArea {...input} {...props}/>
+            {meta.error && <Error>{meta.error}</Error>}
+        </div>
+    )
 };
 
 const FieldArea = styled.textarea`
     width: 500px;
     height: 70px;
-    padding: 3px;
+    padding: 5px;
     letter-spacing: 0.2px;
     resize: none;
     color: ${Theme.colors.white};
@@ -35,4 +33,10 @@ const FieldArea = styled.textarea`
     &:focus-visible {
         outline: 1.5px solid ${Theme.colors.border};
     }
-`;
+    &:invalid ~ ${ErrorMessage} {
+      border: 1px solid red;
+    }
+`
+const Error = styled.div`
+    color: red;
+`

@@ -1,5 +1,6 @@
 import {addMessageAC, DialogsPageType, DialogsReducer} from "./DialogsReducer";
 
+
 let startState: DialogsPageType
 
 beforeEach(() => {
