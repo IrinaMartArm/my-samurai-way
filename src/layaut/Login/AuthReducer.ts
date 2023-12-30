@@ -1,6 +1,7 @@
 import {AuthApi, FormData} from "../../api/Api";
 import {Dispatch} from "redux";
 import {RootDispatchType} from "../../redux/Store";
+import {stopSubmit} from "redux-form";
 
 const initState = {
     id: 0,
@@ -25,7 +26,7 @@ export const setAuthUserData = ( id: number | null,
     return {type: 'SET_USER-DATA', payload: {id, email, password, isAuth}} as const
 }
 
-export const authTC = () => (dispatch: Dispatch) => {
+export const AuthTC = () => (dispatch: Dispatch) => {
     AuthApi.me()
         .then((res) => {
             const {id, email, login} = res.data
@@ -39,7 +40,10 @@ export const LoginTC = (data: FormData) => (dispatch: RootDispatchType) => {
     AuthApi.login(data)
         .then((res) => {
             if(res.data.resultCode === 0) {
-                dispatch(authTC())
+                dispatch(AuthTC())
+            } else {
+                let message = res.data.messages.length > 0 ? res.data.messages[0] : 'Error'
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
 }

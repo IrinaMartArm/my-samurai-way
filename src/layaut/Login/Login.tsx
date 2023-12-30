@@ -3,14 +3,13 @@ import React from "react";
 import {Button} from "../../components/Button";
 import styled from "styled-components";
 import {Input} from "../../components/Input";
-import {minLengthCreator, required} from "../../Utils/Validators";
+import {required} from "../../Utils/Validators";
 import {connect} from "react-redux";
-import {authTC, LoginTC} from "./AuthReducer";
+import {LoginTC} from "./AuthReducer";
 import {Redirect} from "react-router-dom";
-import {RootDispatchType, RootStateType} from "../../redux/Store";
+import {RootStateType} from "../../redux/Store";
 
 
-const minLength = minLengthCreator(10)
 const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
     return (
         <StyledForm onSubmit={props.handleSubmit}>
@@ -31,6 +30,7 @@ const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
                        validate={[required]}
                 />
             </label>
+            <div></div>
             <label>
                 <Field type={"checkbox"} name={'rememberMe'} component={Input}/>
                 Remember me

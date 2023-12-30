@@ -5,13 +5,15 @@ import {UserReducerActionsType, UsersReducer} from "../layaut/main/users/UsersRe
 import {AuthReducer, AuthReducerActionType} from "../layaut/Login/AuthReducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {useDispatch} from "react-redux";
-import {reducer as formReducer} from "redux-form"
+import {FormAction, reducer as formReducer} from "redux-form"
+import {AppReducer, AppReducerAction} from "../App/AppReducer";
 
 let rootReducer = combineReducers({
     profileReducer: ProfileReducer,
     dialogsReducer: DialogsReducer,
     usersReducer: UsersReducer,
     authReducer: AuthReducer,
+    appReducer: AppReducer,
     form: formReducer
 })
 
@@ -21,6 +23,7 @@ export type BasicAction = UserReducerActionsType
                     | ProfileReducerActionType
                     | DialogsReducerActionType
                     | AuthReducerActionType
+                    | AppReducerAction
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, BasicAction>
 
