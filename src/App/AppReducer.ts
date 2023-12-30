@@ -24,5 +24,5 @@ export type AppReducerAction = ReturnType<typeof setIsInitial>
 export const IsInitializedApp = () => (dispatch: RootDispatchType) => {
     const promise = dispatch(AuthTC())
     Promise.all([promise])
-        .then(() => setIsInitial(true))
+        .then(() => dispatch(setIsInitial(true)))
 }

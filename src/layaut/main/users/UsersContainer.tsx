@@ -8,6 +8,7 @@ import React, {ComponentType} from "react";
 import {Preloader} from "../../../components/Preloader";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
 import {compose} from "redux";
+import {getBlocked, getCurrentPage, getIsLoading, getPageSize, getTotalCount, getUsers} from "./UsersSelectors";
 
 
 class UsersContainer extends React.Component<MapStateToProps & MapDispatchToProps> {
@@ -39,14 +40,13 @@ class UsersContainer extends React.Component<MapStateToProps & MapDispatchToProp
 }
 
 let mapStateToProps = (state: RootStateType): MapStateToProps => {
-
     return {
-        users: state.usersReducer.items,
-        pageSize: state.usersReducer.pageSize,
-        totalCount: state.usersReducer.totalCount,
-        currentPage: state.usersReducer.currentPage,
-        isLoading: state.usersReducer.isLoading,
-        blocked: state.usersReducer.blocked
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalCount: getTotalCount(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+        blocked: getBlocked(state)
     }
 }
 

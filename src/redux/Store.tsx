@@ -24,6 +24,7 @@ export type BasicAction = UserReducerActionsType
                     | DialogsReducerActionType
                     | AuthReducerActionType
                     | AppReducerAction
+                    | FormAction
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, BasicAction>
 

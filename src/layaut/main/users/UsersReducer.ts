@@ -25,7 +25,7 @@ export type UsersType = {
 export type UserReducerActionsType = ReturnType<typeof follow>
                             | ReturnType<typeof unfollow>
                             | ReturnType<typeof setUsers>
-                            | ReturnType<typeof setCurrentPage>
+                            | ReturnType<typeof setPage>
                             | ReturnType<typeof setTotalCount>
                             | ReturnType<typeof setLoading>
                             | ReturnType<typeof setBlocked>
@@ -65,7 +65,7 @@ export const UsersReducer = (state: UsersType = initialState, action: UserReduce
 export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
 export const unfollow = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
 export const setUsers = (items: UserType[]) =>({type: 'SET_USERS', items} as const)
-export const setCurrentPage = (page: number) => ({type: 'SET_CURRENT-PAGE', page} as const)
+export const setPage = (page: number) => ({type: 'SET_CURRENT-PAGE', page} as const)
 export const setTotalCount = (count: number) => ({type: 'SET_TOTAL-COUNT', count} as const)
 export const setLoading = (isLoading: boolean) => ({type: 'SET_IS-LOADING', isLoading} as const)
 export const setBlocked = (id: number, isLoading: boolean) => ({type: 'SET_BLOCKED', id, isLoading} as const)
@@ -74,6 +74,7 @@ export const setBlocked = (id: number, isLoading: boolean) => ({type: 'SET_BLOCK
 
 export const getUsersTC = (page: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(setLoading(true))
+    dispatch(setPage(page))
     Api.getUsers(page,pageSize)
         .then((res)=> {
            dispatch(setLoading(false))
