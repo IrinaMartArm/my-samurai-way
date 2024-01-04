@@ -8,6 +8,7 @@ type PropsType2 = {
     name: string
     disabled?: boolean
     onClick: () => void
+    padding?: string
 }
 
 export const Button = (props: PropsType) => {

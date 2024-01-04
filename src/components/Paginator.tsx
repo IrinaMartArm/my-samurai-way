@@ -27,7 +27,7 @@ export  const Paginator = (props: PropsType) => {
     return (
         <div className={styles.pages}>
             {portionCount > 1 &&
-            <Button2a onClick={() => setPortionNumber(portionNumber - 1)} name={'<< Prev'} key={1}/>}
+            <Button2a onClick={() => setPortionNumber(portionNumber - 1)} name={'<< Prev'} key={1} />}
 
             {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(p => <div key={p}
