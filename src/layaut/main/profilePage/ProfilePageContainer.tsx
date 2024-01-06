@@ -6,7 +6,7 @@ import {RootStateType} from "../../../redux/Store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
 import {compose} from "redux";
-import {getProfile, getStatus} from "./ProfileSelectors";
+import {getMyId, getProfile, getStatus} from "./ProfileSelectors";
 
 
 
@@ -30,7 +30,7 @@ class ProfilePageContainer extends React.Component<PropsType> {
 const MapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: getProfile(state),
     status: getStatus(state),
-    myId: state.authReducer.id
+    myId: getMyId(state)
 })
 const MapDispatchToProps: MapDispatchToPropsType = {getUserProfileTC, getUserStatusTC, changeUserStatusTC}
 

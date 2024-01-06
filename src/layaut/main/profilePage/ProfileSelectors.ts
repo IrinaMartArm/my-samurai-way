@@ -6,3 +6,6 @@ export const getProfile = (state: RootStateType) => {
 export const getStatus = (state: RootStateType) => {
     return state.profileReducer.status
 }
+export const getMyId = (state: RootStateType) => {
+    return state.authReducer.id
+}

@@ -11,6 +11,7 @@ import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
 import {compose} from "redux";
 import React, {ComponentType} from "react";
 import {RouteComponentProps} from "react-router-dom";
+import {getContacts, getMessages} from "./DialogSelectors";
 
 
 class DialogsContainer extends React.Component<PropsType>{
@@ -25,8 +26,8 @@ class DialogsContainer extends React.Component<PropsType>{
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        messages: state.dialogsReducer.messages,
-        contacts: state.dialogsReducer.contacts
+        messages: getMessages(state),
+        contacts: getContacts(state)
     }
 }
 let mapDispatchToProps = (dispatch: (action: DialogsReducerActionType) => void) => {

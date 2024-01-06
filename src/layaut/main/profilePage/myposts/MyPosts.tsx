@@ -9,7 +9,7 @@ import {S} from "../../dialogs/StyledDialogs";
 
 
 
-export const MyPosts = (props: PropsType) => {
+export const MyPosts = React.memo((props: PropsType) => {
 
     const {posts, addPost} = props
 
@@ -26,7 +26,7 @@ export const MyPosts = (props: PropsType) => {
             {postElements}
         </>
     );
-}
+})
 
 
 
