@@ -8,15 +8,19 @@ type Props = {
     input: object
     meta: {
         error: string
+        touched: boolean
+        active: boolean
     }
 };
 let ErrorMessage = 'Error'
 export const TextAria: React.FC<Props> = ({input, meta, ...props}) =>{
 
+    const hasError = meta.active && meta.error && meta.touched
+
     return (
         <div>
             <FieldArea {...input} {...props}/>
-            {meta.error && <Error>{meta.error}</Error>}
+            {hasError && <Error>{meta.error}</Error>}
         </div>
     )
 };

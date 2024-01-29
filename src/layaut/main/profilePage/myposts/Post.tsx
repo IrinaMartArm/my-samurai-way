@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import i from "../../../../assets/images/Снимок-9-24-23-в-20.23.webp";
 import React from "react";
-import { type } from "os";
+
 
 type PostPropsType = {
     mess: string
@@ -11,7 +11,7 @@ type PostPropsType = {
 export const Post: React.FC<PostPropsType> = (props) => {
     return (  
             <NewPost>
-                <img src={i} alt="photo" />
+                <img src={i} alt={''}/>
                 <div>{props.mess}</div>
                 <span>like</span>
                 <span>{props.likes}</span>

@@ -4,6 +4,7 @@ import {AppThunk} from "../../../redux/Store";
 import {Dispatch} from "redux";
 
 
+
 const initialState: ProfilePageType = {
     posts: [
         {id: v1(), post: 'hi', likes: 28},
@@ -26,7 +27,7 @@ const initialState: ProfilePageType = {
             mainLink: 'string',
         },
         photos: {
-            small: 'string',
+            small: '',
             large: 'string'
         }
     },
@@ -49,6 +50,10 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Pr
             return {...state, status: action.status}
         case 'PROFILE/CHANGE_USER-STATUS':
             return {...state, status: action.status}
+        case 'PROFILE/REMOVE-POST':
+            return {...state, posts: state.posts.filter(p => p.id !== action.id)}
+        case 'PROFILE/SET-PHOTO':
+            return {...state, profile: {...state.profile, photos: {...state.profile.photos, small: action.file}}   }
         default:
             return state
     }
@@ -58,6 +63,8 @@ export const addPost = (post: string) => ({type: 'PROFILE/ADD-POST', post} as co
 export const setUserProfile = (profile: UserProfile) => ({type: 'PROFILE/SET_USER-PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'PROFILE/SET_USER-STATUS', status}as const)
 export const changeUserStatus = (status: string) => ({type: 'PROFILE/CHANGE_USER-STATUS', status}as const)
+export const removePost = (id: string) => ({type: 'PROFILE/REMOVE-POST', id} as const)
+export const setPhoto = (file: File) => ({type: 'PROFILE/SET-PHOTO', file} as const)
 
 
 export const getUserProfileTC = (userId: number): AppThunk => async (dispatch) => {
@@ -84,12 +91,26 @@ export const changeUserStatusTC = (status: string) => async (dispatch: Dispatch)
     }
 }
 
+export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+    try {
+        const res = await ProfileApi.savePhoto(file)
+        if(res.data.resultCode === 0) {
+            // @ts-ignore
+            dispatch(setPhoto(res.data.data.photos))
+        }
+    } catch (err) {
+
+    }
+}
+
 
 
 export type ProfileReducerActionType = ReturnType<typeof setUserProfile>
                 | ReturnType<typeof addPost>
                 | ReturnType<typeof setUserStatus>
                 | ReturnType<typeof changeUserStatus>
+                | ReturnType<typeof removePost>
+                | ReturnType<typeof setPhoto>
 
 type ContactKey = 'github'| 'vk' | 'facebook' | 'instagram' | 'twitter' | 'website' | 'youtube' | 'mainLink'
 type ContactsType = Record<ContactKey, string>
@@ -100,11 +121,11 @@ export type UserProfile = {
     fullName: string
     contacts: ContactsType
     photos: {
-        small: string
+        small: any
         large: string
     }
 }
-// const contacts: ContactsType = {vk: 'vk', github: 'github', facebook: 'facebook', instagram: 'instagram', mainLink: 'mainLink', twitter: 'twitter', website: 'website', youtube: 'youtube'}
+
 
 // const arr = Object.values(contacts) as (keyof typeof contacts)[]
 // arr.map((key)=> contacts[key])

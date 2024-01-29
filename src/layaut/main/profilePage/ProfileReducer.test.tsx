@@ -1,11 +1,11 @@
 import {v1} from "uuid";
-import {addPost, ProfilePageType, ProfileReducer} from "./ProfileReducer";
+import {addPost, ProfilePageType, ProfileReducer, removePost} from "./ProfileReducer";
 
 let startState: ProfilePageType
 beforeEach(() => {
     startState = {
         posts: [
-            {id: v1(), post: 'hi', likes: 28},
+            {id: '1', post: 'hi', likes: 28},
             {id: v1(), post: 'hello', likes: 28},
             {id: v1(), post: 'yo', likes: 28},
         ],
@@ -39,10 +39,10 @@ test('should add Post', () => {
     expect(endState.posts.length).toBe(4)
     expect(endState.posts[0].post).toBe(post)
 })
-// test('should Change PostText', () => {
-//
-//     const endState = ProfileReducer(startState, changePost(startState.newPostText))
-//
-//     expect(endState.newPostText).toBe(endState.newPostText)
-// })
+test('Post should be deleted', () => {
 
+    const endState = ProfileReducer(startState, removePost('1'))
+
+    expect(endState.posts.length).toBe(2)
+
+})

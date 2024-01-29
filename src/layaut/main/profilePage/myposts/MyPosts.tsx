@@ -3,7 +3,7 @@ import { Post } from "./Post";
 import {Button} from "../../../../components/Button";
 import {PostType} from "../ProfileReducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../../Utils/Validators";
+import {maxLengthCreator, required} from "../../../../utils/Validators";
 import {TextAria} from "../../../../components/TextAria";
 import {S} from "../../dialogs/StyledDialogs";
 

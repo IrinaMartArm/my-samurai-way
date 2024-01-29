@@ -30,8 +30,19 @@ export const ProfileApi = {
     },
     async updateStatus(status: string) {
         return await instance.put<ResponseType>(`profile/status`, {status})
-    }
+    },
+    async savePhoto(file: File) {
+        const formData = new FormData()
+        formData.append('image', file)
+        return await instance.put<ResponseType>(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
 }
+
+
 export const AuthApi = {
     async login(data: FormData) {
         return await instance.post<ResponseType<{userId?: number}>, AxiosResponse<ResponseType<{userId?: number}>>, FormData>('auth/login', data)

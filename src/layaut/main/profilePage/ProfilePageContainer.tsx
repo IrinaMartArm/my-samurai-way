@@ -1,7 +1,13 @@
 import React, {ComponentType} from "react";
 import {ProfilePage} from "./ProfilePage";
 import {connect} from "react-redux";
-import {changeUserStatusTC, getUserProfileTC, getUserStatusTC, UserProfile} from "./ProfileReducer";
+import {
+    changeUserStatusTC,
+    getUserProfileTC,
+    getUserStatusTC,
+    savePhoto,
+    UserProfile
+} from "./ProfileReducer";
 import {RootStateType} from "../../../redux/Store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
@@ -10,19 +16,32 @@ import {getMyId, getProfile, getStatus} from "./ProfileSelectors";
 
 
 
+
 class ProfilePageContainer extends React.Component<PropsType> {
 
-    componentDidMount() {
-        let userId = this.props.match.params.userId  // id from url always string
+    refreshProfile() {
+        let userId = this.props.match.params.userId
         if(!userId){userId = String(this.props.myId)}
         this.props.getUserProfileTC(+userId)
         this.props.getUserStatusTC(+userId)
     }
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if(prevProps.match.params.userId !== this.props.match.params.userId)
+        this.refreshProfile()
+    }
+
     render() {
         return <ProfilePage {...this.props}
                             profile={this.props.profile}
                             status={this.props.status}
+                            isOwner={!this.props.match.params.userId}
                             changeStatus={this.props.changeUserStatusTC}
+                            savePhoto={this.props.savePhoto}
         />
     }
 }
@@ -32,7 +51,7 @@ const MapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     status: getStatus(state),
     myId: getMyId(state)
 })
-const MapDispatchToProps: MapDispatchToPropsType = {getUserProfileTC, getUserStatusTC, changeUserStatusTC}
+const MapDispatchToProps: MapDispatchToPropsType = {getUserProfileTC, getUserStatusTC, changeUserStatusTC, savePhoto}
 
 export default compose<ComponentType>(
     connect(MapStateToProps, MapDispatchToProps),
@@ -57,4 +76,5 @@ type MapDispatchToPropsType = {
     getUserProfileTC: (userId: number) => void
     getUserStatusTC: (userId: number) => void
     changeUserStatusTC: (status: string) => void
+    savePhoto: (file: File) => void
 }

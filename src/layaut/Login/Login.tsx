@@ -3,7 +3,7 @@ import React from "react";
 import {Button} from "../../components/Button";
 import styled from "styled-components";
 import {Input} from "../../components/Input";
-import {required} from "../../Utils/Validators";
+import {required} from "../../utils/Validators";
 import {connect} from "react-redux";
 import {LoginTC} from "./AuthReducer";
 import {Redirect} from "react-router-dom";

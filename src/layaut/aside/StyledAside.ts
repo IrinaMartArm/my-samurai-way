@@ -9,5 +9,4 @@ export const StyledAside = styled.aside`
     & a:active {
         color: ${Theme.colors.primary}
     }
-   
 `
