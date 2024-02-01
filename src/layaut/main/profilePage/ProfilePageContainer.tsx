@@ -5,14 +5,14 @@ import {
     changeUserStatusTC,
     getUserProfileTC,
     getUserStatusTC,
-    savePhoto,
+    savePhoto, saveProfile,
     UserProfile
 } from "./ProfileReducer";
 import {RootStateType} from "../../../redux/Store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/AuthRedirect";
 import {compose} from "redux";
-import {getMyId, getProfile, getStatus} from "./ProfileSelectors";
+import {getIsAuth, getMyId, getProfile, getStatus} from "./ProfileSelectors";
 
 
 
@@ -42,6 +42,7 @@ class ProfilePageContainer extends React.Component<PropsType> {
                             isOwner={!this.props.match.params.userId}
                             changeStatus={this.props.changeUserStatusTC}
                             savePhoto={this.props.savePhoto}
+                            saveProfile={this.props.saveProfile}
         />
     }
 }
@@ -49,9 +50,10 @@ class ProfilePageContainer extends React.Component<PropsType> {
 const MapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: getProfile(state),
     status: getStatus(state),
-    myId: getMyId(state)
+    myId: getMyId(state),
+    isAuth: getIsAuth(state)
 })
-const MapDispatchToProps: MapDispatchToPropsType = {getUserProfileTC, getUserStatusTC, changeUserStatusTC, savePhoto}
+const MapDispatchToProps: MapDispatchToPropsType = {getUserProfileTC, getUserStatusTC, changeUserStatusTC, savePhoto, saveProfile}
 
 export default compose<ComponentType>(
     connect(MapStateToProps, MapDispatchToProps),
@@ -69,6 +71,7 @@ type MapStateToPropsType = {
     profile: UserProfile
     status: string
     myId: number | null
+    isAuth: boolean
 }
 
 
@@ -77,4 +80,5 @@ type MapDispatchToPropsType = {
     getUserStatusTC: (userId: number) => void
     changeUserStatusTC: (status: string) => void
     savePhoto: (file: File) => void
+    saveProfile: (formData: UserProfile) => void
 }

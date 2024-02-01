@@ -9,3 +9,7 @@ export const getStatus = (state: RootStateType) => {
 export const getMyId = (state: RootStateType) => {
     return state.authReducer.id
 }
+
+export const getIsAuth = (state: RootStateType) => {
+    return state.authReducer.isAuth
+}

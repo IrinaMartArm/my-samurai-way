@@ -2,8 +2,6 @@ import * as React from 'react';
 import styled from "styled-components";
 import {Theme} from "../styles/Theme";
 
-
-
 type Props = {
     input: object
     meta: {

@@ -32,6 +32,7 @@ export const AuthTC = () => (dispatch: Dispatch) => {
             const {id, email, login} = res.data
             if(res.resultCode === 0) {
                 dispatch(setAuthUserData(id, email, login, true))
+                console.log('me')
             }
         })
 }

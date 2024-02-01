@@ -18,6 +18,7 @@ import {RootStateType} from "../redux/Store";
 import {Preloader} from "../components/Preloader";
 
 
+
 class App extends React.Component<PropsType>{
     componentDidMount() {
         this.props.IsInitializedApp()
@@ -37,7 +38,7 @@ class App extends React.Component<PropsType>{
                         <img src={a} alt=""/>
                     </Box>
                     <Route
-                        path={"/profile/:userId"}
+                        path={"/profile/:userId?"}
                         render={() => <ProfilePageContainer/>}
                     />
                     <Route

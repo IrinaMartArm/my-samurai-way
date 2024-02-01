@@ -40,6 +40,9 @@ export const ProfileApi = {
             }
         })
     },
+    async saveProfile(formData: FormData) {
+        return await instance.put<ResponseType>(`profile`, formData)
+    }
 }
 
 

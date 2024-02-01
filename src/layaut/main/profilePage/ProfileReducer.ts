@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {ProfileApi} from "../../../api/Api";
-import {AppThunk} from "../../../redux/Store";
+import {AppThunk, RootStateType} from "../../../redux/Store";
 import {Dispatch} from "redux";
 
 
@@ -103,6 +103,17 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
     }
 }
 
+export const saveProfile = (formData: any) => async (dispatch: Dispatch, getState: any) => {
+    const userId = getState().authReducer.id
+    try {
+        const res = await ProfileApi.saveProfile(formData)
+        if(res.data.resultCode === 0) {
+            // dispatch(getUserProfileTC(userId))
+        }
+    } catch (err) {
+
+    }
+}
 
 
 export type ProfileReducerActionType = ReturnType<typeof setUserProfile>

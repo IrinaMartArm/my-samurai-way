@@ -10,10 +10,10 @@ type PropsType = {
     isOwner: boolean
     savePhoto: (file: File) => void
     changeStatus: (status: string) => void
+    saveProfile: (formData: UserProfile) => void
 }
 
 export const ProfilePage = (props: PropsType) => {
-
   return (
     <div>
       <ProfileInfo profile={props.profile}
@@ -21,6 +21,7 @@ export const ProfilePage = (props: PropsType) => {
                    status={props.status}
                    changeStatus={props.changeStatus}
                    savePhoto={props.savePhoto}
+                   saveProfile={props.saveProfile}
       />
       <MyPostsContainer/>
     </div>

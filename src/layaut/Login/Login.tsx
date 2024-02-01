@@ -30,7 +30,9 @@ const LoginForm: React.FC<InjectedFormProps<FormData>> = (props) => {
                        validate={[required]}
                 />
             </label>
-            <div></div>
+            <div>
+                {props.error && <div>{props.error}</div>}
+            </div>
             <label>
                 <Field type={"checkbox"} name={'rememberMe'} component={Input}/>
                 Remember me
@@ -50,6 +52,7 @@ const Login = (props: LoginProps) => {
     const onSubmit = (formData: FormData) => {
         props.LoginTC(formData)
     }
+
     if(props.isAuth) {
         return <Redirect to={"/users"}/>
     }
