@@ -1,7 +1,8 @@
 import {v1} from "uuid";
 import {ProfileApi} from "../../../api/Api";
-import {AppThunk, RootStateType} from "../../../redux/Store";
+import {AppThunk, RootDispatchType, RootStateType} from "../../../redux/Store";
 import {Dispatch} from "redux";
+import {stopSubmit} from "redux-form";
 
 
 
@@ -91,11 +92,10 @@ export const changeUserStatusTC = (status: string) => async (dispatch: Dispatch)
     }
 }
 
-export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+export const savePhoto = (file: File): AppThunk => async (dispatch) => {
     try {
         const res = await ProfileApi.savePhoto(file)
         if(res.data.resultCode === 0) {
-            // @ts-ignore
             dispatch(setPhoto(res.data.data.photos))
         }
     } catch (err) {
@@ -103,12 +103,17 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
     }
 }
 
-export const saveProfile = (formData: any) => async (dispatch: Dispatch, getState: any) => {
+export const saveProfile = (formData: UserProfile) : any => async (dispatch: RootDispatchType, getState: any) => {
     const userId = getState().authReducer.id
     try {
         const res = await ProfileApi.saveProfile(formData)
+console.log(res.data.resultCode)
         if(res.data.resultCode === 0) {
-            // dispatch(getUserProfileTC(userId))
+            dispatch(getUserProfileTC(userId))
+        } else {
+            let message = res.data.messages.length > 0 ? res.data.messages[0] : 'Error'
+            dispatch(stopSubmit('profileInfoForm', {_error: message}))
+            return Promise.reject(res.data)
         }
     } catch (err) {
 

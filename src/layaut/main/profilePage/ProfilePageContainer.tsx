@@ -15,8 +15,6 @@ import {compose} from "redux";
 import {getIsAuth, getMyId, getProfile, getStatus} from "./ProfileSelectors";
 
 
-
-
 class ProfilePageContainer extends React.Component<PropsType> {
 
     refreshProfile() {
@@ -80,5 +78,5 @@ type MapDispatchToPropsType = {
     getUserStatusTC: (userId: number) => void
     changeUserStatusTC: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (formData: UserProfile) => void
+    saveProfile: (formData: UserProfile) => Promise<any>
 }

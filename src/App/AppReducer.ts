@@ -1,6 +1,7 @@
 import {AuthTC} from "../layaut/Login/AuthReducer";
 import {RootDispatchType} from "../redux/Store";
 
+
 const initialState: InitState = {
     isInitialized: false
 }
@@ -21,9 +22,12 @@ const setIsInitial = (isInitialized: boolean) => ({type: 'APP/SET-INITIAL', isIn
 export type AppReducerAction = ReturnType<typeof setIsInitial>
 
 
-export const IsInitializedApp = () => (dispatch: RootDispatchType) => {
-    const promise = [dispatch(AuthTC()), ]
-    Promise.all([promise])
-        .then(() => dispatch(setIsInitial(true)))
-    console.log('setIsInitial')
+export const IsInitializedApp = () =>async (dispatch: RootDispatchType) => {
+    const promise = [dispatch(AuthTC())]
+    Promise.all(promise)
+        .then(() => {
+            dispatch(setIsInitial(true))
+        })
 }
+
+

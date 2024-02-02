@@ -10,7 +10,7 @@ type PropsType = {
     isOwner: boolean
     savePhoto: (file: File) => void
     changeStatus: (status: string) => void
-    saveProfile: (formData: UserProfile) => void
+    saveProfile: (formData: UserProfile) => Promise<void>
 }
 
 export const ProfilePage = (props: PropsType) => {

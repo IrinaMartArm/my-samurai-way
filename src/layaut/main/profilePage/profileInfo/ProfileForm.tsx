@@ -1,23 +1,38 @@
-import React, {FC} from "react";
+import React, {ChangeEvent, FC} from "react";
 import {CreateField} from "../../../../common/CreateField";
 import {Input} from "../../../../components/Input";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {TextAria} from "../../../../components/TextAria";
 import {UserProfile} from "../ProfileReducer";
 import {Button} from "../../../../components/Button";
+import userPhoto from "../../../../assets/images/585e4beacb11b227491c3399.png";
+import {ProfileStatus} from "./ProfileStatus";
 
 
 type ProfileFormType = {
 	profile: UserProfile
-
+	isOwner: boolean
+	status: string
+	savePhoto: (file: File) => void
+	changeStatus: (status: string) => void
 }
 
-const ProfileForm: FC<InjectedFormProps<UserProfile, ProfileFormType>  &   ProfileFormType> = (props) => {
-	let {handleSubmit} = props
-
+const ProfileForm: FC<InjectedFormProps<UserProfile, ProfileFormType> & ProfileFormType> = (props) => {
+	let {handleSubmit, profile, status, savePhoto, changeStatus} = props
+	const onSelectPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files?.length) {
+			savePhoto(e.target.files[0])
+		}
+	}
 
 	return (
 		<form onSubmit={handleSubmit}>
+			<div>
+				<img src={profile?.photos?.small || userPhoto} alt={''}/>
+				<input type={'file'} onChange={onSelectPhoto}/>
+
+				<ProfileStatus status={status} changeStatus={changeStatus}/>
+			</div>
 			<div>
 				<div>
 					<Field name='fullName'
@@ -45,11 +60,16 @@ const ProfileForm: FC<InjectedFormProps<UserProfile, ProfileFormType>  &   Profi
 					)}
 				</div>
 			</div>
-			{/*<div>*/}
-			{/*	<b>Contacts</b>: {Object.keys(profile.contacts).map((el => {*/}
-			{/*	return <Contacts key={el} title={el} value={''}/>*/}
-			{/*}))}*/}
-			{/*</div>*/}
+			<div>
+				<b>Contacts</b>: {Object.keys(profile.contacts).map((el => {
+				return <div><b>{el}</b>: {CreateField(
+					el, 'contacts.' + el, [], Input
+				)}</div>
+			}))}
+				<div>
+					{props.error && <div>{props.error}</div>}
+				</div>
+			</div>
 			<Button name={'save'}/>
 		</form>
 	)

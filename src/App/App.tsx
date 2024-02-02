@@ -17,8 +17,6 @@ import {IsInitializedApp} from "./AppReducer";
 import {RootStateType} from "../redux/Store";
 import {Preloader} from "../components/Preloader";
 
-
-
 class App extends React.Component<PropsType>{
     componentDidMount() {
         this.props.IsInitializedApp()

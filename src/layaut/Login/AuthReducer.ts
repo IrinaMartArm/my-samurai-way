@@ -1,6 +1,6 @@
 import {AuthApi, FormData} from "../../api/Api";
 import {Dispatch} from "redux";
-import {RootDispatchType} from "../../redux/Store";
+import {AppThunk, RootDispatchType} from "../../redux/Store";
 import {stopSubmit} from "redux-form";
 
 const initState = {
@@ -26,15 +26,12 @@ export const setAuthUserData = ( id: number | null,
     return {type: 'SET_USER-DATA', payload: {id, email, password, isAuth}} as const
 }
 
-export const AuthTC = () => (dispatch: Dispatch) => {
-    AuthApi.me()
-        .then((res) => {
-            const {id, email, login} = res.data
-            if(res.resultCode === 0) {
-                dispatch(setAuthUserData(id, email, login, true))
-                console.log('me')
-            }
-        })
+export const AuthTC = (): AppThunk => async (dispatch) => {
+    const res = await AuthApi.me();
+    const {id, email, login} = res.data.data;
+    if (res.data.resultCode === 0) {
+        dispatch(setAuthUserData(id, email, login, true));
+    }
 }
 
 export const LoginTC = (data: FormData) => (dispatch: RootDispatchType) => {

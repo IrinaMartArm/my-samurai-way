@@ -34,13 +34,13 @@ export const ProfileApi = {
     async savePhoto(file: File) {
         const formData = new FormData()
         formData.append('image', file)
-        return await instance.put<ResponseType>(`profile/photo`, formData, {
+        return await instance.put<ResponseType<{photos: any}>>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
     },
-    async saveProfile(formData: FormData) {
+    async saveProfile(formData: UserProfile) {
         return await instance.put<ResponseType>(`profile`, formData)
     }
 }
@@ -54,8 +54,9 @@ export const AuthApi = {
         return await instance.delete<ResponseType>('auth/login')
     },
     async me(){
-        const res = await instance.get<ResponseType, AxiosResponse<ResponseType<AuthDataType>>>('auth/me')
-        return res.data
+       // const res = await instance.get<ResponseType, AxiosResponse<ResponseType<AuthDataType>>>('auth/me')
+        //return res.data
+        return instance.get< ResponseType<AuthDataType>>('auth/me')
     },
 }
 
